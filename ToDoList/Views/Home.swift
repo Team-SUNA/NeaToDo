@@ -19,38 +19,52 @@ struct Home: View {
             VStack {
                 HeaderView(taskViewModel: taskViewModel)
                     ScrollView {
-                    if taskViewModel.tasks.isEmpty {
-                        NoTaskView()
-                    } else {
-                        List {
-                            Section {
-                                ForEach(taskViewModel.tasks) { task in
-                                    TaskCardView(task: task)
-                                        .onTapGesture {
-                                            withAnimation(.linear) {
-                                                taskViewModel
-                                            }.updateTask(task: task)
+                        if let filtered = taskViewModel.filteredTasks {
+                            if filtered.isEmpty {
+                                NoTaskView()
+                            }
+                            else {
+                            List {
+                                Section {
+                                    ForEach(taskViewModel.tasks) { task in
+                                        if !task.isComplete {
+                                            TaskCardView(task: task)
+                                                .onTapGesture {
+                                                    withAnimation(.linear) {
+                                                        taskViewModel
+                                                    }.updateTask(task: task)
+                                                }
                                         }
-                                }
-                                .onDelete(perform: taskViewModel.deleteTask)
-                            }
-                            
-                            Section {
-                                ForEach(taskViewModel.tasks) { task in
-                                    if task.isComplete {
-                                        TaskCardView(task: task)
-                                            .onTapGesture {
-                                                withAnimation(.linear) {
-                                                    taskViewModel
-                                                }.updateTask(task: task)
-                                            }
                                     }
+                                    .onDelete(perform: taskViewModel.deleteTask)
                                 }
-                                .onDelete(perform: taskViewModel.deleteTask)
+                                
+                                
+                                Section {
+                                    ForEach(taskViewModel.tasks) { task in
+                                        if task.isComplete {
+                                            TaskDoneCardView(task: task)
+                                                .onTapGesture {
+                                                    withAnimation(.linear) {
+                                                        taskViewModel
+                                                    }.updateTask(task: task)
+                                                }
+                                        }
+                                    }
+                                    .onDelete(perform: taskViewModel.deleteTask)
+                                }
                             }
+                            .frame(minHeight: 500)
+                            .background(.clear)
+
+
                         }
                     }
+
                 }
+                .onChange(of: taskViewModel.currentDay) { newValue in
+                taskViewModel.filterTodayTasks()
+                    }
 
             }
             .navigationTitle("TO DO CARDS")

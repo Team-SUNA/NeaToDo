@@ -17,6 +17,7 @@
 		09BCEA0E28C48B63005313AE /* TaskAreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BCEA0D28C48B63005313AE /* TaskAreaView.swift */; };
 		09BCEA1028C48B73005313AE /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BCEA0F28C48B73005313AE /* HeaderView.swift */; };
 		09BCEA1228C5D672005313AE /* DateValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BCEA1128C5D672005313AE /* DateValue.swift */; };
+		09BCEA1428C5DD24005313AE /* TaskDoneCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BCEA1328C5DD24005313AE /* TaskDoneCardView.swift */; };
 		09C3036F2827462400B47283 /* ToDoListApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C3036E2827462400B47283 /* ToDoListApp.swift */; };
 		09C303732827462800B47283 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09C303722827462800B47283 /* Assets.xcassets */; };
 		09C303762827462800B47283 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09C303752827462800B47283 /* Preview Assets.xcassets */; };
@@ -35,6 +36,7 @@
 		09BCEA0D28C48B63005313AE /* TaskAreaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskAreaView.swift; sourceTree = "<group>"; };
 		09BCEA0F28C48B73005313AE /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		09BCEA1128C5D672005313AE /* DateValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateValue.swift; sourceTree = "<group>"; };
+		09BCEA1328C5DD24005313AE /* TaskDoneCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDoneCardView.swift; sourceTree = "<group>"; };
 		09C3036B2827462400B47283 /* ToDoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09C3036E2827462400B47283 /* ToDoListApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListApp.swift; sourceTree = "<group>"; };
 		09C303722827462800B47283 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				09BCEA0828C47E91005313AE /* CalendarView.swift */,
 				09BCEA0B28C47F46005313AE /* ModalView.swift */,
 				0912C83C2838CA4E0090D088 /* LaunchScreen.storyboard */,
+				09BCEA1328C5DD24005313AE /* TaskDoneCardView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -201,6 +204,7 @@
 				09BCEA0C28C47F46005313AE /* ModalView.swift in Sources */,
 				09BCEA0728C47CF8005313AE /* TaskCardView.swift in Sources */,
 				09BCEA1028C48B73005313AE /* HeaderView.swift in Sources */,
+				09BCEA1428C5DD24005313AE /* TaskDoneCardView.swift in Sources */,
 				09C30385282F457F00B47283 /* TaskModel.swift in Sources */,
 				09B34A872834F0C40084A86E /* TaskViewModel.swift in Sources */,
 				09A5A60428C47422004CB87C /* Home.swift in Sources */,

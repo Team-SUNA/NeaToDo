@@ -8,8 +8,36 @@
 import SwiftUI
 
 struct TaskAreaView: View {
+    
+    @EnvironmentObject var taskViewModel: TaskViewModel
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        LazyVStack(spacing: 18) {
+            if let tasks = taskViewModel.filteredTasks {
+                if tasks.isEmpty {
+                    Text("NO TASKS !")
+                        .font(.system(size: 16))
+                        .fontWeight(.light)
+                        .offset(y: 100)
+                } else {
+                    ForEach(tasks) { task in
+                        TaskCardView(task: task)
+                    }
+                }
+            }
+            else {
+                // MARK: Progress View
+                ProgressView()
+                    .offset(y: 100)
+            }
+        }
+        .padding()
+        .padding(.top)
+        // MARK: Updating Tasks
+        .onChange(of: taskViewModel.currentDay) { newValue in
+            taskViewModel.filterTodayTasks()
+        }
+        
     }
 }
 

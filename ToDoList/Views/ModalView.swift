@@ -10,7 +10,8 @@ import SwiftUI
 struct ModalView: View {
     @Environment(\.presentationMode) var presentation
     @Environment(\.dismiss) private var dismiss
-    
+    @EnvironmentObject var taskViewModel: TaskViewModel
+
     // MARK: Task values
     @State var taskTitle: String = ""
     @State var taskDescription: String = ""
@@ -49,7 +50,7 @@ struct ModalView: View {
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button("save") {
-                            
+                            taskViewModel.addTask(title: taskTitle, description: taskDescription, date: taskDate, descriptionVisibility: descriptionVisible, isComplete: taskDone)
                             dismiss()
                         }
                         .disabled(taskTitle == "")
