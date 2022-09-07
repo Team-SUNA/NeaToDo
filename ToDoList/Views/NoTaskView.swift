@@ -9,8 +9,10 @@ import SwiftUI
 
 struct NoTaskView: View {
     var body: some View {
-        Text("NO TASKS")
-            .fontWeight(.heavy)
+        Text("NO TASKS !")
+            .font(.system(size: 16))
+            .fontWeight(.light)
+            .offset(y: 100)
     }
 }
 

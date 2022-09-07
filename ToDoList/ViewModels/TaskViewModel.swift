@@ -33,7 +33,7 @@ class TaskViewModel: ObservableObject {
     }
     
     func addTask(title: String, description: String, date: Date, descriptionVisibility: Bool, isComplete: Bool) {
-        let newTask = TaskModel(title: title, description: description, date: date, descriptionVisibility: true, isComplete: false)
+        let newTask = TaskModel(title: title, description: description, date: date, descriptionVisibility: descriptionVisibility, isComplete: isComplete)
         tasks.append(newTask)
     }
     
@@ -48,17 +48,20 @@ class TaskViewModel: ObservableObject {
     }
     
     //UPDATE
-    func updateTask(task: TaskModel) {
+    func updateTaskCompletion(task: TaskModel) {
         if let index = tasks.firstIndex(where: { $0.id == task.id }) {
             tasks[index] = task.updateCompletion()
         }
+        getTasks()
     }
     
-    //DELETE
     func deleteTask(indexSet: IndexSet) {
         tasks.remove(atOffsets: indexSet)
     }
-    
+  
+//    func deleteTask(task: TaskModel) {
+//       
+//    }
     
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // MARK: 날짜와 관련된 변수와 함수들
@@ -74,6 +77,8 @@ class TaskViewModel: ObservableObject {
     // MARK: Filtering Today Tasks
     //사용자가 선택한 날짜에 속한 Tasks들 필터링을 위한 변수
     @Published var filteredTasks: [TaskModel]?
+    
+    
     
     
     // MARK: Checking if current Date is Today

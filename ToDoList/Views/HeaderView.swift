@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HeaderView: View {
     
-    @State var taskViewModel: TaskViewModel
+    @EnvironmentObject var taskViewModel: TaskViewModel
     @Namespace var animation
     
     var body: some View {
@@ -65,6 +65,6 @@ struct HeaderView: View {
 
 struct HeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        HeaderView(taskViewModel: TaskViewModel())
+        HeaderView()
     }
 }

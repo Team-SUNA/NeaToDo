@@ -17,59 +17,88 @@ struct Home: View {
     var body: some View {
         NavigationView {
             VStack {
-                HeaderView(taskViewModel: taskViewModel)
-                    ScrollView {
-                        if let filtered = taskViewModel.filteredTasks {
-                            if filtered.isEmpty {
-                                NoTaskView()
-                            }
-                            else {
+                HeaderView()
+                    if let filtered = taskViewModel.filteredTasks {
+                        if filtered.isEmpty {
+                            NoTaskView()
+                        }
+                        else {
                             List {
                                 Section {
-                                    ForEach(taskViewModel.tasks) { task in
+                                    ForEach(filtered) { task in
                                         if !task.isComplete {
                                             TaskCardView(task: task)
+                                                .swipeActions(edge: .leading) {
+                                                    Button (action: { taskViewModel.updateTaskCompletion(task: task) }) {
+                                                        Label("Done", systemImage: "checkmark")
+                                                    }
+                                                    .tint(.green)
+                                                }
+                                            
                                                 .onTapGesture {
-                                                    withAnimation(.linear) {
-                                                        taskViewModel
-                                                    }.updateTask(task: task)
+                                                    self.showModal = true
+                                                }
+                                                .swipeActions {
+                                                    Button(role: .destructive) {
+                                                        withAnimation(.linear(duration: 0.4)) {
+                                                            //taskViewModel.deleteTask(indexSet: )
+                                                            print("delete")
+                                                        }
+                                                    } label: {
+                                                        Label("Delete", systemImage: "trash")
+                                                    }
                                                 }
                                         }
                                     }
-                                    .onDelete(perform: taskViewModel.deleteTask)
+
+                                    .sheet(isPresented: self.$showModal) {
+                                        ModalView()
+                                    }
                                 }
                                 
-                                
                                 Section {
-                                    ForEach(taskViewModel.tasks) { task in
+                                    ForEach(filtered) { task in
                                         if task.isComplete {
                                             TaskDoneCardView(task: task)
+                                                .onChange(of: taskViewModel.currentDay) { newValue in
+                                                    taskViewModel.filterTodayTasks()
+                                                }
                                                 .onTapGesture {
-                                                    withAnimation(.linear) {
-                                                        taskViewModel
-                                                    }.updateTask(task: task)
+                                                    self.showModal = true
+                                                }
+                                                .swipeActions {
+                                                    Button(role: .destructive) {
+                                                        withAnimation(.linear(duration: 0.4)) {
+                                                            //taskViewModel.deleteTask(indexSet: )
+                                                            print("delete")
+                                                        }
+                                                    } label: {
+                                                        Label("Delete", systemImage: "trash")
+                                                    }
                                                 }
                                         }
                                     }
-                                    .onDelete(perform: taskViewModel.deleteTask)
+                                    .sheet(isPresented: self.$showModal) {
+                                        ModalView()
+                                    }
+                                    
                                 }
                             }
                             .frame(minHeight: 500)
-                            .background(.clear)
-
-
+                            .background(Color.yellow)
                         }
+                        
                     }
+                    
 
-                }
-                .onChange(of: taskViewModel.currentDay) { newValue in
-                taskViewModel.filterTodayTasks()
-                    }
 
+
+
+                
             }
-            .navigationTitle("TO DO CARDS")
+            .navigationTitle("TEAM SUNA")
             .navigationBarItems(trailing: NavigationLink("Calendar", destination: CalendarView(currentDate: $currentDate)))
-
+            
         }
         .environmentObject(TaskViewModel())
         .safeAreaInset(edge: .bottom) {
@@ -88,16 +117,19 @@ struct Home: View {
             .padding(.top, 10)
             .background(.ultraThinMaterial)
         }
-
+        
         
     }
 }
 
 struct Home_Previews: PreviewProvider {
+    
+    //    @EnvironmentObject var taskViewModel: TaskViewModel
+    
     static var previews: some View {
-            Home()
+        Home()
             .environmentObject(TaskViewModel())
-
+        
     }
 }
 

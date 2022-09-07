@@ -16,12 +16,8 @@ struct ToDoListApp: App {
     
     var body: some Scene {
         WindowGroup {
-            NavigationView {
                 Home()
-            }
-            .navigationViewStyle(StackNavigationViewStyle())
-            //NavigationView안의 모든 다른 뷰들도 listViewModel에 접근할 수 있다
-            .environmentObject(taskViewModel)
+                .environmentObject(taskViewModel)
         }
     }
 }

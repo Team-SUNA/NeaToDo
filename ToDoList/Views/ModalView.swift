@@ -12,6 +12,10 @@ struct ModalView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var taskViewModel: TaskViewModel
 
+    
+    //if let으로 초기화를 해서 모델이 하나 들어올 시 해당 모델의 값으로 변수들을 초기화, 그렇지 않다면 그냥 기본값으로 초기화
+    
+    
     // MARK: Task values
     @State var taskTitle: String = ""
     @State var taskDescription: String = ""

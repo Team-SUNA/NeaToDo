@@ -65,5 +65,6 @@ struct TaskModel: Identifiable, Codable, Hashable {
     func updateDescriptionVisibility() -> TaskModel {
         return TaskModel(id: id, title: title, description: description, date: date, descriptionVisibility: !descriptionVisibility, isComplete: isComplete)
     }
+
     
 }
