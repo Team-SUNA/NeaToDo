@@ -87,18 +87,10 @@ struct Home: View {
                             .frame(minHeight: 500)
                             .background(Color.yellow)
                         }
-                        
                     }
-                    
-
-
-
-
-                
             }
             .navigationTitle("TEAM SUNA")
             .navigationBarItems(trailing: NavigationLink("Calendar", destination: CalendarView(currentDate: $currentDate)))
-            
         }
         .environmentObject(TaskViewModel())
         .safeAreaInset(edge: .bottom) {
