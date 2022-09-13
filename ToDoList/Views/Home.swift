@@ -89,11 +89,8 @@ struct Home: View {
                         }
                         
                     }
+                Spacer()
                     
-
-
-
-
                 
             }
             .navigationTitle("TEAM SUNA")
