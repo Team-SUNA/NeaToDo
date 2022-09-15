@@ -11,13 +11,11 @@ import SwiftUI
 struct ToDoListApp: App {
     
     
-    @StateObject var taskViewModel: TaskViewModel = TaskViewModel()
-    
-    
+//    @StateObject var taskViewModel: TaskViewModel = TaskViewModel()
+
     var body: some Scene {
         WindowGroup {
                 Home()
-                .environmentObject(taskViewModel)
         }
     }
 }

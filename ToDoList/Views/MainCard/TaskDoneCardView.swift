@@ -6,11 +6,12 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 struct TaskDoneCardView: View {
     
-    let task: TaskModel
-    
+    let task: Task
+
     var body: some View {
         HStack(alignment: .top, spacing: 30) {
             VStack(spacing: 10) {
@@ -26,7 +27,7 @@ struct TaskDoneCardView: View {
                     VStack(alignment: .leading, spacing: 12) {
                         Text(task.title)
                             .font(.title2.bold())
-                        Text(task.description)
+                        Text(task.detail)
                             .foregroundStyle(.secondary)
                     }
                     .hLeading()
@@ -52,7 +53,7 @@ struct TaskDoneCardView: View {
 struct TaskDoneCardView_Previews: PreviewProvider {
     static var previews: some View {
         
-        var sampleTask = TaskModel(title: "sample task", description: "let me test this", date: Date(), descriptionVisibility: true, isComplete: false)
+        let sampleTask = Task(value: ["test"])
         
         TaskDoneCardView(task: sampleTask)
     }

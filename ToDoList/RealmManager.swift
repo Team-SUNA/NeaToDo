@@ -12,14 +12,14 @@ class RealmManager: ObservableObject {
     private(set) var localRealm: Realm?
     @Published private(set) var tasks: [Task] = []
     
-    
     init() {
         openRealm()
         getTasks()
     }
+    
     func openRealm() {
         do {
-            let config = Realm.Configuration(schemaVersion: 1)
+            let config = Realm.Configuration(schemaVersion: 2)
             
             Realm.Configuration.defaultConfiguration = config
             
@@ -29,13 +29,15 @@ class RealmManager: ObservableObject {
         }
     }
     
-    func addTask(taskTitle: String) {
+    func addTask(_ title: String, _ detail: String, _ date: Date, _ detailVisible: Bool, _ isCompleted: Bool) {
         if let localRealm = localRealm {
             do {
                 try localRealm.write {
-                    let newTask = Task(value: ["title": taskTitle])
+                    let newTask = Task(value: ["title": title, "detail": detail, "date": date, "detailVisibility": detailVisible, "isCompleted": isCompleted])
+                    // TODO: 시간 멋대로 찍힘
                     localRealm.add(newTask)
-                    print("Added new task to Realm: \(newTask)")
+                    // here!!
+                    getTasks()
                 }
             } catch {
                 print("Error add task to Realm: \(error)")
@@ -60,9 +62,8 @@ class RealmManager: ObservableObject {
                 let taskToUpdate = localRealm.objects(Task.self).filter(NSPredicate(format: "id == %@", id))
                 guard !taskToUpdate.isEmpty else { return }
                 try localRealm.write {
-                    taskToUpdate[0].isComplete = completed
+                    taskToUpdate[0].isCompleted = completed
                     getTasks()
-                    print("Update task with id \(id)! completed status: \(completed)")
                 }
             } catch {
                 print("Error update task \(id) to Realm: \(error)")
@@ -78,7 +79,6 @@ class RealmManager: ObservableObject {
                 try localRealm.write {
                     localRealm.delete(taskToDelete)
                     getTasks()
-                    print("deleted task with id \(id)")
                 }
                 
             } catch {
