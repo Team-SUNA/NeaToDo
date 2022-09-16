@@ -11,35 +11,31 @@ import RealmSwift
 struct TaskInCalendarView: View {
     @Binding var currentDate: Date
     @EnvironmentObject var realmManager: RealmManager
-
+    
     var body: some View {
         List {
-            if let tasks = realmManager.tasks.filter { task in
+            if let tasks = realmManager.tasks.filter({ task in
                 return isSameDay(date1: task.taskDate, date2: currentDate) && !task.isCompleted
-            } {
+            }) {
                 ForEach(tasks) { task in
                     HStack {
                         Capsule()
                             .fill(Color.black)
                             .frame(width: 5, height: 30)
-                        Text(task.title)
+                        Text(task.taskTitle)
                             .font(.system(size: 20.0, weight: .semibold))
                         Spacer()
                         // for custom timing
-                        Text(task.date
-                            .addingTimeInterval(CGFloat
-                                .random(in: 0...5000)), style: .time)
+                        Text(task.taskDate, style: .time)
                         .font(.system(size: 15.0))
-                        
                     }
                     .padding(.vertical, 5)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .listRowSeparator(.hidden)
-
                 }
-            } else {
+            }
+            else {
                 Text("hihi")
-                    .listRowSeparator(.hidden)
             }
         }
         .frame(height: 230)
@@ -51,7 +47,7 @@ struct TaskInCalendarView: View {
 }
 
 struct TaskInCalendarView_Previews: PreviewProvider {
-    @State static var date = Date() 
+    @State static var date = Date()
     
     static var previews: some View {
         TaskInCalendarView(currentDate: $date)

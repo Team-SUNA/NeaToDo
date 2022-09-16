@@ -10,7 +10,7 @@ import RealmSwift
 
 struct TaskCardView: View {
     
-    let task = Task(value: ["title": "title test"])
+    let task: Task
     
     var body: some View {
         HStack(alignment: .top, spacing: 30) {
@@ -19,40 +19,38 @@ struct TaskCardView: View {
                     .fill(.black)
                     .frame(width: 3)
             }
-            
             VStack {
                 HStack(alignment: .top, spacing: 10) {
                     VStack(alignment: .leading, spacing: 12) {
-                        Text(task.title)
+                        Text(task.taskTitle)
                             .font(.title2.bold())
-                        Text(task.detail)
+                        Text(task.taskDescription)
                             .foregroundStyle(.secondary)
                     }
                     .hLeading()
-                    
-                    Text(task.date.formatted(date: .omitted, time: .shortened))
-
+                    Text(task.taskDate.formatted(date: .omitted, time: .shortened))
                 }
             }
             .padding()
             .hLeading()
-            .background(
-                Color("Black")
-                    .cornerRadius(25)
-            )
+//            .background(
+//                Color.black
+//                    .cornerRadius(25)
+//            )
         }
         .hLeading()
+        .background(.white) // 클릭위해서
     }
 }
 
-struct TaskCardView_Previews: PreviewProvider {
-    static var previews: some View {
-        
-//        let sampleTask = Task(value: "for test")
-        
-        TaskCardView()
-    }
-}
+//struct TaskCardView_Previews: PreviewProvider {
+//    static var previews: some View {
+//
+////        let sampleTask = Task(value: "for test")
+//
+//        TaskCardView()
+//    }
+//}
 
 
 // MARK: UI Design Helper functions

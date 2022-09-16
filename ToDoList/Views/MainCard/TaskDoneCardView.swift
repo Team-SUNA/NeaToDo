@@ -18,35 +18,28 @@ struct TaskDoneCardView: View {
                 Rectangle()
                     .fill(.black)
                     .frame(width: 3)
-                        
-                
             }
-            
             VStack {
                 HStack(alignment: .top, spacing: 10) {
                     VStack(alignment: .leading, spacing: 12) {
-                        Text(task.title)
+                        Text(task.taskTitle)
                             .font(.title2.bold())
-                        Text(task.detail)
+                        Text(task.taskDescription)
                             .foregroundStyle(.secondary)
                     }
                     .hLeading()
-                    
-                    Text(task.date.formatted(date: .omitted, time: .shortened))
-
+                    Text(task.taskDate.formatted(date: .omitted, time: .shortened))
                 }
             }
             .padding()
             .hLeading()
-            .background(
-                Color("Black")
-                    .cornerRadius(25)
-            
-            )
+//            .background(
+//                Color.black
+//                    .cornerRadius(25)
+//            )
         }
         .hLeading()
         .background(.gray)
-
     }
 }
 
