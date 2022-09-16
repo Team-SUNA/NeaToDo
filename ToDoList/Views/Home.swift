@@ -26,7 +26,7 @@ struct Home: View {
                    let notDone = tasks.filter({task in return !task.isCompleted}),
                    let isDone = tasks.filter({task in return task.isCompleted})
                 {
-                    List {p
+                    List {
                         Section {
                             ForEach(notDone) { task in
                                 //                                                            if !task.isComplete {
