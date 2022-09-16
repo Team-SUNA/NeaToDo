@@ -10,10 +10,10 @@ import RealmSwift
 
 class Task: Object, ObjectKeyIdentifiable {
     @Persisted(primaryKey: true) var id: ObjectId
-    @Persisted var title: String
-    @Persisted var detail: String = ""
-    @Persisted var date: Date = Date()
-    @Persisted var detailVisibility: Bool = true
+    @Persisted var taskTitle: String
+    @Persisted var taskDescription: String = ""
+    @Persisted var taskDate: Date = Date()
+    @Persisted var descriptionVisibility: Bool = true
     @Persisted var isCompleted: Bool = false
     
 //    init(_ title: String) {

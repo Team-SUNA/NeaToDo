@@ -29,11 +29,11 @@ class RealmManager: ObservableObject {
         }
     }
     
-    func addTask(_ title: String, _ detail: String, _ date: Date, _ detailVisible: Bool, _ isCompleted: Bool) {
+    func addTask(_ taskTitle: String, _ taskDescription: String, _ taskDate: Date, _ descriptionVisibility: Bool, _ isCompleted: Bool) {
         if let localRealm = localRealm {
             do {
                 try localRealm.write {
-                    let newTask = Task(value: ["title": title, "detail": detail, "date": date, "detailVisibility": detailVisible, "isCompleted": isCompleted])
+                    let newTask = Task(value: ["taskTitle": taskTitle, "taskDescription": taskDescription, "taskDate": taskDate, "descriptionVisibility": descriptionVisibility, "isCompleted": isCompleted])
                     // TODO: 시간 멋대로 찍힘
                     localRealm.add(newTask)
                     // here!!

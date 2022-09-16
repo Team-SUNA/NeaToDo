@@ -55,7 +55,7 @@ struct CalendarView: View {
                     //                        .frame(maxWidth: .infinity)
                 }
                 if let _ = realmManager.tasks.first(where:  { task in
-                    return isSameDay(date1: task.date, date2: value.date)
+                    return isSameDay(date1: task.taskDate, date2: value.date)
                 })
                 {
                     Circle()

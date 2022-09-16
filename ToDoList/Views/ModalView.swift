@@ -16,11 +16,11 @@ struct ModalView: View {
     
     
     // MARK: Task values
-    @State var title: String = ""
-    @State var detail: String = ""
-    @State var date: Date = Date()
+    @State var taskTitle: String = ""
+    @State var taskDescription: String = ""
+    @State var taskDate: Date = Date()
     @State var isCompleted: Bool = false
-    @State var detailVisible: Bool = true
+    @State var descriptionVisibility: Bool = true
     
     var body: some View {
         
@@ -28,12 +28,12 @@ struct ModalView: View {
             VStack {
                 List {
                     Section {
-                        TextField("task", text: $title)
-                        TextField("description", text: $detail)
+                        TextField("task", text: $taskTitle)
+                        TextField("description", text: $taskDescription)
                         HStack {
                             Text("time")
                             Spacer()
-                            DatePicker("", selection: $date)
+                            DatePicker("", selection: $taskDate)
                                 .datePickerStyle(.compact)
                                 .labelsHidden()
                         }
@@ -42,7 +42,7 @@ struct ModalView: View {
                     }
                     Section {
                         Toggle("Done", isOn: $isCompleted)
-                        Toggle("display description", isOn: $detailVisible)
+                        Toggle("display description", isOn: $descriptionVisibility)
                     } header: {
                         Text("option")
                     }
@@ -52,10 +52,10 @@ struct ModalView: View {
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button("save") {
-                            realmManager.addTask(title, detail, date, detailVisible, isCompleted)
+                            realmManager.addTask(taskTitle, taskDescription, taskDate, descriptionVisibility, isCompleted)
                             dismiss()
                         }
-                        .disabled(title == "")
+                        .disabled(taskTitle == "")
                     }
                     ToolbarItem(placement: .navigationBarLeading) {
                         Button("cancel") {

@@ -16,6 +16,8 @@
 		09BCEA1028C48B73005313AE /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BCEA0F28C48B73005313AE /* HeaderView.swift */; };
 		09BCEA1228C5D672005313AE /* DateValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BCEA1128C5D672005313AE /* DateValue.swift */; };
 		09BCEA1428C5DD24005313AE /* TaskDoneCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BCEA1328C5DD24005313AE /* TaskDoneCardView.swift */; };
+		09BF2D3A28D45AF8005B3327 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 09BF2D3928D45AF8005B3327 /* Realm */; };
+		09BF2D3C28D45AF8005B3327 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 09BF2D3B28D45AF8005B3327 /* RealmSwift */; };
 		09C3036F2827462400B47283 /* ToDoListApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C3036E2827462400B47283 /* ToDoListApp.swift */; };
 		09C303732827462800B47283 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09C303722827462800B47283 /* Assets.xcassets */; };
 		09C303762827462800B47283 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09C303752827462800B47283 /* Preview Assets.xcassets */; };
@@ -57,6 +59,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09BF2D3C28D45AF8005B3327 /* RealmSwift in Frameworks */,
+				09BF2D3A28D45AF8005B3327 /* Realm in Frameworks */,
 				9503C5DC28CF09E500900798 /* RealmSwift in Frameworks */,
 				9503C5DA28CF09E500900798 /* Realm in Frameworks */,
 			);
@@ -166,6 +170,8 @@
 			packageProductDependencies = (
 				9503C5D928CF09E500900798 /* Realm */,
 				9503C5DB28CF09E500900798 /* RealmSwift */,
+				09BF2D3928D45AF8005B3327 /* Realm */,
+				09BF2D3B28D45AF8005B3327 /* RealmSwift */,
 			);
 			productName = ToDoList;
 			productReference = 09C3036B2827462400B47283 /* ToDoList.app */;
@@ -197,6 +203,7 @@
 			mainGroup = 09C303622827462400B47283;
 			packageReferences = (
 				9503C5D828CF09E500900798 /* XCRemoteSwiftPackageReference "realm-cocoa" */,
+				09BF2D3828D45AF8005B3327 /* XCRemoteSwiftPackageReference "realm-cocoa" */,
 			);
 			productRefGroup = 09C3036C2827462400B47283 /* Products */;
 			projectDirPath = "";
@@ -450,6 +457,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		09BF2D3828D45AF8005B3327 /* XCRemoteSwiftPackageReference "realm-cocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-cocoa.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		9503C5D828CF09E500900798 /* XCRemoteSwiftPackageReference "realm-cocoa" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-cocoa";
@@ -461,6 +476,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		09BF2D3928D45AF8005B3327 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 09BF2D3828D45AF8005B3327 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			productName = Realm;
+		};
+		09BF2D3B28D45AF8005B3327 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 09BF2D3828D45AF8005B3327 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			productName = RealmSwift;
+		};
 		9503C5D928CF09E500900798 /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9503C5D828CF09E500900798 /* XCRemoteSwiftPackageReference "realm-cocoa" */;

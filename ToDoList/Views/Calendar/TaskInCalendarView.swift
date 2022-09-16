@@ -15,7 +15,7 @@ struct TaskInCalendarView: View {
     var body: some View {
         List {
             if let tasks = realmManager.tasks.filter { task in
-                return isSameDay(date1: task.date, date2: currentDate) && !task.isCompleted
+                return isSameDay(date1: task.taskDate, date2: currentDate) && !task.isCompleted
             } {
                 ForEach(tasks) { task in
                     HStack {
