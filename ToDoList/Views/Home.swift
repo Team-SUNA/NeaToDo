@@ -10,6 +10,9 @@ import RealmSwift
 
 struct Home: View {
     @StateObject var realmManager = RealmManager()
+    
+    @ObservedObject var headerViewUtil: HeaderViewUtil
+    
     @State private var showModal = false
     @Namespace var animation
     @State var currentDate: Date = Date()
@@ -17,13 +20,13 @@ struct Home: View {
     var body: some View {
         NavigationView {
             VStack {
-                HeaderView()
+                HeaderView(headerViewUtil: headerViewUtil)
                 if let tasks = realmManager.tasks.filter({ task in
                     return isSameDay(date1: task.taskDate, date2: currentDate) }),
                    let notDone = tasks.filter({task in return !task.isCompleted}),
                    let isDone = tasks.filter({task in return task.isCompleted})
                 {
-                    List {
+                    List {p
                         Section {
                             ForEach(notDone) { task in
                                 //                                                            if !task.isComplete {
@@ -119,7 +122,8 @@ struct Home: View {
 
 struct Home_Previews: PreviewProvider {
     static var previews: some View {
-        Home()
+        Home(headerViewUtil: HeaderViewUtil())
+            .previewInterfaceOrientation(.landscapeLeft)
     }
 }
 

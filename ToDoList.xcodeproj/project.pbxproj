@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0904CD2D28D4BA0A006A5962 /* HeaderViewUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0904CD2C28D4BA0A006A5962 /* HeaderViewUtil.swift */; };
 		0912C83D2838CA4E0090D088 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0912C83C2838CA4E0090D088 /* LaunchScreen.storyboard */; };
 		09A5A60428C47422004CB87C /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A5A60328C47422004CB87C /* Home.swift */; };
 		09BCEA0528C47C5D005313AE /* NoTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BCEA0428C47C5D005313AE /* NoTaskView.swift */; };
@@ -31,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0904CD2C28D4BA0A006A5962 /* HeaderViewUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewUtil.swift; sourceTree = "<group>"; };
 		0912C83B2838C9D00090D088 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		0912C83C2838CA4E0090D088 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		09A5A60328C47422004CB87C /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
@@ -67,6 +69,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0904CD2B28D4B9F5006A5962 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				0904CD2C28D4BA0A006A5962 /* HeaderViewUtil.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		09C303622827462400B47283 = {
 			isa = PBXGroup;
 			children = (
@@ -89,6 +99,7 @@
 				0912C83B2838C9D00090D088 /* Info.plist */,
 				09C3036E2827462400B47283 /* ToDoListApp.swift */,
 				953001DF28D03FA0007731B2 /* RealmManager.swift */,
+				0904CD2B28D4B9F5006A5962 /* Utils */,
 				09C30383282F455200B47283 /* Models */,
 				09C3037C282746AE00B47283 /* Views */,
 				09C303722827462800B47283 /* Assets.xcassets */,
@@ -108,10 +119,10 @@
 		09C3037C282746AE00B47283 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				09A5A60328C47422004CB87C /* Home.swift */,
 				95EC50AB28D4A56C00E30A26 /* Modal */,
 				953001E628D06038007731B2 /* MainCard */,
 				953001E528D06025007731B2 /* Calendar */,
-				09A5A60328C47422004CB87C /* Home.swift */,
 				0912C83C2838CA4E0090D088 /* LaunchScreen.storyboard */,
 			);
 			path = Views;
@@ -249,6 +260,7 @@
 				09BCEA1428C5DD24005313AE /* TaskDoneCardView.swift in Sources */,
 				09A5A60428C47422004CB87C /* Home.swift in Sources */,
 				953001E228D0459D007731B2 /* Task.swift in Sources */,
+				0904CD2D28D4BA0A006A5962 /* HeaderViewUtil.swift in Sources */,
 				09C3036F2827462400B47283 /* ToDoListApp.swift in Sources */,
 				953001E828D06095007731B2 /* CalendarHeaderView.swift in Sources */,
 			);
