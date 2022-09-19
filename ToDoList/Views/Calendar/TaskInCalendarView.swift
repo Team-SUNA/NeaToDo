@@ -10,13 +10,16 @@ import RealmSwift
 
 struct TaskInCalendarView: View {
     @Binding var currentDate: Date
+    @State private var showModal = false
     @EnvironmentObject var realmManager: RealmManager
+    var tasks: [Task] { return realmManager.tasks.filter({ task in
+        return isSameDay(date1: task.taskDate, date2: currentDate) && !task.isCompleted
+    })}
     
+
     var body: some View {
-        List {
-            if let tasks = realmManager.tasks.filter({ task in
-                return isSameDay(date1: task.taskDate, date2: currentDate) && !task.isCompleted
-            }) {
+        if !tasks.isEmpty {
+            ScrollView {
                 ForEach(tasks) { task in
                     HStack {
                         Capsule()
@@ -27,21 +30,21 @@ struct TaskInCalendarView: View {
                         Spacer()
                         // for custom timing
                         Text(task.taskDate, style: .time)
-                        .font(.system(size: 15.0))
+                            .font(.system(size: 15.0))
                     }
-                    .padding(.vertical, 5)
+                    .background(.white) // 클릭위해서
+                    .onTapGesture {
+                        self.showModal = true
+                    }
+                    .sheet(isPresented: self.$showModal) {
+                        ModalView() // TODO: update 하는 모달뷰로 바꿔야함
+                    }
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .listRowSeparator(.hidden)
                 }
             }
-            else {
-                Text("hihi")
-            }
         }
-        .frame(height: 230)
-        .onAppear() {
-            UITableView.appearance().backgroundColor = UIColor.clear
-            UITableViewCell.appearance().backgroundColor = UIColor.clear
+        else {
+            Text("NO TASKS TO DO")
         }
     }
 }

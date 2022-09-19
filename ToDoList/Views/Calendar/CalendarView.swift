@@ -30,8 +30,10 @@ struct CalendarView: View {
                         }
                 }
             }
+//            Spacer()
             // tasklist
             TaskInCalendarView(currentDate: $currentDate, realmManager: _realmManager)
+                .padding()
             Spacer()
         }
         .onChange(of: currentMonth) { newValue in

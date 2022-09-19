@@ -53,7 +53,6 @@ struct Home: View {
                                     .sheet(isPresented: self.$showModal) {
                                         ModalView()
                                     }
-                                //                                                            }
                             }
                             .sheet(isPresented: self.$showModal) {
                                 ModalView()  // TODO: update 하는 모달뷰로 바꿔야함
