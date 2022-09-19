@@ -50,12 +50,12 @@ struct Home: View {
                                             Label("Delete", systemImage: "trash")
                                         }
                                     }
-                                    .sheet(isPresented: self.$showModal) {
-                                        ModalView()
+                                    .sheet(isPresented: $showModal) {
+                                        ModalView(taskDate: $currentDate)
                                     }
                             }
                             .sheet(isPresented: $showModal) {
-                                ModalView()  // TODO: update 하는 모달뷰로 바꿔야함
+                                ModalView(taskDate: $currentDate)  // TODO: update 하는 모달뷰로 바꿔야함
                             }
 //                        }
 //                        Section {
@@ -84,7 +84,7 @@ struct Home: View {
                                 //                            }
                             }
                             .sheet(isPresented: $showModal) {
-                                ModalView() // TODO: update 하는 모달뷰로 바꿔야함
+                                ModalView(taskDate: $currentDate) // TODO: update 하는 모달뷰로 바꿔야함
                             }
 //                        }
 //                        .listStyle()
@@ -116,7 +116,7 @@ struct Home: View {
                     .frame(maxWidth: .infinity)
             }
             .sheet(isPresented: self.$showModal) {
-                ModalView()
+                ModalView(taskDate: $currentDate)
                     .environmentObject(realmManager)
             }
             .padding(.horizontal)

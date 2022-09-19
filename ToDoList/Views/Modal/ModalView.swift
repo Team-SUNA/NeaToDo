@@ -18,7 +18,7 @@ struct ModalView: View {
     // MARK: Task values
     @State var taskTitle: String = ""
     @State var taskDescription: String = ""
-    @State var taskDate: Date = Date()
+    @Binding var taskDate: Date
     @State var isCompleted: Bool = false
     @State var descriptionVisibility: Bool = true
     
@@ -68,8 +68,8 @@ struct ModalView: View {
     }
 }
 
-struct ModalView_Previews: PreviewProvider {
-    static var previews: some View {
-        ModalView()
-    }
-}
+//struct ModalView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ModalView(taskDate: Date())
+//    }
+//}

@@ -37,7 +37,7 @@ struct TaskInCalendarView: View {
                         showModal = true
                     }
                     .sheet(isPresented: $showModal) {
-                        ModalView() // TODO: update 하는 모달뷰로 바꿔야함
+                        ModalView(taskDate: $currentDate) // TODO: update 하는 모달뷰로 바꿔야함
                     }
                     .frame(maxWidth: .infinity, maxHeight: 30, alignment: .leading)
                 }
