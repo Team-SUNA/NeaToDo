@@ -9,32 +9,32 @@ import SwiftUI
 
 struct HeaderView: View {
     
-    @EnvironmentObject var taskViewModel: TaskViewModel
+    @ObservedObject var headerViewUtil: HeaderViewUtil
     @Namespace var animation
     
     var body: some View {
 
         // MARK: Current Week View
             HStack(spacing: 10) {
-                ForEach(taskViewModel.currentWeek, id: \.self) { day in
+                ForEach(headerViewUtil.currentWeek, id: \.self) { day in
                     VStack {
-                        
-                        Text(taskViewModel.extractDate(date: day, format: "EEE"))
+
+                        Text(headerViewUtil.extractDate(date: day, format: "EEE"))
                             .font(.system(size: 14))
                             .fontWeight(.semibold)
-                        Text(taskViewModel.extractDate(date: day, format: "dd"))
+                        Text(headerViewUtil.extractDate(date: day, format: "dd"))
                             .font(.system(size: 15))
                             .fontWeight(.semibold)
 
                         Circle()
                             .fill(.white)
                             .frame(width: 8, height: 8)
-                            .opacity(taskViewModel.isToday(date: day) ? 1 : 0)
+                            .opacity(headerViewUtil.isToday(date: day) ? 1 : 0)
                     }
                     // MARK: Foreground Style
-                    .foregroundStyle(taskViewModel.isToday(date: day) ? .primary : .secondary)
+                    .foregroundStyle(headerViewUtil.isToday(date: day) ? .primary : .secondary)
 
-                    .foregroundColor(taskViewModel.isToday(date: day) ? .white : .black)
+                    .foregroundColor(headerViewUtil.isToday(date: day) ? .white : .black)
                     // MARK: Capsule Shape
                     //저 요일을을 가로로 꽉차게 펼치는 작업
                     .frame(width: 42, height: 90)
@@ -43,7 +43,7 @@ struct HeaderView: View {
                         ZStack {
                             // MARK: Matched Geometry Effect
                             //Week day가 변경되었을시 애니메이션 효과
-                            if taskViewModel.isToday(date: day) {
+                            if headerViewUtil.isToday(date: day) {
                                 Capsule()
                                     .fill(.black)
                                     .matchedGeometryEffect(id: "CURRENTDAY", in: animation)
@@ -54,7 +54,7 @@ struct HeaderView: View {
                     .onTapGesture {
                         //Updating Current Day
                         withAnimation {
-                            taskViewModel.currentDay = day
+                            headerViewUtil.currentDay = day
                         }
                     }
                 }
@@ -65,6 +65,7 @@ struct HeaderView: View {
 
 struct HeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        HeaderView()
+        HeaderView(headerViewUtil: HeaderViewUtil())
+            .previewInterfaceOrientation(.portraitUpsideDown)
     }
 }

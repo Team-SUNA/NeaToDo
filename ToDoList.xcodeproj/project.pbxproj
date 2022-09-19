@@ -7,33 +7,39 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0904CD2D28D4BA0A006A5962 /* HeaderViewUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0904CD2C28D4BA0A006A5962 /* HeaderViewUtil.swift */; };
 		0912C83D2838CA4E0090D088 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0912C83C2838CA4E0090D088 /* LaunchScreen.storyboard */; };
 		09A5A60428C47422004CB87C /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A5A60328C47422004CB87C /* Home.swift */; };
-		09B34A872834F0C40084A86E /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B34A862834F0C40084A86E /* TaskViewModel.swift */; };
 		09BCEA0528C47C5D005313AE /* NoTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BCEA0428C47C5D005313AE /* NoTaskView.swift */; };
 		09BCEA0728C47CF8005313AE /* TaskCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BCEA0628C47CF8005313AE /* TaskCardView.swift */; };
 		09BCEA0928C47E91005313AE /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BCEA0828C47E91005313AE /* CalendarView.swift */; };
 		09BCEA0C28C47F46005313AE /* ModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BCEA0B28C47F46005313AE /* ModalView.swift */; };
-		09BCEA0E28C48B63005313AE /* TaskAreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BCEA0D28C48B63005313AE /* TaskAreaView.swift */; };
 		09BCEA1028C48B73005313AE /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BCEA0F28C48B73005313AE /* HeaderView.swift */; };
 		09BCEA1228C5D672005313AE /* DateValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BCEA1128C5D672005313AE /* DateValue.swift */; };
 		09BCEA1428C5DD24005313AE /* TaskDoneCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BCEA1328C5DD24005313AE /* TaskDoneCardView.swift */; };
+		09BF2D3A28D45AF8005B3327 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 09BF2D3928D45AF8005B3327 /* Realm */; };
+		09BF2D3C28D45AF8005B3327 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 09BF2D3B28D45AF8005B3327 /* RealmSwift */; };
 		09C3036F2827462400B47283 /* ToDoListApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C3036E2827462400B47283 /* ToDoListApp.swift */; };
 		09C303732827462800B47283 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09C303722827462800B47283 /* Assets.xcassets */; };
 		09C303762827462800B47283 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09C303752827462800B47283 /* Preview Assets.xcassets */; };
-		09C30385282F457F00B47283 /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C30384282F457F00B47283 /* TaskModel.swift */; };
+		9503C5DA28CF09E500900798 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 9503C5D928CF09E500900798 /* Realm */; };
+		9503C5DC28CF09E500900798 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9503C5DB28CF09E500900798 /* RealmSwift */; };
+		953001E028D03FA0007731B2 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953001DF28D03FA0007731B2 /* RealmManager.swift */; };
+		953001E228D0459D007731B2 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953001E128D0459D007731B2 /* Task.swift */; };
+		953001E428D05E32007731B2 /* WeekdaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953001E328D05E32007731B2 /* WeekdaysView.swift */; };
+		953001E828D06095007731B2 /* CalendarHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953001E728D06095007731B2 /* CalendarHeaderView.swift */; };
+		953001EA28D068B8007731B2 /* TaskInCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953001E928D068B8007731B2 /* TaskInCalendarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0904CD2C28D4BA0A006A5962 /* HeaderViewUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewUtil.swift; sourceTree = "<group>"; };
 		0912C83B2838C9D00090D088 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		0912C83C2838CA4E0090D088 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		09A5A60328C47422004CB87C /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
-		09B34A862834F0C40084A86E /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
 		09BCEA0428C47C5D005313AE /* NoTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoTaskView.swift; sourceTree = "<group>"; };
 		09BCEA0628C47CF8005313AE /* TaskCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCardView.swift; sourceTree = "<group>"; };
 		09BCEA0828C47E91005313AE /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		09BCEA0B28C47F46005313AE /* ModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalView.swift; sourceTree = "<group>"; };
-		09BCEA0D28C48B63005313AE /* TaskAreaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskAreaView.swift; sourceTree = "<group>"; };
 		09BCEA0F28C48B73005313AE /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		09BCEA1128C5D672005313AE /* DateValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateValue.swift; sourceTree = "<group>"; };
 		09BCEA1328C5DD24005313AE /* TaskDoneCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDoneCardView.swift; sourceTree = "<group>"; };
@@ -41,7 +47,11 @@
 		09C3036E2827462400B47283 /* ToDoListApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListApp.swift; sourceTree = "<group>"; };
 		09C303722827462800B47283 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		09C303752827462800B47283 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		09C30384282F457F00B47283 /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
+		953001DF28D03FA0007731B2 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
+		953001E128D0459D007731B2 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		953001E328D05E32007731B2 /* WeekdaysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekdaysView.swift; sourceTree = "<group>"; };
+		953001E728D06095007731B2 /* CalendarHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHeaderView.swift; sourceTree = "<group>"; };
+		953001E928D068B8007731B2 /* TaskInCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskInCalendarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,18 +59,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09BF2D3C28D45AF8005B3327 /* RealmSwift in Frameworks */,
+				09BF2D3A28D45AF8005B3327 /* Realm in Frameworks */,
+				9503C5DC28CF09E500900798 /* RealmSwift in Frameworks */,
+				9503C5DA28CF09E500900798 /* Realm in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		09B34A852834F09C0084A86E /* ViewModels */ = {
+		0904CD2B28D4B9F5006A5962 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				09B34A862834F0C40084A86E /* TaskViewModel.swift */,
+				0904CD2C28D4BA0A006A5962 /* HeaderViewUtil.swift */,
 			);
-			path = ViewModels;
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		09C303622827462400B47283 = {
@@ -84,8 +98,9 @@
 			children = (
 				0912C83B2838C9D00090D088 /* Info.plist */,
 				09C3036E2827462400B47283 /* ToDoListApp.swift */,
+				953001DF28D03FA0007731B2 /* RealmManager.swift */,
+				0904CD2B28D4B9F5006A5962 /* Utils */,
 				09C30383282F455200B47283 /* Models */,
-				09B34A852834F09C0084A86E /* ViewModels */,
 				09C3037C282746AE00B47283 /* Views */,
 				09C303722827462800B47283 /* Assets.xcassets */,
 				09C303742827462800B47283 /* Preview Content */,
@@ -105,14 +120,10 @@
 			isa = PBXGroup;
 			children = (
 				09A5A60328C47422004CB87C /* Home.swift */,
-				09BCEA0F28C48B73005313AE /* HeaderView.swift */,
-				09BCEA0D28C48B63005313AE /* TaskAreaView.swift */,
-				09BCEA0428C47C5D005313AE /* NoTaskView.swift */,
-				09BCEA0628C47CF8005313AE /* TaskCardView.swift */,
-				09BCEA0828C47E91005313AE /* CalendarView.swift */,
-				09BCEA0B28C47F46005313AE /* ModalView.swift */,
+				95EC50AB28D4A56C00E30A26 /* Modal */,
+				953001E628D06038007731B2 /* MainCard */,
+				953001E528D06025007731B2 /* Calendar */,
 				0912C83C2838CA4E0090D088 /* LaunchScreen.storyboard */,
-				09BCEA1328C5DD24005313AE /* TaskDoneCardView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -120,10 +131,40 @@
 		09C30383282F455200B47283 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				09C30384282F457F00B47283 /* TaskModel.swift */,
+				953001E128D0459D007731B2 /* Task.swift */,
 				09BCEA1128C5D672005313AE /* DateValue.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		953001E528D06025007731B2 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				09BCEA0828C47E91005313AE /* CalendarView.swift */,
+				953001E328D05E32007731B2 /* WeekdaysView.swift */,
+				953001E728D06095007731B2 /* CalendarHeaderView.swift */,
+				953001E928D068B8007731B2 /* TaskInCalendarView.swift */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
+		953001E628D06038007731B2 /* MainCard */ = {
+			isa = PBXGroup;
+			children = (
+				09BCEA0F28C48B73005313AE /* HeaderView.swift */,
+				09BCEA0428C47C5D005313AE /* NoTaskView.swift */,
+				09BCEA0628C47CF8005313AE /* TaskCardView.swift */,
+				09BCEA1328C5DD24005313AE /* TaskDoneCardView.swift */,
+			);
+			path = MainCard;
+			sourceTree = "<group>";
+		};
+		95EC50AB28D4A56C00E30A26 /* Modal */ = {
+			isa = PBXGroup;
+			children = (
+				09BCEA0B28C47F46005313AE /* ModalView.swift */,
+			);
+			path = Modal;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -142,6 +183,12 @@
 			dependencies = (
 			);
 			name = ToDoList;
+			packageProductDependencies = (
+				9503C5D928CF09E500900798 /* Realm */,
+				9503C5DB28CF09E500900798 /* RealmSwift */,
+				09BF2D3928D45AF8005B3327 /* Realm */,
+				09BF2D3B28D45AF8005B3327 /* RealmSwift */,
+			);
 			productName = ToDoList;
 			productReference = 09C3036B2827462400B47283 /* ToDoList.app */;
 			productType = "com.apple.product-type.application";
@@ -170,6 +217,10 @@
 				Base,
 			);
 			mainGroup = 09C303622827462400B47283;
+			packageReferences = (
+				9503C5D828CF09E500900798 /* XCRemoteSwiftPackageReference "realm-cocoa" */,
+				09BF2D3828D45AF8005B3327 /* XCRemoteSwiftPackageReference "realm-cocoa" */,
+			);
 			productRefGroup = 09C3036C2827462400B47283 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -197,18 +248,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				09BCEA0E28C48B63005313AE /* TaskAreaView.swift in Sources */,
+				953001E028D03FA0007731B2 /* RealmManager.swift in Sources */,
 				09BCEA0528C47C5D005313AE /* NoTaskView.swift in Sources */,
 				09BCEA1228C5D672005313AE /* DateValue.swift in Sources */,
 				09BCEA0928C47E91005313AE /* CalendarView.swift in Sources */,
 				09BCEA0C28C47F46005313AE /* ModalView.swift in Sources */,
 				09BCEA0728C47CF8005313AE /* TaskCardView.swift in Sources */,
+				953001E428D05E32007731B2 /* WeekdaysView.swift in Sources */,
 				09BCEA1028C48B73005313AE /* HeaderView.swift in Sources */,
+				953001EA28D068B8007731B2 /* TaskInCalendarView.swift in Sources */,
 				09BCEA1428C5DD24005313AE /* TaskDoneCardView.swift in Sources */,
-				09C30385282F457F00B47283 /* TaskModel.swift in Sources */,
-				09B34A872834F0C40084A86E /* TaskViewModel.swift in Sources */,
 				09A5A60428C47422004CB87C /* Home.swift in Sources */,
+				953001E228D0459D007731B2 /* Task.swift in Sources */,
+				0904CD2D28D4BA0A006A5962 /* HeaderViewUtil.swift in Sources */,
 				09C3036F2827462400B47283 /* ToDoListApp.swift in Sources */,
+				953001E828D06095007731B2 /* CalendarHeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,7 +393,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ToDoList/Preview Content\"";
-				DEVELOPMENT_TEAM = 53DAD6BN6X;
+				DEVELOPMENT_TEAM = L2APQ8HQZD;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ToDoList/Info.plist;
@@ -355,7 +409,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.eelijus.roirequin.ToDoList;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.eelijus.-roirequin.ToDoList";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -371,7 +425,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ToDoList/Preview Content\"";
-				DEVELOPMENT_TEAM = 53DAD6BN6X;
+				DEVELOPMENT_TEAM = L2APQ8HQZD;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ToDoList/Info.plist;
@@ -387,7 +441,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.eelijus.roirequin.ToDoList;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.eelijus.-roirequin.ToDoList";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -417,6 +471,48 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		09BF2D3828D45AF8005B3327 /* XCRemoteSwiftPackageReference "realm-cocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-cocoa.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		9503C5D828CF09E500900798 /* XCRemoteSwiftPackageReference "realm-cocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-cocoa";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.10.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		09BF2D3928D45AF8005B3327 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 09BF2D3828D45AF8005B3327 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			productName = Realm;
+		};
+		09BF2D3B28D45AF8005B3327 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 09BF2D3828D45AF8005B3327 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			productName = RealmSwift;
+		};
+		9503C5D928CF09E500900798 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9503C5D828CF09E500900798 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			productName = Realm;
+		};
+		9503C5DB28CF09E500900798 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9503C5D828CF09E500900798 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			productName = RealmSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 09C303632827462400B47283 /* Project object */;
 }

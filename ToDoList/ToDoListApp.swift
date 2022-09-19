@@ -9,15 +9,9 @@ import SwiftUI
 
 @main
 struct ToDoListApp: App {
-    
-    
-    @StateObject var taskViewModel: TaskViewModel = TaskViewModel()
-    
-    
     var body: some Scene {
         WindowGroup {
-                Home()
-                .environmentObject(taskViewModel)
+                Home(headerViewUtil: HeaderViewUtil())
         }
     }
 }

@@ -6,10 +6,13 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 struct Home: View {
+    @StateObject var realmManager = RealmManager()
     
-    @EnvironmentObject var taskViewModel: TaskViewModel
+    @ObservedObject var headerViewUtil: HeaderViewUtil
+    
     @State private var showModal = false
     @Namespace var animation
     @State var currentDate: Date = Date()
@@ -17,87 +20,86 @@ struct Home: View {
     var body: some View {
         NavigationView {
             VStack {
-                HeaderView()
-                    if let filtered = taskViewModel.filteredTasks {
-                        if filtered.isEmpty {
-                            NoTaskView()
-                        }
-                        else {
-                            List {
-                                Section {
-                                    ForEach(filtered) { task in
-                                        if !task.isComplete {
-                                            TaskCardView(task: task)
-                                                .swipeActions(edge: .leading) {
-                                                    Button (action: { taskViewModel.updateTaskCompletion(task: task) }) {
-                                                        Label("Done", systemImage: "checkmark")
-                                                    }
-                                                    .tint(.green)
-                                                }
-                                            
-                                                .onTapGesture {
-                                                    self.showModal = true
-                                                }
-                                                .swipeActions {
-                                                    Button(role: .destructive) {
-                                                        withAnimation(.linear(duration: 0.4)) {
-                                                            //taskViewModel.deleteTask(indexSet: )
-                                                            print("delete")
-                                                        }
-                                                    } label: {
-                                                        Label("Delete", systemImage: "trash")
-                                                    }
-                                                }
+                HeaderView(headerViewUtil: headerViewUtil)
+                if let tasks = realmManager.tasks.filter({ task in
+                    return isSameDay(date1: task.taskDate, date2: currentDate) }),
+                   let notDone = tasks.filter({task in return !task.isCompleted}),
+                   let isDone = tasks.filter({task in return task.isCompleted})
+                {
+                    List {
+                        Section {
+                            ForEach(notDone) { task in
+                                //                                                            if !task.isComplete {
+                                TaskCardView(task: task)
+                                    .onTapGesture {
+                                        self.showModal = true
+                                    }
+                                    .swipeActions(edge: .leading) {
+                                        Button (action: { realmManager.updateTask(id: task.id, completed: true)}) {
+                                            Label("Done", systemImage: "checkmark")
                                         }
+                                        .tint(.green)
                                     }
-
-                                    .sheet(isPresented: self.$showModal) {
-                                        ModalView()
-                                    }
-                                }
-                                
-                                Section {
-                                    ForEach(filtered) { task in
-                                        if task.isComplete {
-                                            TaskDoneCardView(task: task)
-                                                .onChange(of: taskViewModel.currentDay) { newValue in
-                                                    taskViewModel.filterTodayTasks()
-                                                }
-                                                .onTapGesture {
-                                                    self.showModal = true
-                                                }
-                                                .swipeActions {
-                                                    Button(role: .destructive) {
-                                                        withAnimation(.linear(duration: 0.4)) {
-                                                            //taskViewModel.deleteTask(indexSet: )
-                                                            print("delete")
-                                                        }
-                                                    } label: {
-                                                        Label("Delete", systemImage: "trash")
-                                                    }
-                                                }
+                                    .swipeActions {
+                                        Button(role: .destructive) {
+                                            withAnimation(.linear(duration: 0.4)) {
+                                                //taskViewModel.deleteTask(indexSet: )
+                                                print("delete")
+                                            }
+                                        } label: {
+                                            Label("Delete", systemImage: "trash")
                                         }
                                     }
                                     .sheet(isPresented: self.$showModal) {
                                         ModalView()
                                     }
-                                    
-                                }
+                                //                                                            }
                             }
-                            .frame(minHeight: 500)
-                            .background(Color.yellow)
+                            .sheet(isPresented: self.$showModal) {
+                                ModalView()  // TODO: update 하는 모달뷰로 바꿔야함
+                            }
                         }
-                        
+                        Section {
+                            ForEach(isDone) { task in
+                                //                            if !task.isComplete {
+                                TaskDoneCardView(task: task)
+                                    .swipeActions(edge: .leading) {
+                                        Button (action: { realmManager.updateTask(id: task.id, completed: false)}) {
+                                            Label("Not Done", systemImage: "xmark")
+                                        }
+                                        .tint(.yellow)
+                                    }
+                                    .onTapGesture {
+                                        self.showModal = true
+                                    }
+                                    .swipeActions {
+                                        Button(role: .destructive) {
+                                            withAnimation(.linear(duration: 0.4)) {
+                                                //taskViewModel.deleteTask(indexSet: )
+                                                print("delete")
+                                            }
+                                        } label: {
+                                            Label("Delete", systemImage: "trash")
+                                        }
+                                    }
+                                //                            }
+                            }
+                            .sheet(isPresented: self.$showModal) {
+                                ModalView() // TODO: update 하는 모달뷰로 바꿔야함
+                            }
+                        }
                     }
-                Spacer()
-                    
-                
+                    .frame(minHeight: 500)
+                    .background(Color.clear)
+                } else {
+                    NoTaskView()
+                }
             }
             .navigationTitle("TEAM SUNA")
-            .navigationBarItems(trailing: NavigationLink("Calendar", destination: CalendarView(currentDate: $currentDate)))
-            
+            .navigationBarItems(trailing: NavigationLink("Calendar", destination: CalendarView(currentDate: $currentDate)
+                .environmentObject(realmManager)))
         }
-        .environmentObject(TaskViewModel())
+        .environmentObject(realmManager)
         .safeAreaInset(edge: .bottom) {
             Button {
                 self.showModal = true
@@ -109,24 +111,19 @@ struct Home: View {
             }
             .sheet(isPresented: self.$showModal) {
                 ModalView()
+                    .environmentObject(realmManager)
             }
             .padding(.horizontal)
             .padding(.top, 10)
             .background(.ultraThinMaterial)
         }
-        
-        
     }
 }
 
 struct Home_Previews: PreviewProvider {
-    
-    //    @EnvironmentObject var taskViewModel: TaskViewModel
-    
     static var previews: some View {
-        Home()
-            .environmentObject(TaskViewModel())
-        
+        Home(headerViewUtil: HeaderViewUtil())
+            .previewInterfaceOrientation(.landscapeLeft)
     }
 }
 
