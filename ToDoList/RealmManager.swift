@@ -34,9 +34,7 @@ class RealmManager: ObservableObject {
             do {
                 try localRealm.write {
                     let newTask = Task(value: ["taskTitle": taskTitle, "taskDescription": taskDescription, "taskDate": taskDate, "descriptionVisibility": descriptionVisibility, "isCompleted": isCompleted])
-                    // TODO: 시간 멋대로 찍힘
                     localRealm.add(newTask)
-                    // here!!
                     getTasks()
                 }
             } catch {

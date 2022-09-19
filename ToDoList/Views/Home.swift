@@ -14,22 +14,22 @@ struct Home: View {
     @ObservedObject var headerViewUtil: HeaderViewUtil
     
     @State private var showModal = false
-    @Namespace var animation
+    @Namespace var animation // TODO: 애니메이션 좀 과한 느낌... 줄이거나 없애면 어떨까여
     @State var currentDate: Date = Date()
+    var tasks: [Task] { return realmManager.tasks.filter({ task in return isSameDay(date1: task.taskDate, date2: headerViewUtil.currentDay)}) }
+    // TODO: 설명. if let에서 실패하는 경우는 없는거같다(notaskview가 안나옴). 그냥 처음에 변수로 선언해주기
     
     var body: some View {
         NavigationView {
             VStack {
                 HeaderView(headerViewUtil: headerViewUtil)
-                if let tasks = realmManager.tasks.filter({ task in
-                    return isSameDay(date1: task.taskDate, date2: currentDate) }),
-                   let notDone = tasks.filter({task in return !task.isCompleted}),
-                   let isDone = tasks.filter({task in return task.isCompleted})
+                if !tasks.isEmpty
                 {
-                    List {
-                        Section {
+                   let notDone = tasks.filter({task in return !task.isCompleted})
+                   let isDone = tasks.filter({task in return task.isCompleted})
+                    List { // TODO: section 없애도 기능을 제대로 되는데, 토글 필요할지 상의
+//                        Section {
                             ForEach(notDone) { task in
-                                //                                                            if !task.isComplete {
                                 TaskCardView(task: task)
                                     .onTapGesture {
                                         self.showModal = true
@@ -54,11 +54,11 @@ struct Home: View {
                                         ModalView()
                                     }
                             }
-                            .sheet(isPresented: self.$showModal) {
+                            .sheet(isPresented: $showModal) {
                                 ModalView()  // TODO: update 하는 모달뷰로 바꿔야함
                             }
-                        }
-                        Section {
+//                        }
+//                        Section {
                             ForEach(isDone) { task in
                                 //                            if !task.isComplete {
                                 TaskDoneCardView(task: task)
@@ -83,15 +83,21 @@ struct Home: View {
                                     }
                                 //                            }
                             }
-                            .sheet(isPresented: self.$showModal) {
+                            .sheet(isPresented: $showModal) {
                                 ModalView() // TODO: update 하는 모달뷰로 바꿔야함
                             }
-                        }
+//                        }
+//                        .listStyle()
                     }
                     .frame(minHeight: 500)
                     .background(Color.clear)
+                    .onAppear() {
+                                UITableView.appearance().backgroundColor = UIColor.clear
+                                UITableViewCell.appearance().backgroundColor = UIColor.clear
+                            }
                 } else {
                     NoTaskView()
+                    Spacer()
                 }
             }
             .navigationTitle("TEAM SUNA")

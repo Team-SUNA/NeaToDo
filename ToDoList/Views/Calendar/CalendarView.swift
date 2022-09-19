@@ -64,7 +64,7 @@ struct CalendarView: View {
                 
                 if !tasks.isEmpty {
                     Circle()
-                        .fill(isAllDone(tasks) ? .gray : .green) // TODO: 전부 끝내면 회색, 할거 남았으면 연두색. 함수로 만들기
+                        .fill(isAllDone(tasks) ? .gray : .green)
                         .frame(width: 8, height: 8, alignment: .top)
                 } else {
                     Spacer()

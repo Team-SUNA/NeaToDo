@@ -14,7 +14,7 @@ struct TaskCardView: View {
     
     var body: some View {
         HStack(alignment: .top, spacing: 30) {
-            VStack(spacing: 10) {
+            VStack(spacing: 10) { // ??: spacing 때문에 vstack?
                 Rectangle()
                     .fill(.black)
                     .frame(width: 3)
