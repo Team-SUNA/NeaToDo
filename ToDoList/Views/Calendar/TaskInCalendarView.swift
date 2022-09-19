@@ -34,17 +34,17 @@ struct TaskInCalendarView: View {
                     }
                     .background(.white) // 클릭위해서
                     .onTapGesture {
-                        self.showModal = true
+                        showModal = true
                     }
-                    .sheet(isPresented: self.$showModal) {
+                    .sheet(isPresented: $showModal) {
                         ModalView() // TODO: update 하는 모달뷰로 바꿔야함
                     }
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .frame(maxWidth: .infinity, maxHeight: 30, alignment: .leading)
                 }
             }
         }
-        else {
-            Text("NO TASKS TO DO")
+        else { // TODO: 아예 없는 날이랑, 있는데 다 한 날이랑 구분해서 문구 쓸지?
+            Text("NO TASK TO DO")
         }
     }
 }

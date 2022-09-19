@@ -30,11 +30,12 @@ struct CalendarView: View {
                         }
                 }
             }
-//            Spacer()
+            //            Spacer()
             // tasklist
             TaskInCalendarView(currentDate: $currentDate, realmManager: _realmManager)
                 .padding()
             Spacer()
+            //            Spacer()
         }
         .onChange(of: currentMonth) { newValue in
             // update month
@@ -44,6 +45,10 @@ struct CalendarView: View {
     
     @ViewBuilder
     func DayView(value: DateValue) -> some View {
+        let tasks = realmManager.tasks.filter({ task in
+            return isSameDay(date1: task.taskDate, date2: value.date)
+        })
+        
         VStack {
             if value.day != -1 {
                 ZStack {
@@ -56,12 +61,10 @@ struct CalendarView: View {
                         .foregroundColor(isSameDay(date1: value.date, date2: currentDate) ? .white : .primary)
                     //                        .frame(maxWidth: .infinity)
                 }
-                if let _ = realmManager.tasks.first(where:  { task in
-                    return isSameDay(date1: task.taskDate, date2: value.date)
-                })
-                {
+                
+                if !tasks.isEmpty {
                     Circle()
-                        .fill(.green) // TODO: 전부 끝내면 회색, 할거 남았으면 연두색. 함수로 만들기
+                        .fill(isAllDone(tasks) ? .gray : .green) // TODO: 전부 끝내면 회색, 할거 남았으면 연두색. 함수로 만들기
                         .frame(width: 8, height: 8, alignment: .top)
                 } else {
                     Spacer()
@@ -71,6 +74,16 @@ struct CalendarView: View {
         .padding(.vertical, 8)
         .frame(height: 50, alignment: .top)
     }
+    
+    func isAllDone(_ tasks: [Task]) -> Bool {
+        for task in tasks {
+            if !task.isCompleted {
+                return false
+            }
+        }
+        return true
+    }
+    
     
     func getCurrentMonth() -> Date {
         let calendar = Calendar.current

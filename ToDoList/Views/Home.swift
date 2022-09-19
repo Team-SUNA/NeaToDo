@@ -95,6 +95,7 @@ struct Home: View {
                 }
             }
             .navigationTitle("TEAM SUNA")
+            .navigationBarTitle("", displayMode: .inline)
             .navigationBarItems(trailing: NavigationLink("Calendar", destination: CalendarView(currentDate: $currentDate)
                 .environmentObject(realmManager)))
         }
@@ -113,7 +114,7 @@ struct Home: View {
                     .environmentObject(realmManager)
             }
             .padding(.horizontal)
-            .padding(.top, 10)
+            .padding(.top, 5)
             .background(.ultraThinMaterial)
         }
     }
