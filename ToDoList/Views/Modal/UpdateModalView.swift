@@ -34,6 +34,7 @@ struct UpdateModalView: View {
         NavigationView {
             VStack {
                 List {
+                    Text("id: \(id)")
                     Section {
                         TextField("task", text: $taskTitle)
                         TextField("description", text: $taskDescription)

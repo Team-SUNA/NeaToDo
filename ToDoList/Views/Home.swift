@@ -12,9 +12,11 @@ struct Home: View {
     @StateObject var realmManager = RealmManager()
     @ObservedObject var headerViewUtil: HeaderViewUtil
     @State private var showModal = false
+    @State private var selectedTask: Task? = nil
     @Namespace var animation // TODO: 애니메이션 좀 과한 느낌... 줄이거나 없애면 어떨까여
     @State var currentDate: Date = Date()
-    var tasks: [Task] { return realmManager.tasks.filter({ task in return isSameDay(date1: task.taskDate, date2: headerViewUtil.currentDay)}) }
+    var tasks: [Task] { return realmManager.tasks.filter({ task in
+        return isSameDay(date1: task.taskDate, date2: headerViewUtil.currentDay)}) }
     // TODO: 설명. if let에서 실패하는 경우는 없는거같다(notaskview가 안나옴). 그냥 처음에 변수로 선언해주기
     
     var body: some View {
@@ -30,7 +32,7 @@ struct Home: View {
                         ForEach(notDone) { task in
                             TaskCardView(task: task)
                                 .onTapGesture {
-                                    showModal = true
+                                    selectedTask = task
                                 }
                                 .swipeActions(edge: .leading) {
                                     Button (action: { realmManager.updateTask(id: task.id, task.taskTitle, task.taskDescription, task.taskDate, task.descriptionVisibility, true)}) {
@@ -48,11 +50,11 @@ struct Home: View {
                                         Label("Delete", systemImage: "trash")
                                     }
                                 }
-                                .sheet(isPresented: $showModal) {
-                                    //                                    ModalView(taskDate: $currentDate)
-                                    // TODO: update 하는 모달뷰로 바꿔야함
-                                    UpdateModalView(task: task)
-                                }
+//                                .sheet(item: $selectedTask) {
+//                                    // TODO: update 하는 모달뷰로 바꿔야함
+//                                    UpdateModalView(task: $0)
+//                                        .environmentObject(realmManager)
+//                                }
                         }
                         ////                        Section {
                         ForEach(isDone) { task in
@@ -64,7 +66,7 @@ struct Home: View {
                                     .tint(.yellow)
                                 }
                                 .onTapGesture {
-                                    showModal = true
+                                    selectedTask = task
                                 }
                                 .swipeActions {
                                     Button(role: .destructive) {
@@ -76,12 +78,18 @@ struct Home: View {
                                         Label("Delete", systemImage: "trash")
                                     }
                                 }
-                                .sheet(isPresented: $showModal) {
-                                    //                                    ModalView(taskDate: $currentDate)
-                                    // TODO: update 하는 모달뷰로 바꿔야함
-                                    UpdateModalView(task: task)
-                                }
+//                                .sheet(item: $selectedTask) {
+//                                    // TODO: update 하는 모달뷰로 바꿔야함
+//                                    UpdateModalView(task: $0)
+//                                        .environmentObject(realmManager)
+//
+//                                }
                         }
+                    }
+                    .sheet(item: $selectedTask) {
+                        // TODO: update 하는 모달뷰로 바꿔야함
+                        UpdateModalView(task: $0)
+                            .environmentObject(realmManager)
                     }
                     .frame(minHeight: 500)
                     .background(Color.clear)
@@ -102,14 +110,14 @@ struct Home: View {
         .environmentObject(realmManager)
         .safeAreaInset(edge: .bottom) {
             Button {
-                self.showModal = true
+                showModal = true
             } label: {
                 Text("+")
                     .foregroundColor(.purple)
                     .font(.system(size: 30))
                     .frame(maxWidth: .infinity)
             }
-            .sheet(isPresented: self.$showModal) {
+            .sheet(isPresented: $showModal) {
                 ModalView(taskDate: $currentDate)
                     .environmentObject(realmManager)
             }

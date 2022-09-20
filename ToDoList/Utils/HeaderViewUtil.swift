@@ -66,7 +66,6 @@ class HeaderViewUtil: ObservableObject {
                 currentWeek.append(weekday)
             }
         }
-
     }
 
     // MARK: Filter Today Tasks
