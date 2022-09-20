@@ -54,13 +54,17 @@ class RealmManager: ObservableObject {
         }
     }
     
-    func updateTask(id: ObjectId, completed: Bool) {
+    func updateTask(id: ObjectId, _ taskTitle: String, _ taskDescription: String, _ taskDate: Date, _ descriptionVisibility: Bool, _ isCompleted: Bool) {
         if let localRealm = localRealm {
             do {
                 let taskToUpdate = localRealm.objects(Task.self).filter(NSPredicate(format: "id == %@", id))
                 guard !taskToUpdate.isEmpty else { return }
                 try localRealm.write {
-                    taskToUpdate[0].isCompleted = completed
+                    taskToUpdate[0].taskTitle = taskTitle
+                    taskToUpdate[0].taskDescription = taskDescription
+                    taskToUpdate[0].taskDate = taskDate
+                    taskToUpdate[0].descriptionVisibility = descriptionVisibility
+                    taskToUpdate[0].isCompleted = isCompleted
                     getTasks()
                 }
             } catch {

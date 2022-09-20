@@ -24,8 +24,10 @@ struct TaskCardView: View {
                     VStack(alignment: .leading, spacing: 12) {
                         Text(task.taskTitle)
                             .font(.title2.bold())
+                        if task.descriptionVisibility {
                         Text(task.taskDescription)
                             .foregroundStyle(.secondary)
+                        }
                     }
                     .hLeading()
                     Text(task.taskDate.formatted(date: .omitted, time: .shortened))
