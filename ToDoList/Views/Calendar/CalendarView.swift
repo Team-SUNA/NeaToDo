@@ -7,6 +7,11 @@
 import SwiftUI
 import RealmSwift
 
+
+let screenWidth = UIScreen.main.bounds.size.width
+let screenHeight = UIScreen.main.bounds.size.height
+
+
 struct CalendarView: View {
     @EnvironmentObject var realmManager: RealmManager
     @Binding var currentDate: Date

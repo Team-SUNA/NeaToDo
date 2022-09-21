@@ -37,7 +37,7 @@ struct CalendarHeaderView: View {
     func extractDateText(_ currentDate: Date) -> [String] {
         let formatter = DateFormatter()
         formatter.dateFormat = "YYYY MMM"
-        
+        formatter.locale = Locale(identifier: "en")
         let date = formatter.string(from: currentDate)
         return date.components(separatedBy: " ")
     }

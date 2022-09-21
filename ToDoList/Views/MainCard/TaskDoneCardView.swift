@@ -11,7 +11,7 @@ import RealmSwift
 struct TaskDoneCardView: View {
     
     let task: Task
-
+    
     var body: some View {
         HStack(alignment: .top, spacing: 30) {
             VStack(spacing: 10) {
@@ -24,8 +24,10 @@ struct TaskDoneCardView: View {
                     VStack(alignment: .leading, spacing: 12) {
                         Text(task.taskTitle)
                             .font(.title2.bold())
-                        Text(task.taskDescription)
-                            .foregroundStyle(.secondary)
+                        if task.descriptionVisibility && !task.taskDescription.isEmpty {
+                            Text(task.taskDescription)
+                                .foregroundStyle(.secondary)
+                        }
                     }
                     .hLeading()
                     Text(task.taskDate.formatted(date: .omitted, time: .shortened))
@@ -33,10 +35,10 @@ struct TaskDoneCardView: View {
             }
             .padding()
             .hLeading()
-//            .background(
-//                Color.black
-//                    .cornerRadius(25)
-//            )
+            //            .background(
+            //                Color.black
+            //                    .cornerRadius(25)
+            //            )
         }
         .hLeading()
         .background(.gray)

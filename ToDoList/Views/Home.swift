@@ -26,7 +26,7 @@ struct Home: View {
                 {
                     let notDone = tasks.filter({task in return !task.isCompleted})
                     let isDone = tasks.filter({task in return task.isCompleted})
-                    List { 
+                    List {
                         Section {
                             ForEach(notDone) { task in
                                 TaskCardView(task: task)
@@ -97,22 +97,37 @@ struct Home: View {
                 .environmentObject(realmManager)))
         }
         .environmentObject(realmManager)
-        .safeAreaInset(edge: .bottom) {
+        //        .safeAreaInset(edge: .bottom) {
+        //            Button {
+        //                showModal = true
+        //            } label: {
+        //                Text("+")
+        //                    .foregroundColor(.purple)
+        //                    .font(.system(size: 30))
+        //                    .frame(maxWidth: .infinity)
+        //            }
+        //            .sheet(isPresented: $showModal) {
+        //                ModalView(taskDate: $currentDate)
+        //                    .environmentObject(realmManager)
+        //            }
+        //            .padding(.horizontal)
+        //            .padding(.top, 5)
+        //            .background(.ultraThinMaterial)
+        //        }
+        .safeAreaInset(edge: .bottom, alignment: .center) {
             Button {
                 showModal = true
             } label: {
-                Text("+")
+                Image(systemName: "plus.circle")
                     .foregroundColor(.purple)
-                    .font(.system(size: 30))
-                    .frame(maxWidth: .infinity)
+                    .font(.largeTitle)
+                    .padding(.trailing)
             }
             .sheet(isPresented: $showModal) {
+                // TODO: currentDate util 이랑 달라서 하나로 맞춰야 함
                 ModalView(taskDate: $currentDate)
                     .environmentObject(realmManager)
             }
-            .padding(.horizontal)
-            .padding(.top, 5)
-            .background(.ultraThinMaterial)
         }
     }
 }
