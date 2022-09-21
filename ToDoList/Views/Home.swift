@@ -17,7 +17,6 @@ struct Home: View {
     @State var currentDate: Date = Date()
     var tasks: [Task] { return realmManager.tasks.filter({ task in
         return isSameDay(date1: task.taskDate, date2: headerViewUtil.currentDay)}) }
-    // TODO: 설명. if let에서 실패하는 경우는 없는거같다(notaskview가 안나옴). 그냥 처음에 변수로 선언해주기
     
     var body: some View {
         NavigationView {
@@ -27,67 +26,57 @@ struct Home: View {
                 {
                     let notDone = tasks.filter({task in return !task.isCompleted})
                     let isDone = tasks.filter({task in return task.isCompleted})
-                    List { // TODO: section 없애도 기능을 제대로 되는데, 토글 필요할지 상의
-                        //                        Section {
-                        ForEach(notDone) { task in
-                            TaskCardView(task: task)
-                                .onTapGesture {
-                                    selectedTask = task
-                                }
-                                .swipeActions(edge: .leading) {
-                                    Button (action: { realmManager.updateTask(id: task.id, task.taskTitle, task.taskDescription, task.taskDate, task.descriptionVisibility, true)}) {
-                                        Label("Done", systemImage: "checkmark")
+                    List { 
+                        Section {
+                            ForEach(notDone) { task in
+                                TaskCardView(task: task)
+                                    .onTapGesture {
+                                        selectedTask = task
                                     }
-                                    .tint(.green)
-                                }
-                                .swipeActions {
-                                    Button(role: .destructive) {
-                                        withAnimation(.linear(duration: 0.4)) {
-                                            //taskViewModel.deleteTask(indexSet: )
-                                            print("delete")
+                                    .swipeActions(edge: .leading) {
+                                        Button (action: { realmManager.updateTask(id: task.id, task.taskTitle, task.taskDescription, task.taskDate, task.descriptionVisibility, true)}) {
+                                            Label("Done", systemImage: "checkmark")
                                         }
-                                    } label: {
-                                        Label("Delete", systemImage: "trash")
+                                        .tint(.green)
                                     }
-                                }
-//                                .sheet(item: $selectedTask) {
-//                                    // TODO: update 하는 모달뷰로 바꿔야함
-//                                    UpdateModalView(task: $0)
-//                                        .environmentObject(realmManager)
-//                                }
+                                    .swipeActions {
+                                        Button(role: .destructive) {
+                                            withAnimation(.linear(duration: 0.4)) {
+                                                //taskViewModel.deleteTask(indexSet: )
+                                                print("delete")
+                                            }
+                                        } label: {
+                                            Label("Delete", systemImage: "trash")
+                                        }
+                                    }
+                            }
                         }
-                        ////                        Section {
-                        ForEach(isDone) { task in
-                            TaskDoneCardView(task: task)
-                                .swipeActions(edge: .leading) {
-                                    Button (action: { realmManager.updateTask(id: task.id, task.taskTitle, task.taskDescription, task.taskDate, task.descriptionVisibility, false)}) {
-                                        Label("Not Done", systemImage: "xmark")
-                                    }
-                                    .tint(.yellow)
-                                }
-                                .onTapGesture {
-                                    selectedTask = task
-                                }
-                                .swipeActions {
-                                    Button(role: .destructive) {
-                                        withAnimation(.linear(duration: 0.4)) {
-                                            //taskViewModel.deleteTask(indexSet: )
-                                            print("delete")
+                        Section {
+                            ForEach(isDone) { task in
+                                TaskDoneCardView(task: task)
+                                    .swipeActions(edge: .leading) {
+                                        Button (action: { realmManager.updateTask(id: task.id, task.taskTitle, task.taskDescription, task.taskDate, task.descriptionVisibility, false)}) {
+                                            Label("Not Done", systemImage: "xmark")
                                         }
-                                    } label: {
-                                        Label("Delete", systemImage: "trash")
+                                        .tint(.yellow)
                                     }
-                                }
-//                                .sheet(item: $selectedTask) {
-//                                    // TODO: update 하는 모달뷰로 바꿔야함
-//                                    UpdateModalView(task: $0)
-//                                        .environmentObject(realmManager)
-//
-//                                }
+                                    .onTapGesture {
+                                        selectedTask = task
+                                    }
+                                    .swipeActions {
+                                        Button(role: .destructive) {
+                                            withAnimation(.linear(duration: 0.4)) {
+                                                //taskViewModel.deleteTask(indexSet: )
+                                                print("delete")
+                                            }
+                                        } label: {
+                                            Label("Delete", systemImage: "trash")
+                                        }
+                                    }
+                            }
                         }
                     }
                     .sheet(item: $selectedTask) {
-                        // TODO: update 하는 모달뷰로 바꿔야함
                         UpdateModalView(task: $0)
                             .environmentObject(realmManager)
                     }

@@ -33,11 +33,11 @@ class HeaderViewUtil: ObservableObject {
 
     // MARK: Checking if current Date is Today
     //앱이 시작되는 순간 오늘 날짜를 하이라이트해야하므로 오늘을 식별하는 함수를 하나 생성
-    func isToday(date: Date) -> Bool {
-        let calendar = Calendar.current
-
-        return  calendar.isDate(currentDay, inSameDayAs: date)
-    }
+//    func isToday(date: Date) -> Bool {
+//        let calendar = Calendar.current
+//
+//        return  calendar.isDate(currentDay, inSameDayAs: date)
+//    }
 
     // MARK: Extracting Date
     //date를 String으로 리턴해줄  간단한 함수

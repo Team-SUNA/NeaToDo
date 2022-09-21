@@ -29,12 +29,12 @@ struct HeaderView: View {
                         Circle()
                             .fill(.white)
                             .frame(width: 8, height: 8)
-                            .opacity(headerViewUtil.isToday(date: day) ? 1 : 0)
+                            .opacity(isSameDay(date1: headerViewUtil.currentDay, date2: day) ? 1 : 0)
                     }
                     // MARK: Foreground Style
-                    .foregroundStyle(headerViewUtil.isToday(date: day) ? .primary : .secondary)
+                    .foregroundStyle(isSameDay(date1: headerViewUtil.currentDay, date2: day) ? .primary : .secondary)
 
-                    .foregroundColor(headerViewUtil.isToday(date: day) ? .white : .black)
+                    .foregroundColor(isSameDay(date1: headerViewUtil.currentDay, date2: day) ? .white : .black)
                     // MARK: Capsule Shape
                     //저 요일을을 가로로 꽉차게 펼치는 작업
                     .frame(width: 42, height: 90)
@@ -43,7 +43,7 @@ struct HeaderView: View {
                         ZStack {
                             // MARK: Matched Geometry Effect
                             //Week day가 변경되었을시 애니메이션 효과
-                            if headerViewUtil.isToday(date: day) {
+                            if isSameDay(date1: headerViewUtil.currentDay, date2: day) {
                                 Capsule()
                                     .fill(.black)
                                     .matchedGeometryEffect(id: "CURRENTDAY", in: animation)

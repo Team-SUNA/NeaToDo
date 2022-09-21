@@ -43,7 +43,7 @@ struct TaskInCalendarView: View {
                                 .environmentObject(realmManager)
                 }
             }
-        } else { // TODO: 아예 없는 날이랑, 있는데 다 한 날이랑 구분해서 문구 쓸지?
+        } else {
             Text("NO TASK TO DO")
         }
     }
