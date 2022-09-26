@@ -10,13 +10,14 @@ import SwiftUI
 struct CalendarHeaderView: View {
     @Binding var currentDate: Date
     @Binding var currentMonth: Int
+    var dateText: [String] { return extractDateText(currentDate) }
     
     var body: some View {
         HStack(spacing: 20) {
-            Text(extractDateText(currentDate)[0])
+            Text(dateText[0])
                 .font(.system(size: 20))
             Spacer()
-            Text(extractDateText(currentDate)[1].uppercased())
+            Text(dateText[1].uppercased())
                 .font(.system(size: 40, weight: .bold))
             Spacer(minLength: 0)
             Button {
@@ -32,14 +33,14 @@ struct CalendarHeaderView: View {
         }
         .padding(.horizontal)
     }
-}
-
-func extractDateText(_ currentDate: Date) -> [String] {
-    let formatter = DateFormatter()
-    formatter.dateFormat = "YYYY MMM"
     
-    let date = formatter.string(from: currentDate)
-    return date.components(separatedBy: " ")
+    func extractDateText(_ currentDate: Date) -> [String] {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "YYYY MMM"
+        formatter.locale = Locale(identifier: "en")
+        let date = formatter.string(from: currentDate)
+        return date.components(separatedBy: " ")
+    }
 }
 
 struct CalendarHeaderView_Previews: PreviewProvider {

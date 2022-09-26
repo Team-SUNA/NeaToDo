@@ -10,14 +10,17 @@ import RealmSwift
 
 struct TaskInCalendarView: View {
     @Binding var currentDate: Date
+    @State private var selectedTask: Task? = nil
     @EnvironmentObject var realmManager: RealmManager
+    var tasks: [Task] { return realmManager.tasks.filter({ task in
+        return isSameDay(date1: task.taskDate, date2: currentDate) && !task.isCompleted
+    })}
     
+
     var body: some View {
-        List {
-            if let tasks = realmManager.tasks.filter({ task in
-                return isSameDay(date1: task.taskDate, date2: currentDate) && !task.isCompleted
-            }) {
-                ForEach(tasks) { task in
+        if !tasks.isEmpty {
+            ScrollView {
+                ForEach(tasks, id: \.self) { task in
                     HStack {
                         Capsule()
                             .fill(Color.black)
@@ -27,30 +30,30 @@ struct TaskInCalendarView: View {
                         Spacer()
                         // for custom timing
                         Text(task.taskDate, style: .time)
-                        .font(.system(size: 15.0))
+                            .font(.system(size: 15.0))
                     }
-                    .padding(.vertical, 5)
+                    .background(.white) // 클릭위해서
+                    .onTapGesture {
+                        selectedTask = task
+                    }
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .listRowSeparator(.hidden)
+                }
+                .sheet(item: $selectedTask) {
+                    UpdateModalView(task: $0)
+                                .environmentObject(realmManager)
                 }
             }
-            else {
-                Text("hihi")
-            }
-        }
-        .frame(height: 230)
-        .onAppear() {
-            UITableView.appearance().backgroundColor = UIColor.clear
-            UITableViewCell.appearance().backgroundColor = UIColor.clear
+        } else {
+            Text("NO TASK TO DO")
         }
     }
 }
 
-struct TaskInCalendarView_Previews: PreviewProvider {
-    @State static var date = Date()
-    
-    static var previews: some View {
-        TaskInCalendarView(currentDate: $date)
-            .environmentObject(RealmManager())
-    }
-}
+//struct TaskInCalendarView_Previews: PreviewProvider {
+//    @State static var date = Date()
+//
+//    static var previews: some View {
+//        TaskInCalendarView(currentDate: $date)
+//            .environmentObject(RealmManager())
+//    }
+//}

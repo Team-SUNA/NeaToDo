@@ -6,24 +6,31 @@
 //
 
 import SwiftUI
+import RealmSwift
 
-struct ModalView: View {
+struct UpdateModalView: View {
     @Environment(\.presentationMode) var presentation
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var realmManager: RealmManager
-    
-    //if let으로 초기화를 해서 모델이 하나 들어올 시 해당 모델의 값으로 변수들을 초기화, 그렇지 않다면 그냥 기본값으로 초기화
-    
-    
+
     // MARK: Task values
-    @State var taskTitle: String = ""
-    @State var taskDescription: String = ""
-    @Binding var taskDate: Date
-    @State var descriptionVisibility: Bool = true
-    @State var isCompleted: Bool = false
-    
+    let id: ObjectId
+    @State var taskTitle: String
+    @State var taskDescription: String
+    @State var taskDate: Date
+    @State var descriptionVisibility: Bool
+    @State var isCompleted: Bool
+
+    init(task: Task) {
+        id = task.id
+        _taskTitle = State(initialValue: task.taskTitle)
+        _taskDescription = State(initialValue: task.taskDescription)
+        _taskDate = State(initialValue: task.taskDate)
+        _isCompleted = State(initialValue: task.isCompleted)
+        _descriptionVisibility = State(initialValue: task.descriptionVisibility)
+    }
+
     var body: some View {
-        
         NavigationView {
             VStack {
                 List {
@@ -52,7 +59,7 @@ struct ModalView: View {
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button("save") {
-                            realmManager.addTask(taskTitle, taskDescription, taskDate, descriptionVisibility, isCompleted)
+                            realmManager.updateTask(id: id, taskTitle, taskDescription, taskDate, descriptionVisibility, isCompleted)
                             dismiss()
                         }
                         .disabled(taskTitle == "")

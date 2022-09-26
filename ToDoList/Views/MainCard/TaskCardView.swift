@@ -14,18 +14,20 @@ struct TaskCardView: View {
     
     var body: some View {
         HStack(alignment: .top, spacing: 30) {
-            VStack(spacing: 10) {
+            VStack(spacing: 10) { // TODO: spacing 때문에 vstack?
                 Rectangle()
                     .fill(.black)
                     .frame(width: 3)
             }
             VStack {
                 HStack(alignment: .top, spacing: 10) {
-                    VStack(alignment: .leading, spacing: 12) {
+                    VStack(alignment: .leading) {
                         Text(task.taskTitle)
                             .font(.title2.bold())
+                        if task.descriptionVisibility && !task.taskDescription.isEmpty {
                         Text(task.taskDescription)
                             .foregroundStyle(.secondary)
+                        }
                     }
                     .hLeading()
                     Text(task.taskDate.formatted(date: .omitted, time: .shortened))
