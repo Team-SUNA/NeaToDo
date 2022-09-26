@@ -56,6 +56,7 @@ class HeaderViewUtil: ObservableObject {
 
         let week = calendar.dateInterval(of: .weekOfMonth, for: today)
 
+
         guard let firstWeekDay = week?.start else {
             return
         }

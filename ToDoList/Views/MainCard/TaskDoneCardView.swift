@@ -21,7 +21,7 @@ struct TaskDoneCardView: View {
             }
             VStack {
                 HStack(alignment: .top, spacing: 10) {
-                    VStack(alignment: .leading, spacing: 12) {
+                    VStack(alignment: .leading) {
                         Text(task.taskTitle)
                             .font(.title2.bold())
                         if task.descriptionVisibility && !task.taskDescription.isEmpty {

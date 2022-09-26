@@ -20,81 +20,93 @@ struct Home: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                HeaderView(headerViewUtil: headerViewUtil)
-                if !tasks.isEmpty
-                {
-                    let notDone = tasks.filter({task in return !task.isCompleted})
-                    let isDone = tasks.filter({task in return task.isCompleted})
-                    List {
-                        Section {
-                            ForEach(notDone) { task in
-                                TaskCardView(task: task)
-                                    .onTapGesture {
-                                        selectedTask = task
-                                    }
-                                    .swipeActions(edge: .leading) {
-                                        Button (action: { realmManager.updateTask(id: task.id, task.taskTitle, task.taskDescription, task.taskDate, task.descriptionVisibility, true)}) {
-                                            Label("Done", systemImage: "checkmark")
-                                        }
-                                        .tint(.green)
-                                    }
-                                    .swipeActions {
-                                        Button(role: .destructive) {
-                                            withAnimation(.linear(duration: 0.4)) {
-                                                //taskViewModel.deleteTask(indexSet: )
-                                                print("delete")
+            GeometryReader { geo in
+                VStack {
+                    HeaderView(headerViewUtil: headerViewUtil, currentDate: $currentDate)
+//                        .frame(width: geo.size.width * 1.1, height: geo.size.height * 0.1)
+                        .frame(maxWidth: .infinity, maxHeight: geo.size.height * 0.1)
+                    if !tasks.isEmpty
+                    {
+                        let notDone = tasks.filter({task in return !task.isCompleted})
+                        let isDone = tasks.filter({task in return task.isCompleted})
+                        List {
+                            Section {
+                                ForEach(notDone) { task in
+                                    if !task.isInvalidated {
+                                        TaskCardView(task: task)
+    //                                        .frame(width: geo.size.width * 0.9, height: geo.size.height * 0.1)
+                                            .offset(x: -15, y: 0)
+                                            .onTapGesture {
+                                                selectedTask = task
                                             }
-                                        } label: {
-                                            Label("Delete", systemImage: "trash")
-                                        }
+                                            .swipeActions(edge: .leading) {
+                                                Button (action: { realmManager.updateTask(id: task.id, task.taskTitle, task.taskDescription, task.taskDate, task.descriptionVisibility, true)}) {
+                                                    Label("Done", systemImage: "checkmark")
+                                                }
+                                                .tint(.green)
+                                            }
+                                            .swipeActions {
+                                                Button(role: .destructive) {
+                                                    realmManager.deleteTask(id: task.id)
+                                                } label: {
+                                                    Label("Delete", systemImage: "trash")
+                                                }
+                                            }
                                     }
+
+                                }
+                            }
+                            Section {
+                                ForEach(isDone) { task in
+                                    if !task.isInvalidated {
+                                        TaskDoneCardView(task: task)
+                                            .swipeActions(edge: .leading) {
+                                                Button (action: { realmManager.updateTask(id: task.id, task.taskTitle, task.taskDescription, task.taskDate, task.descriptionVisibility, false)}) {
+                                                    Label("Not Done", systemImage: "xmark")
+                                                }
+                                                .tint(.yellow)
+                                            }
+                                            .onTapGesture {
+                                                selectedTask = task
+                                            }
+                                            .swipeActions {
+                                                Button(role: .destructive) {
+                                                    withAnimation(.linear(duration: 0.4)) {
+                                                        realmManager.deleteTask(id: task.id)
+                                                        print("delete")
+                                                    }
+                                                } label: {
+                                                    Label("Delete", systemImage: "trash")
+                                                }
+                                            }
+                                    }
+
+                                }
                             }
                         }
-                        Section {
-                            ForEach(isDone) { task in
-                                TaskDoneCardView(task: task)
-                                    .swipeActions(edge: .leading) {
-                                        Button (action: { realmManager.updateTask(id: task.id, task.taskTitle, task.taskDescription, task.taskDate, task.descriptionVisibility, false)}) {
-                                            Label("Not Done", systemImage: "xmark")
-                                        }
-                                        .tint(.yellow)
-                                    }
-                                    .onTapGesture {
-                                        selectedTask = task
-                                    }
-                                    .swipeActions {
-                                        Button(role: .destructive) {
-                                            withAnimation(.linear(duration: 0.4)) {
-                                                //taskViewModel.deleteTask(indexSet: )
-                                                print("delete")
-                                            }
-                                        } label: {
-                                            Label("Delete", systemImage: "trash")
-                                        }
-                                    }
-                            }
+                        .sheet(item: $selectedTask) {
+                            UpdateModalView(task: $0)
+                                .environmentObject(realmManager)
                         }
+                        .frame(minHeight: 500)
+                        .background(Color.clear)
+                        .onAppear() {
+                            UITableView.appearance().backgroundColor = UIColor.clear
+                            UITableViewCell.appearance().backgroundColor = UIColor.clear
+                        }
+                    } else {
+                        NoTaskView()
+                            .frame(alignment: .center)
+//                            .offset(x: -20, y: 0)
+                        Spacer()
                     }
-                    .sheet(item: $selectedTask) {
-                        UpdateModalView(task: $0)
-                            .environmentObject(realmManager)
-                    }
-                    .frame(minHeight: 500)
-                    .background(Color.clear)
-                    .onAppear() {
-                        UITableView.appearance().backgroundColor = UIColor.clear
-                        UITableViewCell.appearance().backgroundColor = UIColor.clear
-                    }
-                } else {
-                    NoTaskView()
-                    Spacer()
                 }
+//                .navigationTitle("TEAM SUNA")
+                .navigationBarTitle("", displayMode: .inline)
+                .navigationBarItems(trailing: NavigationLink("Calendar", destination: CalendarView(currentDate: $currentDate)
+                    .environmentObject(realmManager)))
             }
-            .navigationTitle("TEAM SUNA")
-            .navigationBarTitle("", displayMode: .inline)
-            .navigationBarItems(trailing: NavigationLink("Calendar", destination: CalendarView(currentDate: $currentDate)
-                .environmentObject(realmManager)))
+
         }
         .environmentObject(realmManager)
         //        .safeAreaInset(edge: .bottom) {
