@@ -97,7 +97,6 @@ struct Home: View {
                     } else {
                         NoTaskView()
                             .frame(alignment: .center)
-//                            .offset(x: -20, y: 0)
                         Spacer()
                     }
                 }
@@ -109,23 +108,6 @@ struct Home: View {
 
         }
         .environmentObject(realmManager)
-        //        .safeAreaInset(edge: .bottom) {
-        //            Button {
-        //                showModal = true
-        //            } label: {
-        //                Text("+")
-        //                    .foregroundColor(.purple)
-        //                    .font(.system(size: 30))
-        //                    .frame(maxWidth: .infinity)
-        //            }
-        //            .sheet(isPresented: $showModal) {
-        //                ModalView(taskDate: $currentDate)
-        //                    .environmentObject(realmManager)
-        //            }
-        //            .padding(.horizontal)
-        //            .padding(.top, 5)
-        //            .background(.ultraThinMaterial)
-        //        }
         .safeAreaInset(edge: .bottom, alignment: .center) {
             Button {
                 showModal = true
@@ -133,7 +115,7 @@ struct Home: View {
                 Image(systemName: "plus.circle")
                     .foregroundColor(.purple)
                     .font(.largeTitle)
-                    .padding(.trailing)
+//                    .padding(.trailing)
             }
             .sheet(isPresented: $showModal) {
                 // TODO: currentDate util 이랑 달라서 하나로 맞춰야 함

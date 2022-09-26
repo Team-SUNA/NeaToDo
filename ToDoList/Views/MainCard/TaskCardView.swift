@@ -14,11 +14,9 @@ struct TaskCardView: View {
     
     var body: some View {
         HStack(alignment: .top, spacing: 30) {
-            VStack(spacing: 10) { // TODO: spacing 때문에 vstack?
-                Rectangle()
-                    .fill(.black)
-                    .frame(width: 3)
-            }
+            Rectangle()
+                .fill(.black)
+                .frame(width: 3)
             VStack {
                 HStack(alignment: .top, spacing: 10) {
                     VStack(alignment: .leading) {
@@ -35,10 +33,6 @@ struct TaskCardView: View {
             }
             .padding()
             .hLeading()
-//            .background(
-//                Color.black
-//                    .cornerRadius(25)
-//            )
         }
         .hLeading()
         .background(.white) // 클릭위해서
