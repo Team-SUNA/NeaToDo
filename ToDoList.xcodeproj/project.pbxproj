@@ -12,6 +12,7 @@
 		095D0AA028DADFAC00E4428F /* UpdateModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095D0A9F28DADFAC00E4428F /* UpdateModalView.swift */; };
 		095D0AA228DAE03E00E4428F /* DaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095D0AA128DAE03E00E4428F /* DaysView.swift */; };
 		09A5A60428C47422004CB87C /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A5A60328C47422004CB87C /* Home.swift */; };
+		09BC424E28E1840A004156C9 /* CalendarViewUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BC424D28E1840A004156C9 /* CalendarViewUtil.swift */; };
 		09BCEA0528C47C5D005313AE /* NoTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BCEA0428C47C5D005313AE /* NoTaskView.swift */; };
 		09BCEA0728C47CF8005313AE /* TaskCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BCEA0628C47CF8005313AE /* TaskCardView.swift */; };
 		09BCEA0928C47E91005313AE /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BCEA0828C47E91005313AE /* CalendarView.swift */; };
@@ -39,7 +40,8 @@
 		0912C83C2838CA4E0090D088 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		095D0A9F28DADFAC00E4428F /* UpdateModalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateModalView.swift; sourceTree = "<group>"; };
 		095D0AA128DAE03E00E4428F /* DaysView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DaysView.swift; sourceTree = "<group>"; };
-		09A5A60328C47422004CB87C /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		09A5A60328C47422004CB87C /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; usesTabs = 0; };
+		09BC424D28E1840A004156C9 /* CalendarViewUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewUtil.swift; sourceTree = "<group>"; };
 		09BCEA0428C47C5D005313AE /* NoTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoTaskView.swift; sourceTree = "<group>"; };
 		09BCEA0628C47CF8005313AE /* TaskCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCardView.swift; sourceTree = "<group>"; };
 		09BCEA0828C47E91005313AE /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				0904CD2C28D4BA0A006A5962 /* HeaderViewUtil.swift */,
+				09BC424D28E1840A004156C9 /* CalendarViewUtil.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -266,6 +269,7 @@
 				953001EA28D068B8007731B2 /* TaskInCalendarView.swift in Sources */,
 				09BCEA1428C5DD24005313AE /* TaskDoneCardView.swift in Sources */,
 				09A5A60428C47422004CB87C /* Home.swift in Sources */,
+				09BC424E28E1840A004156C9 /* CalendarViewUtil.swift in Sources */,
 				095D0AA028DADFAC00E4428F /* UpdateModalView.swift in Sources */,
 				953001E228D0459D007731B2 /* Task.swift in Sources */,
 				0904CD2D28D4BA0A006A5962 /* HeaderViewUtil.swift in Sources */,

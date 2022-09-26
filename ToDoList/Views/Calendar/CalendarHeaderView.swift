@@ -42,12 +42,3 @@ struct CalendarHeaderView: View {
         return date.components(separatedBy: " ")
     }
 }
-
-struct CalendarHeaderView_Previews: PreviewProvider {
-    @State static var date = Date()
-    @State static var month = 0
-    
-    static var previews: some View {
-        CalendarHeaderView(currentDate: $date, currentMonth: $month)
-    }
-}

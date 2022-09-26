@@ -65,16 +65,9 @@ struct HeaderView: View {
                     }
                 }
             }
-            .frame(width: .infinity, alignment: .center)
-            .padding(.horizontal)
+            .frame(width: geo.size.width)
+//            .padding(.horizontal)
         }
 
     }
 }
-
-//struct HeaderView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        HeaderView(headerViewUtil: HeaderViewUtil())
-//            .previewInterfaceOrientation(.portraitUpsideDown)
-//    }
-//}

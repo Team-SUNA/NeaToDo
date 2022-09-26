@@ -24,17 +24,11 @@ struct WeekdaysView: View {
                 if day == "SUN" {
                     dayText(text: day).foregroundColor(.red)
                 } else if day == "SAT" {
-                    dayText(text: day).foregroundColor(.blue)
+                    dayText(text: day).foregroundColor(Color(#colorLiteral(red: 0.4467597008, green: 0.1914927065, blue: 0.6714115143, alpha: 1)))
                 } else {
                     dayText(text: day)
                 }
             }
         }
-    }
-}
-
-struct Weekdays_Previews: PreviewProvider {
-    static var previews: some View {
-        WeekdaysView()
     }
 }

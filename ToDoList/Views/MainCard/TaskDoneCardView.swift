@@ -14,11 +14,9 @@ struct TaskDoneCardView: View {
     
     var body: some View {
         HStack(alignment: .top, spacing: 30) {
-            VStack(spacing: 10) {
                 Rectangle()
                     .fill(.black)
                     .frame(width: 3)
-            }
             VStack {
                 HStack(alignment: .top, spacing: 10) {
                     VStack(alignment: .leading) {
@@ -35,13 +33,9 @@ struct TaskDoneCardView: View {
             }
             .padding()
             .hLeading()
-            //            .background(
-            //                Color.black
-            //                    .cornerRadius(25)
-            //            )
         }
         .hLeading()
-        .background(.gray)
+        .background(Color(#colorLiteral(red: 0.8374180198, green: 0.8374378085, blue: 0.8374271393, alpha: 1)))
     }
 }
 

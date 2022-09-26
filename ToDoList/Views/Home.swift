@@ -15,6 +15,7 @@ struct Home: View {
     @State private var selectedTask: Task? = nil
     @Namespace var animation // TODO: 애니메이션 좀 과한 느낌... 줄이거나 없애면 어떨까여
     @State var currentDate: Date = Date()
+    var calendar = Calendar.current
     var tasks: [Task] { return realmManager.tasks.filter({ task in
         return isSameDay(date1: task.taskDate, date2: headerViewUtil.currentDay)}) }
     
@@ -22,8 +23,29 @@ struct Home: View {
         NavigationView {
             GeometryReader { geo in
                 VStack {
+                    HStack(spacing: 15) {
+                        Button {
+                            headerViewUtil.currentDay = calendar.date(byAdding: .day, value: -7, to: currentDate) ?? Date()
+                            headerViewUtil.fetchCurrentWeek(currentDate: currentDate)
+                            currentDate = headerViewUtil.currentDay
+                        } label: {
+                            Image(systemName: "chevron.left")
+                        }
+                        Spacer()
+                        Button {
+//                            headerViewUtil.currentDay = calendar.date(byAdding: .weekOfYear, value: 1, to: currentDate) ?? Date()
+                            headerViewUtil.currentDay = calendar.date(byAdding: .day, value: 7, to: currentDate) ?? Date()
+                            headerViewUtil.fetchCurrentWeek(currentDate: currentDate)
+                            currentDate = headerViewUtil.currentDay
+                        } label: {
+                            Image(systemName: "chevron.right")
+                        }
+                    }
+                    .padding(EdgeInsets(top: 0, leading: 30, bottom: 20, trailing: 30))
+                    
+                    
                     HeaderView(headerViewUtil: headerViewUtil, currentDate: $currentDate)
-//                        .frame(width: geo.size.width * 1.1, height: geo.size.height * 0.1)
+                    //                        .frame(width: geo.size.width * 1.1, height: geo.size.height * 0.1)
                         .frame(maxWidth: .infinity, maxHeight: geo.size.height * 0.1)
                     if !tasks.isEmpty
                     {
@@ -34,8 +56,8 @@ struct Home: View {
                                 ForEach(notDone) { task in
                                     if !task.isInvalidated {
                                         TaskCardView(task: task)
-    //                                        .frame(width: geo.size.width * 0.9, height: geo.size.height * 0.1)
-                                            .offset(x: -15, y: 0)
+                                            .listRowSeparator(.hidden)
+                                        //                                        .frame(width: geo.size.width * 0.9, height: geo.size.height * 0.1)
                                             .onTapGesture {
                                                 selectedTask = task
                                             }
@@ -53,13 +75,14 @@ struct Home: View {
                                                 }
                                             }
                                     }
-
+                                    
                                 }
                             }
                             Section {
                                 ForEach(isDone) { task in
                                     if !task.isInvalidated {
                                         TaskDoneCardView(task: task)
+                                            .listRowSeparator(.hidden)
                                             .swipeActions(edge: .leading) {
                                                 Button (action: { realmManager.updateTask(id: task.id, task.taskTitle, task.taskDescription, task.taskDate, task.descriptionVisibility, false)}) {
                                                     Label("Not Done", systemImage: "xmark")
@@ -80,7 +103,7 @@ struct Home: View {
                                                 }
                                             }
                                     }
-
+                                    
                                 }
                             }
                         }
@@ -100,22 +123,24 @@ struct Home: View {
                         Spacer()
                     }
                 }
-//                .navigationTitle("TEAM SUNA")
+                //                .navigationTitle("TEAM SUNA")
                 .navigationBarTitle("", displayMode: .inline)
-                .navigationBarItems(trailing: NavigationLink("Calendar", destination: CalendarView(currentDate: $currentDate)
-                    .environmentObject(realmManager)))
+                .navigationBarItems(trailing: NavigationLink(destination: CalendarView(currentDate: $currentDate)
+                    .environmentObject(realmManager)) {
+                        Image(systemName: "calendar")
+                    })
             }
-
+            
         }
+        //        .navigationViewStyle(.stack)
         .environmentObject(realmManager)
         .safeAreaInset(edge: .bottom, alignment: .center) {
             Button {
                 showModal = true
             } label: {
                 Image(systemName: "plus.circle")
-                    .foregroundColor(.purple)
+                    .foregroundColor(Color(#colorLiteral(red: 0.3254901961, green: 0.1058823529, blue: 0.5764705882, alpha: 1)))
                     .font(.largeTitle)
-//                    .padding(.trailing)
             }
             .sheet(isPresented: $showModal) {
                 // TODO: currentDate util 이랑 달라서 하나로 맞춰야 함

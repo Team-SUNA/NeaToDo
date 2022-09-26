@@ -39,16 +39,6 @@ struct TaskCardView: View {
     }
 }
 
-//struct TaskCardView_Previews: PreviewProvider {
-//    static var previews: some View {
-//
-////        let sampleTask = Task(value: "for test")
-//
-//        TaskCardView()
-//    }
-//}
-
-
 // MARK: UI Design Helper functions
 //이 extension이 Spacer(), .frame() 등의 사용을 줄여주고 코드의 가독성도 좋게 해줄 것임
 extension View {

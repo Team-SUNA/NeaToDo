@@ -35,7 +35,7 @@ struct UpdateModalView: View {
             VStack {
                 List {
                     Section {
-                        TextField("task", text: $taskTitle)
+                        TextField("title", text: $taskTitle)
                         TextField("description", text: $taskDescription)
                         HStack {
                             Text("time")
@@ -44,8 +44,6 @@ struct UpdateModalView: View {
                                 .datePickerStyle(.compact)
                                 .labelsHidden()
                         }
-                    } header: {
-                        Text("Task")
                     }
                     Section {
                         Toggle("Done", isOn: $isCompleted)

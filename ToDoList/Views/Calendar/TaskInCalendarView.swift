@@ -22,17 +22,17 @@ struct TaskInCalendarView: View {
             ScrollView {
                 ForEach(tasks, id: \.self) { task in
                     HStack {
-                        Capsule()
+                        Rectangle()
                             .fill(Color.black)
-                            .frame(width: 5, height: 30)
+                            .frame(width: 2.5, height: 30)
+                            .padding(.trailing, 20)
                         Text(task.taskTitle)
                             .font(.system(size: 20.0, weight: .semibold))
                         Spacer()
-                        // for custom timing
                         Text(task.taskDate, style: .time)
                             .font(.system(size: 15.0))
                     }
-                    .background(.white) // 클릭위해서
+                    .background(.white)
                     .onTapGesture {
                         selectedTask = task
                     }
@@ -48,12 +48,3 @@ struct TaskInCalendarView: View {
         }
     }
 }
-
-//struct TaskInCalendarView_Previews: PreviewProvider {
-//    @State static var date = Date()
-//
-//    static var previews: some View {
-//        TaskInCalendarView(currentDate: $date)
-//            .environmentObject(RealmManager())
-//    }
-//}
