@@ -10,43 +10,22 @@ import RealmSwift
 
 struct Home: View {
     @StateObject var realmManager = RealmManager()
-    @ObservedObject var headerViewUtil: HeaderViewUtil
     @State private var showModal = false
     @State private var selectedTask: Task? = nil
     @Namespace var animation // TODO: 애니메이션 좀 과한 느낌... 줄이거나 없애면 어떨까여
     @State var currentDate: Date = Date()
     var calendar = Calendar.current
     var tasks: [Task] { return realmManager.tasks.filter({ task in
-        return isSameDay(date1: task.taskDate, date2: headerViewUtil.currentDay)}) }
+        return isSameDay(date1: task.taskDate, date2: currentDate)
+    })}
     
     var body: some View {
         NavigationView {
             GeometryReader { geo in
                 VStack {
-                    HStack(spacing: 15) {
-                        Button {
-                            headerViewUtil.currentDay = calendar.date(byAdding: .day, value: -7, to: currentDate) ?? Date()
-                            headerViewUtil.fetchCurrentWeek(currentDate: currentDate)
-                            currentDate = headerViewUtil.currentDay
-                        } label: {
-                            Image(systemName: "chevron.left")
-                        }
-                        Spacer()
-                        Button {
-//                            headerViewUtil.currentDay = calendar.date(byAdding: .weekOfYear, value: 1, to: currentDate) ?? Date()
-                            headerViewUtil.currentDay = calendar.date(byAdding: .day, value: 7, to: currentDate) ?? Date()
-                            headerViewUtil.fetchCurrentWeek(currentDate: currentDate)
-                            currentDate = headerViewUtil.currentDay
-                        } label: {
-                            Image(systemName: "chevron.right")
-                        }
-                    }
-                    .padding(EdgeInsets(top: 0, leading: 30, bottom: 20, trailing: 30))
-                    
-                    
-                    HeaderView(headerViewUtil: headerViewUtil, currentDate: $currentDate)
-                    //                        .frame(width: geo.size.width * 1.1, height: geo.size.height * 0.1)
-                        .frame(maxWidth: .infinity, maxHeight: geo.size.height * 0.1)
+                    HeaderView(selectedDate: $currentDate)
+                        .frame(width: geo.size.width, height: geo.size.height * 0.24)
+//                        .frame(maxWidth: .infinity, maxHeight: geo.size.height * 0.1)
                     if !tasks.isEmpty
                     {
                         let notDone = tasks.filter({task in return !task.isCompleted})
@@ -111,7 +90,7 @@ struct Home: View {
                             UpdateModalView(task: $0)
                                 .environmentObject(realmManager)
                         }
-                        .frame(minHeight: 500)
+//                        .frame(minHeight: 500)
                         .background(Color.clear)
                         .onAppear() {
                             UITableView.appearance().backgroundColor = UIColor.clear
@@ -122,6 +101,7 @@ struct Home: View {
                             .frame(alignment: .center)
                         Spacer()
                     }
+//                    Spacer()
                 }
                 //                .navigationTitle("TEAM SUNA")
                 .navigationBarTitle("", displayMode: .inline)
@@ -153,7 +133,7 @@ struct Home: View {
 
 struct Home_Previews: PreviewProvider {
     static var previews: some View {
-        Home(headerViewUtil: HeaderViewUtil())
+        Home()
             .previewInterfaceOrientation(.landscapeLeft)
     }
 }

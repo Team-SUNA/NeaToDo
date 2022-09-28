@@ -11,7 +11,7 @@ import SwiftUI
 struct ToDoListApp: App {
     var body: some Scene {
         WindowGroup {
-                Home(headerViewUtil: HeaderViewUtil())
+                Home()
         }
     }
 }

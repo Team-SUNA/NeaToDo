@@ -12,7 +12,6 @@ class HeaderViewUtil: ObservableObject {
     @Published var tasks: [Task] = []
 
     init() {
-        fetchCurrentWeek(currentDate: Date())
         filterTodayTasks()
     }
 
@@ -28,39 +27,6 @@ class HeaderViewUtil: ObservableObject {
     //사용자가 선택한 날짜에 속한 Tasks들 필터링을 위한 변수
     @Published var filteredTasks: [Task]?
     
-//    @Binding var currentDate: Date
-
-
-
-    // MARK: Extracting Date
-    //date를 String으로 리턴해줄  간단한 함수
-    func extractDate(date: Date, format: String) -> String {
-        let formatter = DateFormatter()
-
-        formatter.dateFormat = format
-
-        return formatter.string(from: date)
-    }
-
-    func fetchCurrentWeek(currentDate: Date) {
-
-        let today = currentDate
-        let calendar = Calendar.current
-
-        let week = calendar.dateInterval(of: .weekOfMonth, for: today)
-
-
-        guard let firstWeekDay = week?.start else {
-            return
-        }
-
-        (1...7).forEach { day in
-
-            if let weekday = calendar.date(byAdding: .day, value: day, to: firstWeekDay) {
-                currentWeek.append(weekday)
-            }
-        }
-    }
 
     // MARK: Filter Today Tasks
     func filterTodayTasks() {
