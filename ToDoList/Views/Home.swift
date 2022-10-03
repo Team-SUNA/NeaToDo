@@ -24,7 +24,8 @@ struct Home: View {
             GeometryReader { geo in
                 VStack {
                     HeaderView(selectedDate: $currentDate)
-                        .frame(width: geo.size.width, height: geo.size.height * 0.24)
+                        .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15))
+//                        .frame(width: geo.size.width, height: geo.size.height * 0.24)
 //                        .frame(maxWidth: .infinity, maxHeight: geo.size.height * 0.1)
                     if !tasks.isEmpty
                     {
@@ -101,7 +102,7 @@ struct Home: View {
                             .frame(alignment: .center)
                         Spacer()
                     }
-//                    Spacer()
+                    Spacer()
                 }
                 //                .navigationTitle("TEAM SUNA")
                 .navigationBarTitle("", displayMode: .inline)
