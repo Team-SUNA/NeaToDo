@@ -22,7 +22,6 @@ class RealmManager: ObservableObject {
             let config = Realm.Configuration(schemaVersion: 3)
             
             Realm.Configuration.defaultConfiguration = config
-            
             localRealm = try Realm()
         } catch {
             print("Error opening Realm: \(error)")
@@ -82,7 +81,6 @@ class RealmManager: ObservableObject {
                     localRealm.delete(taskToDelete)
                     getTasks()
                 }
-                
             } catch {
                 print("Error deleting task \(error)")
             }

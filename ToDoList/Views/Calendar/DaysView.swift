@@ -22,7 +22,6 @@ struct DaysView: View {
                     }
             }
         }
-        
     }
     
     @ViewBuilder
