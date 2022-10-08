@@ -49,7 +49,6 @@ class RealmManager: ObservableObject {
             allTasks.forEach { task in
                 tasks.append(task)
             }
-            
         }
     }
     
@@ -82,7 +81,7 @@ class RealmManager: ObservableObject {
                     getTasks()
                 }
             } catch {
-                print("Error deleting task \(error)")
+                print("--------------------------------Error deleting task \(error)")
             }
         }
     }

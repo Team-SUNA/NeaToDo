@@ -489,8 +489,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-cocoa.git";
 			requirement = {
-				branch = master;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.10.0;
 			};
 		};
 		9503C5D828CF09E500900798 /* XCRemoteSwiftPackageReference "realm-cocoa" */ = {

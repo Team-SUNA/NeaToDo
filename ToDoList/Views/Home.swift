@@ -15,22 +15,26 @@ struct Home: View {
     @Namespace var animation // TODO: 애니메이션 좀 과한 느낌... 줄이거나 없애면 어떨까여
     @State var currentDate: Date = Date()
     var calendar = Calendar.current
-    var tasks: [Task] { return realmManager.tasks.filter({ task in
-        return isSameDay(date1: task.taskDate, date2: currentDate)
-    })}
+    //    var tasks: [Task] { if realmManager.tasks.isEmpty { return [Task]() } else { return realmManager.tasks.filter({ return isSameDay(date1: $0.taskDate, date2: currentDate)
+    //    })}}
+    
     
     var body: some View {
         NavigationView {
             GeometryReader { geo in
                 VStack {
+                    let tasks = realmManager.tasks.isEmpty ? [Task]() : realmManager.tasks.filter({ return isSameDay(date1: $0.taskDate, date2: currentDate)
+                    })
                     HeaderView(selectedDate: $currentDate)
                         .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15))
-//                        .frame(width: geo.size.width, height: geo.size.height * 0.24)
-//                        .frame(maxWidth: .infinity, maxHeight: geo.size.height * 0.1)
+                        .frame(width: geo.size.width, height: geo.size.height * 0.24)
+                        .frame(maxWidth: .infinity, maxHeight: geo.size.height * 0.1)
+                        .environmentObject(realmManager)
+                    
                     if !tasks.isEmpty
                     {
-                        let notDone = tasks.filter({task in return !task.isCompleted})
-                        let isDone = tasks.filter({task in return task.isCompleted})
+                        let notDone = tasks.filter({ return !$0.isCompleted})
+                        let isDone = tasks.filter({ return $0.isCompleted})
                         List {
                             Section {
                                 ForEach(notDone) { task in
@@ -47,15 +51,21 @@ struct Home: View {
                                                 }
                                                 .tint(.green)
                                             }
-                                            .swipeActions {
-                                                Button(role: .destructive) {
-                                                    realmManager.deleteTask(id: task.id)
-                                                } label: {
-                                                    Label("Delete", systemImage: "trash")
-                                                }
-                                            }
+                                        // ForEach 랑 swipeActions 같이 쓰면 안 되는거 같음!
+                                        //                                        .swipeActions {
+                                        //                                            Button(role: .destructive) {
+                                        //                                                realmManager.deleteTask(id: task.id)
+                                        //
+                                        //
+                                        //                                            } label: {
+                                        //                                                Label("Delete", systemImage: "trash")
+                                        //                                            }
+                                        //                                        }
                                     }
                                     
+                                }
+                                .onDelete { indexSet in
+                                    realmManager.deleteTask(id: notDone[indexSet.first!].id)
                                 }
                             }
                             Section {
@@ -76,7 +86,6 @@ struct Home: View {
                                                 Button(role: .destructive) {
                                                     withAnimation(.linear(duration: 0.4)) {
                                                         realmManager.deleteTask(id: task.id)
-                                                        print("delete")
                                                     }
                                                 } label: {
                                                     Label("Delete", systemImage: "trash")
@@ -85,18 +94,23 @@ struct Home: View {
                                     }
                                     
                                 }
+                                .onDelete { indexSet in
+                                    realmManager.deleteTask(id: isDone[indexSet.first!].id)
+                                }
                             }
                         }
                         .sheet(item: $selectedTask) {
                             UpdateModalView(task: $0)
                                 .environmentObject(realmManager)
                         }
-//                        .frame(minHeight: 500)
+                        //                        .frame(minHeight: 500)
                         .background(Color.clear)
                         .onAppear() {
                             UITableView.appearance().backgroundColor = UIColor.clear
                             UITableViewCell.appearance().backgroundColor = UIColor.clear
                         }
+                        .listRowSeparator(.hidden)
+                        .listStyle(.plain)
                     } else {
                         NoTaskView()
                             .frame(alignment: .center)
@@ -114,7 +128,8 @@ struct Home: View {
             
         }
         //        .navigationViewStyle(.stack)
-        .environmentObject(realmManager)
+        // TODO: 이거였다고.....?
+        //        .environmentObject(realmManager)
         .safeAreaInset(edge: .bottom, alignment: .center) {
             Button {
                 showModal = true
@@ -124,7 +139,6 @@ struct Home: View {
                     .font(.largeTitle)
             }
             .sheet(isPresented: $showModal) {
-                // TODO: currentDate util 이랑 달라서 하나로 맞춰야 함
                 ModalView(taskDate: $currentDate)
                     .environmentObject(realmManager)
             }
@@ -132,10 +146,10 @@ struct Home: View {
     }
 }
 
-struct Home_Previews: PreviewProvider {
-    static var previews: some View {
-        Home()
-            .previewInterfaceOrientation(.landscapeLeft)
-    }
-}
+//struct Home_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Home()
+////            .previewInterfaceOrientation(.landscapeLeft)
+//    }
+//}
 

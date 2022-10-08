@@ -12,13 +12,13 @@ struct TaskInCalendarView: View {
     @Binding var currentDate: Date
     @State private var selectedTask: Task? = nil
     @EnvironmentObject var realmManager: RealmManager
-    var tasks: [Task] { return realmManager.tasks.filter({ task in
+    var tasks: [Task] { if realmManager.tasks.isEmpty { return [Task]() } else {return realmManager.tasks.filter({ task in
         return isSameDay(date1: task.taskDate, date2: currentDate)
-    })}
+    })}}
     
     var body: some View {
         if !tasks.isEmpty {
-            let notDoneTask = tasks.filter({ task in return !task.isCompleted})
+            let notDoneTask = tasks.filter({ return !$0.isCompleted})
             if !notDoneTask.isEmpty {
 //                ScrollView {
                 List {
@@ -38,20 +38,31 @@ struct TaskInCalendarView: View {
                         .onTapGesture {
                             selectedTask = task
                         }
+                        .listRowSeparator(.hidden)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .swipeActions {
-                            Button(role: .destructive) {
-                                realmManager.deleteTask(id: task.id)
-                            } label: {
-                                Label("Delete", systemImage: "trash")
-                            }
-                        }
+//                        .swipeActions {
+//                            Button(role: .destructive) {
+//                                realmManager.deleteTask(id: task.id)
+//                            } label: {
+//                                Label("Delete", systemImage: "trash")
+//                            }
+//                        }
                     }
+                    .onDelete { indexSet in
+                        realmManager.deleteTask(id: notDoneTask[indexSet.first!].id)
+                    }
+                    .frame(alignment: .leading)
                     .sheet(item: $selectedTask) {
                         UpdateModalView(task: $0)
                             .environmentObject(realmManager)
                     }
+//                    .onAppear() {
+//                        UITableView.appearance().backgroundColor = UIColor.clear
+//                        UITableViewCell.appearance().backgroundColor = UIColor.clear
+//                    }
                 }
+                .listStyle(.plain)
+
             } else {
                 Text("WELL DONE")
             }

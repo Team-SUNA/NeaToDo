@@ -39,7 +39,7 @@ struct HeaderView: View {
                 calendar: calendar,
                 date: $selectedDate,
                 content: { date in
-                    let tasks = realmManager.tasks.filter({ task in
+                    let tasks = realmManager.tasks.isEmpty ? [Task]() : realmManager.tasks.filter({ task in
                         return isSameDay(date1: task.taskDate, date2: date)
                     })
                     
