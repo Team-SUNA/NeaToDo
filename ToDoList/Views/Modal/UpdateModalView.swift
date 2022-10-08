@@ -39,9 +39,9 @@ struct UpdateModalView: View {
                         TextField("description", text: $taskDescription)
                         HStack {
                             Text("time")
-                            Spacer()
+//                            Spacer()
                             DatePicker("", selection: $taskDate)
-                                .datePickerStyle(.compact)
+//                                .datePickerStyle(.compact)
                                 .labelsHidden()
                         }
                     }
