@@ -27,8 +27,8 @@ struct Home: View {
 //                    })
                     HeaderView(selectedDate: $currentDate)
                         .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15))
-                        .frame(width: geo.size.width, height: geo.size.height * 0.24)
-                        .frame(maxWidth: .infinity, maxHeight: geo.size.height * 0.1)
+//                        .frame(width: geo.size.width, height: geo.size.height * 0.24)
+//                        .frame(maxWidth: .infinity, maxHeight: geo.size.height * 0.1)
                         .environmentObject(realmManager)
                     
 //                    if !tasks.isEmpty
