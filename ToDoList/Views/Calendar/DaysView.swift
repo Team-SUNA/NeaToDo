@@ -26,10 +26,6 @@ struct DaysView: View {
     
     @ViewBuilder
     func DayView(value: DateValue) -> some View {
-//        let tasks = realmManager.tasks.filter({ task in
-//            return isSameDay(date1: task.taskDate, date2: value.date)
-//        })
-        
         let tasks = realmManager.tasks.isEmpty ? [Task]() : realmManager.tasks.filter({ task in
             return isSameDay(date1: task.taskDate, date2: value.date)
         })

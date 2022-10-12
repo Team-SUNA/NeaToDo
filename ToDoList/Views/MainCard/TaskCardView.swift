@@ -23,8 +23,8 @@ struct TaskCardView: View {
                         Text(task.taskTitle)
                             .font(.title2.bold())
                         if task.descriptionVisibility && !task.taskDescription.isEmpty {
-                        Text(task.taskDescription)
-                            .foregroundStyle(.secondary)
+                            Text(task.taskDescription)
+                                .foregroundStyle(.secondary)
                         }
                     }
                     .hLeading()

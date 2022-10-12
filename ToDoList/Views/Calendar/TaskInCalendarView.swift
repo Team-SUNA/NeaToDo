@@ -20,27 +20,52 @@ struct TaskInCalendarView: View {
         if !tasks.isEmpty {
             let notDoneTask = tasks.filter({ return !$0.isCompleted})
             if !notDoneTask.isEmpty {
-//                ScrollView {
                 List {
                     ForEach(notDoneTask, id: \.self) { task in
-                        HStack {
-                            Capsule()
-                                .fill(Color.black)
-                                .frame(width: 5, height: 30)
-                            Text(task.taskTitle)
-                                .font(.system(size: 20.0, weight: .semibold))
-                            Spacer()
-                            // for custom timing
-                            Text(task.taskDate, style: .time)
-                                .font(.system(size: 15.0))
+                        if !task.isInvalidated {
+                            HStack {
+                                Capsule()
+                                    .fill(Color.black)
+                                    .frame(width: 5, height: 30)
+                                Text(task.taskTitle)
+                                    .font(.system(size: 20.0, weight: .semibold))
+                                Spacer()
+                                // for custom timing
+                                Text(task.taskDate, style: .time)
+                                    .font(.system(size: 15.0))
+                            }
+                            .background(.white)
+                            .onTapGesture {
+                                selectedTask = task
+                            }
+                            .listRowSeparator(.hidden)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                                Button(role: .destructive) {
+                                    realmManager.deleteTask(id: task.id)
+                                } label: {
+                                    Label("Delete", systemImage: "trash")
+                                }
+                            }
                         }
-                        .background(.white)
-                        .onTapGesture {
-                            selectedTask = task
-                        }
-                        .listRowSeparator(.hidden)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-//                        .swipeActions {
+//                        HStack {
+//                            Capsule()
+//                                .fill(Color.black)
+//                                .frame(width: 5, height: 30)
+//                            Text(task.taskTitle)
+//                                .font(.system(size: 20.0, weight: .semibold))
+//                            Spacer()
+//                            // for custom timing
+//                            Text(task.taskDate, style: .time)
+//                                .font(.system(size: 15.0))
+//                        }
+//                        .background(.white)
+//                        .onTapGesture {
+//                            selectedTask = task
+//                        }
+//                        .listRowSeparator(.hidden)
+//                        .frame(maxWidth: .infinity, alignment: .leading)
+//                        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
 //                            Button(role: .destructive) {
 //                                realmManager.deleteTask(id: task.id)
 //                            } label: {
@@ -48,18 +73,14 @@ struct TaskInCalendarView: View {
 //                            }
 //                        }
                     }
-                    .onDelete { indexSet in
-                        realmManager.deleteTask(id: notDoneTask[indexSet.first!].id)
-                    }
+//                    .onDelete { indexSet in
+//                        realmManager.deleteTask(id: notDoneTask[indexSet.first!].id)
+//                    }
                     .frame(alignment: .leading)
                     .sheet(item: $selectedTask) {
                         UpdateModalView(task: $0)
                             .environmentObject(realmManager)
                     }
-//                    .onAppear() {
-//                        UITableView.appearance().backgroundColor = UIColor.clear
-//                        UITableViewCell.appearance().backgroundColor = UIColor.clear
-//                    }
                 }
                 .listStyle(.plain)
 

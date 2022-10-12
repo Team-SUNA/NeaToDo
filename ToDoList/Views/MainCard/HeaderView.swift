@@ -30,16 +30,13 @@ struct HeaderView: View {
 //    }
     
     var body: some View {
-        
-
-        
         GeometryReader { geo in
             VStack {
             CalendarWeekListView(
                 calendar: calendar,
                 date: $selectedDate,
                 content: { date in
-                    let tasks = realmManager.tasks.isEmpty ? [Task]() : realmManager.tasks.filter({ task in
+                    let tasks = realmManager.tasks.filter({ task in
                         return isSameDay(date1: task.taskDate, date2: date)
                     })
                     
@@ -49,28 +46,19 @@ struct HeaderView: View {
                                 .font(.system(size: 15))
                                 .fontWeight(.semibold)
                                 .padding(.bottom, 5)
+
                                 .frame(width: geo.size.width * 1, height: geo.size.height * 0.02)
                             Text(dayFormatter.string(from: date))
                                 .foregroundColor(isSameDay(date1: selectedDate, date2: date) ? .white : calendar.isDateInToday(date) ? .blue : .gray)
                                 .font(.system(size: 15))
                                 .fontWeight(.semibold)
-//                            if tasks.isEmpty {
-//                                Circle().fill(.white)
-//                            } else {
-//                                Circle().fill(.purple)
-//                            }
                             Circle()
-//                                .fill(.white)
                                 .fill(!tasks.isEmpty ? .purple : isSameDay(date1: selectedDate, date2: date) ? .black : .white)
                                 .frame(width: 8, height: 8)
-//                                .opacity(isSameDay(date1: selectedDate, date2: date) ? 1 : 0)
                         }
                         .foregroundStyle(isSameDay(date1: selectedDate, date2: date) ? .primary : .secondary)
                         .foregroundColor(isSameDay(date1: selectedDate, date2: date) ? .white : .black)
                         .padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5))
-                        //  .foregroundColor(
-                        // calendar.isDate(date, inSameDayAs: selectedDate) ? Color.black : calendar.isDateInToday(date) ? .blue : .gray
-                        //
                         .frame(width: geo.size.width * 0.07, height: geo.size.height * 0.1)
                         .offset(x: -2, y: 0)
                         .background(
@@ -84,8 +72,7 @@ struct HeaderView: View {
                             }
                                 .offset(x: -2, y: 0)
                         )
-//                        .contentShape(Capsule())
-//                        .frame(width: geo.size.width * 0.07, height: geo.size.height * 0.1)
+
                     }
                     .frame(width: geo.size.width * 0.07, height: geo.size.height * 0.1)
                 },

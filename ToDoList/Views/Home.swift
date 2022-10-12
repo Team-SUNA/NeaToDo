@@ -23,70 +23,38 @@ struct Home: View {
         NavigationView {
             GeometryReader { geo in
                 VStack {
-                    let tasks = realmManager.tasks.isEmpty ? [Task]() : realmManager.tasks.filter({ return isSameDay(date1: $0.taskDate, date2: currentDate)
-                    })
+//                    let tasks = realmManager.tasks.isEmpty ? [Task]() : realmManager.tasks.filter({ return isSameDay(date1: $0.taskDate, date2: currentDate)
+//                    })
                     HeaderView(selectedDate: $currentDate)
                         .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15))
                         .frame(width: geo.size.width, height: geo.size.height * 0.24)
                         .frame(maxWidth: .infinity, maxHeight: geo.size.height * 0.1)
                         .environmentObject(realmManager)
                     
-                    if !tasks.isEmpty
-                    {
-                        let notDone = tasks.filter({ return !$0.isCompleted})
-                        let isDone = tasks.filter({ return $0.isCompleted})
+//                    if !tasks.isEmpty
+//                    {
+//                        let notDone = tasks.filter({ return !$0.isCompleted})
+//                        let isDone = tasks.filter({ return $0.isCompleted})
                         List {
                             Section {
-                                ForEach(notDone) { task in
+//                                ForEach(notDone, id: \.id) { task in
+                                ForEach(realmManager.tasks.filter({ return isSameDay(date1: $0.taskDate, date2: currentDate)}).filter({ return !$0.isCompleted}), id: \.id) { task in
                                     if !task.isInvalidated {
                                         TaskCardView(task: task)
                                             .listRowSeparator(.hidden)
-                                        //                                        .frame(width: geo.size.width * 0.9, height: geo.size.height * 0.1)
                                             .onTapGesture {
                                                 selectedTask = task
                                             }
                                             .swipeActions(edge: .leading) {
-                                                Button (action: { realmManager.updateTask(id: task.id, task.taskTitle, task.taskDescription, task.taskDate, task.descriptionVisibility, true)}) {
+                                                Button {
+                                                    realmManager.updateTask(id: task.id, task.taskTitle, task.taskDescription, task.taskDate, task.descriptionVisibility, true)}  label: {
                                                     Label("Done", systemImage: "checkmark")
                                                 }
                                                 .tint(.green)
                                             }
-                                        // ForEach 랑 swipeActions 같이 쓰면 안 되는거 같음!
-                                        //                                        .swipeActions {
-                                        //                                            Button(role: .destructive) {
-                                        //                                                realmManager.deleteTask(id: task.id)
-                                        //
-                                        //
-                                        //                                            } label: {
-                                        //                                                Label("Delete", systemImage: "trash")
-                                        //                                            }
-                                        //                                        }
-                                    }
-                                    
-                                }
-                                .onDelete { indexSet in
-                                    realmManager.deleteTask(id: notDone[indexSet.first!].id)
-                                }
-                            }
-                            Section {
-                                ForEach(isDone) { task in
-                                    if !task.isInvalidated {
-                                        TaskDoneCardView(task: task)
-                                            .listRowSeparator(.hidden)
-                                            .swipeActions(edge: .leading) {
-                                                Button (action: { realmManager.updateTask(id: task.id, task.taskTitle, task.taskDescription, task.taskDate, task.descriptionVisibility, false)}) {
-                                                    Label("Not Done", systemImage: "xmark")
-                                                }
-                                                .tint(.yellow)
-                                            }
-                                            .onTapGesture {
-                                                selectedTask = task
-                                            }
-                                            .swipeActions {
+                                            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                                                 Button(role: .destructive) {
-                                                    withAnimation(.linear(duration: 0.4)) {
-                                                        realmManager.deleteTask(id: task.id)
-                                                    }
+                                                    realmManager.deleteTask(id: task.id)
                                                 } label: {
                                                     Label("Delete", systemImage: "trash")
                                                 }
@@ -94,9 +62,39 @@ struct Home: View {
                                     }
                                     
                                 }
-                                .onDelete { indexSet in
-                                    realmManager.deleteTask(id: isDone[indexSet.first!].id)
+//                                .onDelete { indexSet in
+//                                    realmManager.deleteTask(id: notDone[indexSet.first!].id)
+//                                }
+                            }
+                            Section {
+//                                ForEach(isDone, id: \.id) { task in
+                                ForEach(realmManager.tasks.filter({ return isSameDay(date1: $0.taskDate, date2: currentDate)}).filter({ return $0.isCompleted}), id: \.id) { task in
+                                    if !task.isInvalidated {
+                                        TaskDoneCardView(task: task)
+                                            .listRowSeparator(.hidden)
+                                            .swipeActions(edge: .leading) {
+                                                Button {
+                                                    realmManager.updateTask(id: task.id, task.taskTitle, task.taskDescription, task.taskDate, task.descriptionVisibility, false)} label: {
+                                                    Label("Not Done", systemImage: "xmark")
+                                                }
+                                                .tint(.yellow)
+                                            }
+                                            .onTapGesture {
+                                                selectedTask = task
+                                            }
+                                            .swipeActions(edge: .trailing) {
+                                                Button(role: .destructive) {
+                                                    realmManager.deleteTask(id: task.id)
+                                                } label: {
+                                                    Label("Delete", systemImage: "trash")
+                                                }
+                                            }
+                                    }
+                                    
                                 }
+//                                .onDelete { indexSet in
+//                                    realmManager.deleteTask(id: isDone[indexSet.first!].id)
+//                                }
                             }
                         }
                         .sheet(item: $selectedTask) {
@@ -111,11 +109,11 @@ struct Home: View {
                         }
                         .listRowSeparator(.hidden)
                         .listStyle(.plain)
-                    } else {
-                        NoTaskView()
-                            .frame(alignment: .center)
-                        Spacer()
-                    }
+//                    } else {
+//                        NoTaskView()
+//                            .frame(alignment: .center)
+//                        Spacer()
+//                    }
                     Spacer()
                 }
                 //                .navigationTitle("TEAM SUNA")

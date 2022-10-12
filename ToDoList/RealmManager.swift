@@ -20,7 +20,6 @@ class RealmManager: ObservableObject {
     func openRealm() {
         do {
             let config = Realm.Configuration(schemaVersion: 3)
-            
             Realm.Configuration.defaultConfiguration = config
             localRealm = try Realm()
         } catch {
@@ -47,7 +46,9 @@ class RealmManager: ObservableObject {
             let allTasks = localRealm.objects(Task.self)
             tasks = []
             allTasks.forEach { task in
-                tasks.append(task)
+                if !task.isInvalidated {
+                    tasks.append(task)
+                }
             }
         }
     }
@@ -72,12 +73,13 @@ class RealmManager: ObservableObject {
     }
     
     func deleteTask(id: ObjectId) {
+        print(id)
         if let localRealm = localRealm {
             do {
                 let taskToDelete = localRealm.objects(Task.self).filter(NSPredicate(format: "id == %@", id))
                 guard !taskToDelete.isEmpty else { return }
                 try localRealm.write {
-                    localRealm.delete(taskToDelete)
+                    localRealm.delete(taskToDelete[0])
                     getTasks()
                 }
             } catch {
