@@ -19,20 +19,8 @@ struct HeaderView: View {
     private var dayFormatter: DateFormatter { DateFormatter(dateFormat: "d", calendar: calendar) }
     private var weekDayFormatter: DateFormatter { DateFormatter(dateFormat: "EEE", calendar: calendar) }
     @Binding var selectedDate: Date
-//    private static var now = Date()
-    
-//    init(calendar: Calendar, selectedDate: Date) {
-//        self.calendar = calendar
-//        self.monthDayFormatter = DateFormatter(dateFormat: "MMMM", calendar: calendar)
-//        self.dayFormatter = DateFormatter(dateFormat: "d", calendar: calendar)
-//        self.weekDayFormatter = DateFormatter(dateFormat: "EEE", calendar: calendar)
-//
-//    }
     
     var body: some View {
-        
-
-        
         GeometryReader { geo in
             VStack {
             CalendarWeekListView(
@@ -54,25 +42,15 @@ struct HeaderView: View {
                                 .foregroundColor(isSameDay(date1: selectedDate, date2: date) ? .white : calendar.isDateInToday(date) ? .blue : .gray)
                                 .font(.system(size: 15))
                                 .fontWeight(.semibold)
-//                            if tasks.isEmpty {
-//                                Circle().fill(.white)
-//                            } else {
-//                                Circle().fill(.purple)
-//                            }
                             Circle()
-//                                .fill(.white)
                                 .fill(!tasks.isEmpty ? .purple : isSameDay(date1: selectedDate, date2: date) ? .black : .white)
                                 .frame(width: 8, height: 8)
-//                                .opacity(isSameDay(date1: selectedDate, date2: date) ? 1 : 0)
                         }
                         .foregroundStyle(isSameDay(date1: selectedDate, date2: date) ? .primary : .secondary)
                         .foregroundColor(isSameDay(date1: selectedDate, date2: date) ? .white : .black)
-                        .padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5))
-                        //  .foregroundColor(
-                        // calendar.isDate(date, inSameDayAs: selectedDate) ? Color.black : calendar.isDateInToday(date) ? .blue : .gray
-                        //
-                        .frame(width: geo.size.width * 0.07, height: geo.size.height * 0.1)
-                        .offset(x: -2, y: 0)
+//                        .padding(EdgeInsets(top: 0, leading: 4, bottom: 0, trailing: 4))
+                        .frame(width: geo.size.width * 0.065, height: geo.size.height * 0.1)
+//                        .offset(x: -2, y: 0)
                         .background(
                             ZStack {
                                 if isSameDay(date1: selectedDate, date2: date) {
@@ -82,12 +60,10 @@ struct HeaderView: View {
                                         .matchedGeometryEffect(id: "CURRENTDAY", in: animation)
                                 }
                             }
-                                .offset(x: -2, y: 0)
+//                                .offset(x: -2, y: 0)
                         )
-//                        .contentShape(Capsule())
-//                        .frame(width: geo.size.width * 0.07, height: geo.size.height * 0.1)
                     }
-                    .frame(width: geo.size.width * 0.07, height: geo.size.height * 0.1)
+//                    .frame(width: geo.size.width * 0.07, height: geo.size.height * 0.1)
                 },
                 header: { date in
                         Text(weekDayFormatter.string(from: date))
@@ -150,7 +126,7 @@ struct HeaderView: View {
                 })
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: 180)
+        .frame(maxWidth: .infinity, maxHeight: 200)
     }
 }
 
@@ -183,20 +159,22 @@ struct CalendarWeekListView<Day: View, Header: View, Title: View, WeekSwitcher: 
     var body: some View {
         let month = date.startOfMonth(using: calendar)
         let days = makeDays()
-        
-        VStack {
-            HStack {
-                self.title(month)
-                self.weekSwitcher(month)
-            }
-            HStack(spacing: 30) {
-                ForEach(days.prefix(daysInWeek), id: \.self, content: header)
-            }
-            HStack(spacing: 30) {
-                ForEach(days, id: \.self) { date in
-                    content(date)
+        GeometryReader { geo in
+            VStack {
+                HStack {
+                    self.title(month)
+                    self.weekSwitcher(month)
+                }
+                HStack(spacing: 30) {
+                    ForEach(days.prefix(daysInWeek), id: \.self, content: header)
+                }
+                HStack(spacing: geo.size.width * 0.09) {
+                    ForEach(days, id: \.self) { date in
+                        content(date)
+                    }
                 }
             }
+
         }
     }
 }
@@ -257,80 +235,4 @@ private extension DateFormatter {
         self.calendar = calendar
         self.locale = Locale(identifier: "js_JP")
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-//
-//    @ObservedObject var headerViewUtil: HeaderViewUtil
-//    @Namespace var animation
-//    @Binding var currentDate: Date
-//
-//
-//    var body: some View {
-//
-//        // MARK: Current Week View
-//        GeometryReader { geo in
-//            HStack(spacing: 10) {
-//                ForEach(headerViewUtil.currentWeek, id: \.self) { day in
-//                    VStack {
-//
-//                        Text(headerViewUtil.extractDate(date: day, format: "EEE"))
-//                            .font(.system(size: 15))
-//                            .fontWeight(.semibold)
-//                        Text(headerViewUtil.extractDate(date: day, format: "dd"))
-//                            .font(.system(size: 15))
-//                            .fontWeight(.semibold)
-//
-//                        Circle()
-//                            .fill(.white)
-//                            .frame(width: 8, height: 8)
-//                            .opacity(isSameDay(date1: headerViewUtil.currentDay, date2: day) ? 1 : 0)
-//                    }
-//                    // MARK: Foreground Style
-//                    .foregroundStyle(isSameDay(date1: headerViewUtil.currentDay, date2: day) ? .primary : .secondary)
-//
-//                    .foregroundColor(isSameDay(date1: headerViewUtil.currentDay, date2: day) ? .white : .black)
-//                    // MARK: Capsule Shape
-//                    //저 요일을을 가로로 꽉차게 펼치는 작업
-//
-////                    .frame(width: 42, height: 90)
-//                    .frame(width: geo.size.width * 0.11, height: geo.size.height * 1.1)
-//                    .background(
-//
-//                        ZStack {
-//                            // MARK: Matched Geometry Effect
-//                            //Week day가 변경되었을시 애니메이션 효과
-//                            if isSameDay(date1: headerViewUtil.currentDay, date2: day) {
-//                                Capsule()
-//                                    .fill(.black)
-//                                    .matchedGeometryEffect(id: "CURRENTDAY", in: animation)
-//                            }
-//                        }
-//                    )
-//                    .contentShape(Capsule())
-//                    .onTapGesture {
-//                        //Updating Current Day
-//                        withAnimation {
-//                            headerViewUtil.currentDay = day
-//                            currentDate = day
-//                        }
-//                    }
-//                }
-//            }
-//            .frame(width: geo.size.width)
-////            .padding(.horizontal)
-//        }
-//
-//    }
 }
