@@ -11,7 +11,7 @@ import RealmSwift
 struct TaskCardView: View {
     
     let task: Task
-    
+
     var body: some View {
         HStack(alignment: .top, spacing: 30) {
             Rectangle()

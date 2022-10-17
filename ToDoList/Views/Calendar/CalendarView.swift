@@ -13,26 +13,25 @@ struct CalendarView: View {
     @State var currentMonth: Int = 0
     
     var body: some View {
-        Text("test")
-//        VStack {
-//            // year, month, chevron
-//            CalendarHeaderView(currentDate: $currentDate, currentMonth: $currentMonth)
-//                .padding()
-//            // WeekdayView
-//            WeekdaysView()
-//            // Days
-//            DaysView(currentDate: $currentDate, currentMonth: $currentMonth)
-//                .environmentObject(realmManager)
-//            // tasklist
-//                .padding(.bottom, 40)
-//            TaskInCalendarView(currentDate: $currentDate)
-//                .environmentObject(realmManager)
-//                .padding()
-//            Spacer()
-//        }
-//        .onChange(of: currentMonth) { newValue in
-//            // update month
-//            currentDate = getCurrentMonth(currentMonth)
-//        }
+        VStack {
+            // year, month, chevron
+            CalendarHeaderView(currentDate: $currentDate, currentMonth: $currentMonth)
+                .padding()
+            // WeekdayView
+            WeekdaysView()
+            // Days
+            DaysView(currentDate: $currentDate, currentMonth: $currentMonth)
+                .environmentObject(realmManager)
+            // tasklist
+                .padding(.bottom, 40)
+            TaskInCalendarView(currentDate: $currentDate)
+                .environmentObject(realmManager)
+                .padding()
+            Spacer()
+        }
+        .onChange(of: currentMonth) { newValue in
+            // update month
+            currentDate = getCurrentMonth(currentMonth)
+        }
     }
 }

@@ -15,4 +15,8 @@ class Task: Object, ObjectKeyIdentifiable {
     @Persisted var taskDate: Date = Date()
     @Persisted var descriptionVisibility: Bool = true
     @Persisted var isCompleted: Bool = false
+
+    override class func primaryKey() -> String? {
+        "id"
+    }
 }
