@@ -9,16 +9,12 @@ import SwiftUI
 import RealmSwift
 
 struct TaskInCalendarView: View {
+    @ObservedResults(Task.self, filter: NSPredicate(format: "isCompleted == false")) var notDoneTask
     @Binding var currentDate: Date
     @State private var selectedTask: Task? = nil
-    @EnvironmentObject var realmManager: RealmManager
-    var tasks: [Task] { return realmManager.tasks.filter({ task in
-        return isSameDay(date1: task.taskDate, date2: currentDate)
-    })}
     
     var body: some View {
-        if !tasks.isEmpty {
-            let notDoneTask = tasks.filter({ return !$0.isCompleted})
+        if true {
             if !notDoneTask.isEmpty {
                 List {
                     ForEach(notDoneTask, id: \.self) { task in
@@ -39,19 +35,12 @@ struct TaskInCalendarView: View {
                             }
                             .listRowSeparator(.hidden)
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            .swipeActions(edge: .trailing) {
-                                Button(role: .destructive) {
-                                    realmManager.deleteTask(id: task.id)
-                                } label: {
-                                    Label("Delete", systemImage: "trash")
-                                }
-                            }
                         }
                     }
+                    .onDelete(perform: $notDoneTask.remove)
                     .frame(alignment: .leading)
                     .sheet(item: $selectedTask) {
                         UpdateModalView(task: $0)
-                            .environmentObject(realmManager)
                     }
                 }
                 .listStyle(.plain)

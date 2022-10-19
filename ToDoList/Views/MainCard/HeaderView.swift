@@ -6,10 +6,10 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 struct HeaderView: View {
     
-    @EnvironmentObject var realmManager: RealmManager
     @Namespace var animation
     
     //저장 프로퍼티
@@ -19,7 +19,8 @@ struct HeaderView: View {
     private var dayFormatter: DateFormatter { DateFormatter(dateFormat: "d", calendar: calendar) }
     private var weekDayFormatter: DateFormatter { DateFormatter(dateFormat: "EEE", calendar: calendar) }
     @Binding var selectedDate: Date
-    
+    @ObservedResults(Task.self) var tasks
+
     var body: some View {
         GeometryReader { geo in
             VStack {
@@ -27,9 +28,6 @@ struct HeaderView: View {
                 calendar: calendar,
                 date: $selectedDate,
                 content: { date in
-                    let tasks = realmManager.tasks.filter({ task in
-                        return isSameDay(date1: task.taskDate, date2: date)
-                    })
                     
                     Button(action: { selectedDate = date}) {
                         VStack {
@@ -49,9 +47,7 @@ struct HeaderView: View {
                         }
                         .foregroundStyle(isSameDay(date1: selectedDate, date2: date) ? .primary : .secondary)
                         .foregroundColor(isSameDay(date1: selectedDate, date2: date) ? .white : .black)
-//                        .padding(EdgeInsets(top: 0, leading: 4, bottom: 0, trailing: 4))
                         .frame(width: geo.size.width * 0.065, height: geo.size.height * 0.1)
-//                        .offset(x: -2, y: 0)
                         .background(
                             ZStack {
                                 if isSameDay(date1: selectedDate, date2: date) {
@@ -61,10 +57,8 @@ struct HeaderView: View {
                                         .matchedGeometryEffect(id: "CURRENTDAY", in: animation)
                                 }
                             }
-//                                .offset(x: -2, y: 0)
                         )
                     }
-//                    .frame(width: geo.size.width * 0.07, height: geo.size.height * 0.1)
                 },
                 header: { date in
                         Text(weekDayFormatter.string(from: date))

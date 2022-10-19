@@ -82,9 +82,4 @@ class RealmManager: ObservableObject {
         }
     }
 
-    // 날짜 받아서 task 보내주는 함수 만들기
-    func taskForToday(currentDate: Date) -> [Task] {
-        return tasks.filter({ return isSameDay(date1: $0.taskDate, date2: currentDate)})
-    }
-
 }

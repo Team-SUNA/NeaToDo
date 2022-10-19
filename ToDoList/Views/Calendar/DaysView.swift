@@ -6,11 +6,12 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 struct DaysView: View {
+    @ObservedResults(Task.self) var tasks
     @Binding var currentDate: Date
     @Binding var currentMonth: Int
-    @EnvironmentObject var realmManager: RealmManager
     let columns = Array(repeating: GridItem(.flexible()), count: 7)
     
     var body: some View {
@@ -26,9 +27,6 @@ struct DaysView: View {
     
     @ViewBuilder
     func DayView(value: DateValue) -> some View {
-        let tasks = realmManager.tasks.filter({ task in
-            return isSameDay(date1: task.taskDate, date2: value.date)
-        })
         
         VStack {
             if value.day != -1 {
@@ -40,12 +38,11 @@ struct DaysView: View {
                     Text("\(value.day)")
                         .font(.title3.bold())
                         .foregroundColor(isSameDay(date1: value.date, date2: currentDate) ? .white : .primary)
-                    //                        .frame(maxWidth: .infinity)
                 }
                 
                 if !tasks.isEmpty {
                     Circle()
-                        .fill(isAllDone(tasks) ? Color(#colorLiteral(red: 0, green: 0.4931138158, blue: 0.01805076376, alpha: 1)) : Color(#colorLiteral(red: 0.8214151263, green: 0, blue: 0.2262543738, alpha: 1)))
+                        .fill(isAllDone(Array(tasks)) ? Color(#colorLiteral(red: 0, green: 0.4931138158, blue: 0.01805076376, alpha: 1)) : Color(#colorLiteral(red: 0.8214151263, green: 0, blue: 0.2262543738, alpha: 1)))
                         .frame(width: 8, height: 8, alignment: .top)
                 } else {
                     Spacer()
