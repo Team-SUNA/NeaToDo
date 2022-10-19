@@ -9,7 +9,7 @@ import SwiftUI
 import RealmSwift
 
 struct Home: View {
-    @StateObject var realmManager = RealmManager()
+    @EnvironmentObject var realmManager: RealmManager
     @State private var showModal = false
     @State private var selectedTask: Task? = nil
     @Namespace var animation // TODO: 애니메이션 좀 과한 느낌... 줄이거나 없애면 어떨까여
@@ -19,14 +19,7 @@ struct Home: View {
         var tasks: [Task] {
                 return realmManager.tasks.filter({ return isSameDay(date1: $0.taskDate, date2: currentDate)})
             }
-    // 원하는 날짜 수동 업데이트
-//    @State private var tasks: [Task]
 
-    //    init() {
-    //        _realmManager = StateObject(wrappedValue: RealmManager())
-    //        _currentDate = State(wrappedValue: Date())
-    //        _tasks = State (initialValue: realmManager.taskForToday(currentDate: _currentDate))
-    //    }
 
     var body: some View {
         NavigationView {
