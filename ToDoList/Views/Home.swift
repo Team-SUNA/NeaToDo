@@ -26,7 +26,7 @@ struct Home: View {
                     if true
                     {
                         List {
-                            ForEach(notDoneTask, id: \.id) { task in
+                            ForEach(notDoneTask.filter("taskDate == %@", currentDate) , id: \.id) { task in
                                 if !task.isInvalidated {
                                     TaskCardView(task: task)
                                         .listRowSeparator(.hidden)

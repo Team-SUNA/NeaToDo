@@ -42,7 +42,7 @@ struct HeaderView: View {
                                 .font(.system(size: 15))
                                 .fontWeight(.semibold)
                             Circle()
-                                .fill(!tasks.isEmpty ? .purple : isSameDay(date1: selectedDate, date2: date) ? .black : .white)
+                                .fill(!tasks.filter("taskDate == %@", date).isEmpty ? .purple : isSameDay(date1: selectedDate, date2: date) ? .black : .white)
                                 .frame(width: 8, height: 8)
                         }
                         .foregroundStyle(isSameDay(date1: selectedDate, date2: date) ? .primary : .secondary)
