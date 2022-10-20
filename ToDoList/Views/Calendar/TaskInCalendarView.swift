@@ -15,9 +15,9 @@ struct TaskInCalendarView: View {
     
     var body: some View {
         if true {
-            if !notDoneTask.isEmpty {
+            if !notDoneTask.filter("taskDate == %@", currentDate).isEmpty {
                 List {
-                    ForEach(notDoneTask, id: \.self) { task in
+                    ForEach(notDoneTask.filter("taskDate == %@", currentDate), id: \.self) { task in
                         if !task.isInvalidated {
                             HStack {
                                 Capsule()

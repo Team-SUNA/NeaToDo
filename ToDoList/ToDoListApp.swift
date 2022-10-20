@@ -11,11 +11,12 @@ import SwiftUI
 struct ToDoListApp: App {
 
     let migrator = Migrator()
-    
+    @State var currentDate: Date = Date()
+
     var body: some Scene {
         WindowGroup {
             let _ = UserDefaults.standard.set(false, forKey: "_UIConstraintsBasedLayoutUnsatisfiable")
-            Home()
+            Home(currentDate: $currentDate)
         }
     }
 }
