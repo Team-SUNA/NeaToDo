@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct ToDoListApp: App {
+    @StateObject var realmManager = RealmManager()
+
     var body: some Scene {
+
         WindowGroup {
-                Home()
+            Home()
+                .environmentObject(realmManager)
         }
     }
 }

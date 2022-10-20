@@ -27,7 +27,7 @@ struct HeaderView: View {
                 calendar: calendar,
                 date: $selectedDate,
                 content: { date in
-                    let tasks = realmManager.tasks.isEmpty ? [Task]() : realmManager.tasks.filter({ task in
+                    let tasks = realmManager.tasks.filter({ task in
                         return isSameDay(date1: task.taskDate, date2: date)
                     })
                     
@@ -37,6 +37,7 @@ struct HeaderView: View {
                                 .font(.system(size: 15))
                                 .fontWeight(.semibold)
                                 .padding(.bottom, 5)
+
                                 .frame(width: geo.size.width * 1, height: geo.size.height * 0.02)
                             Text(dayFormatter.string(from: date))
                                 .foregroundColor(isSameDay(date1: selectedDate, date2: date) ? .white : calendar.isDateInToday(date) ? .blue : .gray)

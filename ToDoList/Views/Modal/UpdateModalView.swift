@@ -9,7 +9,7 @@ import SwiftUI
 import RealmSwift
 
 struct UpdateModalView: View {
-    @Environment(\.presentationMode) var presentation
+//    @Environment(\.presentationMode) var presentation
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var realmManager: RealmManager
 

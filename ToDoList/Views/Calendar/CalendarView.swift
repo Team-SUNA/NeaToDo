@@ -20,10 +20,12 @@ struct CalendarView: View {
             // WeekdayView
             WeekdaysView()
             // Days
-            DaysView(currentDate: $currentDate, currentMonth: $currentMonth, realmManager: _realmManager)
+            DaysView(currentDate: $currentDate, currentMonth: $currentMonth)
+                .environmentObject(realmManager)
             // tasklist
                 .padding(.bottom, 40)
-            TaskInCalendarView(currentDate: $currentDate, realmManager: _realmManager)
+            TaskInCalendarView(currentDate: $currentDate)
+                .environmentObject(realmManager)
                 .padding()
             Spacer()
         }
