@@ -9,6 +9,7 @@ import SwiftUI
 
 @main
 struct ToDoListApp: App {
+    @StateObject var realmManager = RealmManager()
 
     let migrator = Migrator()
 
@@ -16,6 +17,7 @@ struct ToDoListApp: App {
         WindowGroup {
             let _ = UserDefaults.standard.set(false, forKey: "_UIConstraintsBasedLayoutUnsatisfiable")
             Home()
+                .environmentObject(realmManager)
         }
     }
 }

@@ -9,14 +9,12 @@ import SwiftUI
 import RealmSwift
 
 struct Home: View {
-
     @State private var showModal = false
     @State private var selectedTask: Task? = nil
     @Namespace var animation // TODO: 애니메이션 좀 과한 느낌... 줄이거나 없애면 어떨까여
     @State var currentDate = Date()
 
     @ObservedResults(Task.self) var tasks
-
     var body: some View {
         NavigationView {
             GeometryReader { geo in
@@ -48,13 +46,15 @@ struct Home: View {
                         .sheet(item: $selectedTask) {
                             UpdateModalView(task: $0)
                         }
-                        .background(Color.clear)
+                        .background(.white)
                         .onAppear() {
                             UITableView.appearance().backgroundColor = UIColor.clear
                             UITableViewCell.appearance().backgroundColor = UIColor.clear
                         }
                         .listRowSeparator(.hidden)
-                        .listStyle(.plain)
+                        .listRowBackground(Color(UIColor.systemGroupedBackground))
+                        //                        .listStyle(.plain)
+
                     } else {
                         NoTaskView()
                             .frame(alignment: .center)
@@ -68,7 +68,6 @@ struct Home: View {
                         Image(systemName: "calendar")
                     })
             }
-            
         }
         .safeAreaInset(edge: .bottom, alignment: .center) {
             Button {
