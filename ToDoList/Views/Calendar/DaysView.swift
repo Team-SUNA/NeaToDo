@@ -40,7 +40,6 @@ struct DaysView: View {
                     Text("\(value.day)")
                         .font(.title3.bold())
                         .foregroundColor(isSameDay(date1: value.date, date2: currentDate) ? .white : .primary)
-                    //                        .frame(maxWidth: .infinity)
                 }
                 
                 if !tasks.isEmpty {
