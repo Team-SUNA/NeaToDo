@@ -13,32 +13,37 @@ struct Home: View {
     @State private var showModal = false
     @State private var selectedTask: Task? = nil
     @Namespace var animation // TODO: 애니메이션 좀 과한 느낌... 줄이거나 없애면 어떨까여
-    @Binding var currentDate: Date
+    @State var currentDate = Date()
 
-//    @ObservedResults(Task.self, filter: NSPredicate(format: "isCompleted == false")) var notDoneTask
-//    @ObservedResults(Task.self, filter: NSPredicate(format: "isCompleted == true")) var isDoneTask
-
-    @ObservedResults(Task.self, filter: NSPredicate(format: "taskDate == %@", currentDate as CVarArg)) var tasks
+    @ObservedResults(Task.self) var tasks
 
     var body: some View {
         NavigationView {
             GeometryReader { geo in
                 VStack {
+                    let notDone = tasks.filter("taskDate == %@", currentDate).filter("isCompleted == false")
+                    let isDone = tasks.filter("taskDate == %@", currentDate).filter("isCompleted == true")
                     HeaderView(selectedDate: $currentDate)
                         .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15))
-                    if !notDoneTask.isEmpty
+                    if !notDone.isEmpty
                     {
                         List {
-                            ForEach(notDoneTask.filter("taskDate == %@", currentDate) , id: \.id) { task in
+                            ForEach(notDone, id: \.id) { task in
                                 if !task.isInvalidated {
                                     TaskCardView(task: task)
                                         .listRowSeparator(.hidden)
                                         .onTapGesture { selectedTask = task }
                                 }
                             }
-                            .onDelete(perform:
-                                $notDoneTask.remove
-                            )
+                            .onDelete(perform: $tasks.remove )
+                            ForEach(isDone, id: \.id) { task in
+                                if !task.isInvalidated {
+                                    TaskCardView(task: task)
+                                        .listRowSeparator(.hidden)
+                                        .onTapGesture { selectedTask = task }
+                                }
+                            }
+                            .onDelete(perform: $tasks.remove )
                         }
                         .sheet(item: $selectedTask) {
                             UpdateModalView(task: $0)
