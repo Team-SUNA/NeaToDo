@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-class Task: Object, ObjectKeyIdentifiable {
+class Task: Object, Identifiable {
     @Persisted(primaryKey: true) var id: ObjectId
     @Persisted var taskTitle: String
     @Persisted var taskDescription: String = ""

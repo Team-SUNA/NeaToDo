@@ -6,12 +6,12 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 struct ModalView: View {
-//    @Environment(\.presentationMode) var presentation
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject var realmManager: RealmManager
-    
+    @ObservedResults(Task.self) var tasks
+
     // MARK: Task values
     @State var taskTitle: String = ""
     @State var taskDescription: String = ""
@@ -47,7 +47,13 @@ struct ModalView: View {
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button("save") {
-                            realmManager.addTask(taskTitle, taskDescription, taskDate, descriptionVisibility, isCompleted)
+                            let task = Task()
+                            task.taskTitle = taskTitle
+                            task.taskDescription = taskDescription
+                            task.taskDate = taskDate
+                            task.descriptionVisibility = descriptionVisibility
+                            task.isCompleted = isCompleted
+                            $tasks.append(task)
                             dismiss()
                         }
                         .disabled(taskTitle == "")

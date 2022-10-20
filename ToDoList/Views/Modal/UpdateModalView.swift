@@ -9,10 +9,8 @@ import SwiftUI
 import RealmSwift
 
 struct UpdateModalView: View {
-//    @Environment(\.presentationMode) var presentation
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject var realmManager: RealmManager
-
+    @ObservedResults(Task.self) var tasks
     // MARK: Task values
     let id: ObjectId
     @State var taskTitle: String
@@ -54,20 +52,20 @@ struct UpdateModalView: View {
                 }
                 .listStyle(.grouped)
                 .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button("save") {
-                            realmManager.updateTask(id: id, taskTitle, taskDescription, taskDate, descriptionVisibility, isCompleted)
-                            dismiss()
-                        }
-                        .disabled(taskTitle == "")
-                    }
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button("cancel") {
-                            dismiss()
-                        }
-                    }
-                }
+//                .toolbar {
+//                    ToolbarItem(placement: .navigationBarTrailing) {
+//                        Button("save") {
+//                            realmManager.updateTask(id: id, taskTitle, taskDescription, taskDate, descriptionVisibility, isCompleted)
+//                            dismiss()
+//                        }
+//                        .disabled(taskTitle == "")
+//                    }
+//                    ToolbarItem(placement: .navigationBarLeading) {
+//                        Button("cancel") {
+//                            dismiss()
+//                        }
+//                    }
+//                }
             }
         }
     }

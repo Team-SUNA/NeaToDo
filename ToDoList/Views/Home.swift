@@ -9,84 +9,42 @@ import SwiftUI
 import RealmSwift
 
 struct Home: View {
-    @EnvironmentObject var realmManager: RealmManager
     @State private var showModal = false
     @State private var selectedTask: Task? = nil
     @Namespace var animation // TODO: 애니메이션 좀 과한 느낌... 줄이거나 없애면 어떨까여
-    @State var currentDate: Date = Date()
-    var tasks: [Task] {
-        return realmManager.tasks.filter({ return isSameDay(date1: $0.taskDate, date2: currentDate)})
-    }
+    @State var currentDate = Date()
 
-
+    @ObservedResults(Task.self) var tasks
     var body: some View {
         NavigationView {
             GeometryReader { geo in
                 VStack {
+                    let notDone = tasks.filter("taskDate == %@", currentDate).filter("isCompleted == false")
+                    let isDone = tasks.filter("taskDate == %@", currentDate).filter("isCompleted == true")
                     HeaderView(selectedDate: $currentDate)
                         .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15))
-                        .environmentObject(realmManager)
-                    if !tasks.isEmpty
+                    if !notDone.isEmpty
                     {
-                        var notDone = tasks.filter({ return !$0.isCompleted})
-                        let isDone = tasks.filter({ return $0.isCompleted})
                         List {
-                            Section {
-                                ForEach(notDone, id: \.id) { task in
-                                    if !task.isInvalidated {
-                                        TaskCardView(task: task)
-                                            .listRowSeparator(.hidden)
-                                            .onTapGesture {
-                                                selectedTask = task
-                                            }
-                                            .swipeActions(edge: .leading) {
-                                                Button {
-                                                    realmManager.updateTask(id: task.id, task.taskTitle, task.taskDescription, task.taskDate, task.descriptionVisibility, true)}  label: {
-                                                        Label("Done", systemImage: "checkmark")
-                                                    }
-                                                    .tint(.green)
-                                            }
-                                            .swipeActions(edge: .trailing) {
-                                                Button(role: .destructive) {
-                                                    realmManager.deleteTask(id: task.id)
-                                                } label: {
-                                                    Label("Delete", systemImage: "trash")
-                                                }
-                                            }
-                                    }
-
+                            ForEach(notDone, id: \.id) { task in
+                                if !task.isInvalidated {
+                                    TaskCardView(task: task)
+                                        .listRowSeparator(.hidden)
+                                        .onTapGesture { selectedTask = task }
                                 }
                             }
-                            Section {
-                                ForEach(isDone, id: \.id) { task in
-                                    if !task.isInvalidated {
-                                        TaskDoneCardView(task: task)
-                                            .listRowSeparator(.hidden)
-                                            .swipeActions(edge: .leading) {
-                                                Button {
-                                                    realmManager.updateTask(id: task.id, task.taskTitle, task.taskDescription, task.taskDate, task.descriptionVisibility, false)} label: {
-                                                        Label("Not Done", systemImage: "xmark")
-                                                    }
-                                                    .tint(.yellow)
-                                            }
-                                            .onTapGesture {
-                                                selectedTask = task
-                                            }
-                                            .swipeActions(edge: .trailing) {
-                                                Button(role: .destructive) {
-                                                    realmManager.deleteTask(id: task.id)
-                                                } label: {
-                                                    Label("Delete", systemImage: "trash")
-                                                }
-                                            }
-                                    }
-
+                            .onDelete(perform: $tasks.remove )
+                            ForEach(isDone, id: \.id) { task in
+                                if !task.isInvalidated {
+                                    TaskCardView(task: task)
+                                        .listRowSeparator(.hidden)
+                                        .onTapGesture { selectedTask = task }
                                 }
                             }
+                            .onDelete(perform: $tasks.remove )
                         }
                         .sheet(item: $selectedTask) {
                             UpdateModalView(task: $0)
-                                .environmentObject(realmManager)
                         }
                         .background(.white)
                         .onAppear() {
@@ -106,7 +64,7 @@ struct Home: View {
                 }
                 .navigationBarTitle("", displayMode: .inline)
                 .navigationBarItems(trailing: NavigationLink(destination: CalendarView(currentDate: $currentDate)
-                    .environmentObject(realmManager)) {
+                    ) {
                         Image(systemName: "calendar")
                     })
             }
@@ -121,7 +79,6 @@ struct Home: View {
             }
             .sheet(isPresented: $showModal) {
                 ModalView(taskDate: $currentDate)
-                    .environmentObject(realmManager)
             }
         }
     }

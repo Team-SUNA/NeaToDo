@@ -11,9 +11,11 @@ import SwiftUI
 struct ToDoListApp: App {
     @StateObject var realmManager = RealmManager()
 
-    var body: some Scene {
+    let migrator = Migrator()
 
+    var body: some Scene {
         WindowGroup {
+            let _ = UserDefaults.standard.set(false, forKey: "_UIConstraintsBasedLayoutUnsatisfiable")
             Home()
                 .environmentObject(realmManager)
         }
