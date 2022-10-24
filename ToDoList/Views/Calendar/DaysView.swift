@@ -13,7 +13,7 @@ struct DaysView: View {
     @Binding var currentDate: Date
     @Binding var currentMonth: Int
     let columns = Array(repeating: GridItem(.flexible()), count: 7)
-    
+
     var body: some View {
         LazyVGrid(columns: columns, spacing: 10) {
             ForEach(extractDate(currentMonth)) { value in

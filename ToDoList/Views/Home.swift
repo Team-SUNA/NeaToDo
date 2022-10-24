@@ -15,6 +15,7 @@ struct Home: View {
     @State var currentDate = Date()
 
     @ObservedResults(Task.self) var tasks
+    
     var body: some View {
         NavigationView {
             GeometryReader { geo in
@@ -31,14 +32,28 @@ struct Home: View {
                                     TaskCardView(task: task)
                                         .listRowSeparator(.hidden)
                                         .onTapGesture { selectedTask = task }
+                                        .swipeActions(edge: .leading) {
+                                            Button {
+                                                updateIsCompleted(task)
+                                            } label: {
+                                                Label("Done", systemImage: "check")
+                                            }
+                                        }
                                 }
                             }
                             .onDelete(perform: $tasks.remove )
                             ForEach(isDone, id: \.id) { task in
                                 if !task.isInvalidated {
-                                    TaskCardView(task: task)
+                                    TaskDoneCardView(task: task)
                                         .listRowSeparator(.hidden)
                                         .onTapGesture { selectedTask = task }
+                                        .swipeActions(edge: .leading) {
+                                            Button {
+                                                updateIsCompleted(task)
+                                            } label: {
+                                                Label("Not Done", systemImage: "check")
+                                            }
+                                        }
                                 }
                             }
                             .onDelete(perform: $tasks.remove )
@@ -82,4 +97,18 @@ struct Home: View {
             }
         }
     }
+
+    private func updateIsCompleted(_ task: Task) {
+            do {
+                let realm = try Realm()
+
+                guard let objectToUpdate = realm.object(ofType: Task.self, forPrimaryKey: task.id) else { return }
+                try realm.write {
+                    objectToUpdate.isCompleted = !objectToUpdate.isCompleted
+                }
+            }
+            catch {
+                print(error)
+            }
+        }
 }

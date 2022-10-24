@@ -39,8 +39,8 @@ struct TaskInCalendarView: View {
                     }
                     .onDelete(perform: $notDoneTask.remove)
                     .frame(alignment: .leading)
-                    .sheet(item: $selectedTask) {
-                        UpdateModalView(task: $0)
+                    .sheet(item: $selectedTask) { _ in 
+                        ModalView(taskDate: $currentDate, taskToEdit: selectedTask)
                     }
                 }
                 .listStyle(.plain)
