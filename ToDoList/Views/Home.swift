@@ -43,8 +43,8 @@ struct Home: View {
                             }
                             .onDelete(perform: $tasks.remove )
                         }
-                        .sheet(item: $selectedTask) {
-                            UpdateModalView(task: $0)
+                        .sheet(item: $selectedTask) { _ in
+                            ModalView(taskDate: $currentDate, taskToEdit: selectedTask)
                         }
                         .background(.white)
                         .onAppear() {

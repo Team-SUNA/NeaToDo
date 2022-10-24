@@ -9,8 +9,9 @@ import SwiftUI
 import RealmSwift
 
 struct ModalView: View {
-    @Environment(\.dismiss) private var dismiss
     @ObservedResults(Task.self) var tasks
+    var taskToEdit: Task?
+    @Environment(\.dismiss) private var dismiss
 
     // MARK: Task values
     @State var taskTitle: String = ""
@@ -18,7 +19,19 @@ struct ModalView: View {
     @Binding var taskDate: Date
     @State var descriptionVisibility: Bool = true
     @State var isCompleted: Bool = false
-    
+
+    init(taskDate: Binding<Date>, taskToEdit: Task? = nil) {
+        self.taskToEdit = taskToEdit
+        self._taskDate = taskDate
+
+        if let taskToEdit = taskToEdit {
+            _taskTitle = State(initialValue: taskToEdit.taskTitle)
+            _taskDescription = State(initialValue: taskToEdit.taskDescription)
+            _descriptionVisibility = State(initialValue: taskToEdit.descriptionVisibility)
+            _isCompleted = State(initialValue: taskToEdit.isCompleted)
+        }
+    }
+
     var body: some View {
         
         NavigationView {
@@ -46,14 +59,12 @@ struct ModalView: View {
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
-                        Button("save") {
-                            let task = Task()
-                            task.taskTitle = taskTitle
-                            task.taskDescription = taskDescription
-                            task.taskDate = taskDate
-                            task.descriptionVisibility = descriptionVisibility
-                            task.isCompleted = isCompleted
-                            $tasks.append(task)
+                        Button ("save") {
+                            if let _ = taskToEdit {
+                                update()
+                            } else {
+                                save()
+                            }
                             dismiss()
                         }
                         .disabled(taskTitle == "")
@@ -64,6 +75,36 @@ struct ModalView: View {
                         }
                     }
                 }
+            }
+        }
+    }
+
+    private func save() {
+        let task = Task()
+        task.taskTitle = taskTitle
+        task.taskDescription = taskDescription
+        task.taskDate = taskDate
+        task.descriptionVisibility = descriptionVisibility
+        task.isCompleted = isCompleted
+        $tasks.append(task)
+    }
+
+    private func update() {
+        if let taskToEdit = taskToEdit {
+            do {
+                let realm = try Realm()
+
+                guard let objectToUpdate = realm.object(ofType: Task.self, forPrimaryKey: taskToEdit.id) else { return }
+                try realm.write {
+                    objectToUpdate.taskTitle = taskTitle
+                    objectToUpdate.taskDescription = taskDescription
+                    objectToUpdate.taskDate = taskDate
+                    objectToUpdate.descriptionVisibility = descriptionVisibility
+                    objectToUpdate.isCompleted = isCompleted
+                }
+            }
+            catch {
+                print(error)
             }
         }
     }
