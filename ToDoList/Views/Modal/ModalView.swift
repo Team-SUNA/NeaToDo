@@ -24,7 +24,7 @@ struct ModalView: View {
         self.taskToEdit = taskToEdit
         self._taskDate = taskDate
 
-        if let taskToEdit = taskToEdit {
+        if let taskToEdit = self.taskToEdit {
             _taskTitle = State(initialValue: taskToEdit.taskTitle)
             _taskDescription = State(initialValue: taskToEdit.taskDescription)
             _descriptionVisibility = State(initialValue: taskToEdit.descriptionVisibility)

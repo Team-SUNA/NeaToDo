@@ -11,12 +11,12 @@ import RealmSwift
 struct DaysView: View {
     @ObservedResults(Task.self) var tasks
     @Binding var currentDate: Date
-    @Binding var currentMonth: Int
     let columns = Array(repeating: GridItem(.flexible()), count: 7)
+    var oneMonth: [DateValue]
 
     var body: some View {
         LazyVGrid(columns: columns, spacing: 10) {
-            ForEach(extractDate(currentMonth)) { value in
+            ForEach(oneMonth) { value in
                 DayView(value: value)
                     .onTapGesture {
                         currentDate = value.date
@@ -25,9 +25,7 @@ struct DaysView: View {
         }
     }
     
-    @ViewBuilder
     func DayView(value: DateValue) -> some View {
-        
         VStack {
             if value.day != -1 {
                 ZStack {
@@ -39,10 +37,10 @@ struct DaysView: View {
                         .font(.title3.bold())
                         .foregroundColor(isSameDay(date1: value.date, date2: currentDate) ? .white : .primary)
                 }
-                
-                if !tasks.isEmpty {
+                let todayTask = tasks.filter{ isSameDay(date1: $0.taskDate, date2: value.date) }
+                if !todayTask.isEmpty {
                     Circle()
-                        .fill(isAllDone(Array(tasks)) ? Color(#colorLiteral(red: 0, green: 0.4931138158, blue: 0.01805076376, alpha: 1)) : Color(#colorLiteral(red: 0.8214151263, green: 0, blue: 0.2262543738, alpha: 1)))
+                        .fill(isAllDone(Array(todayTask)) ? Color(#colorLiteral(red: 0, green: 0.4931138158, blue: 0.01805076376, alpha: 1)) : Color(#colorLiteral(red: 0.8214151263, green: 0, blue: 0.2262543738, alpha: 1)))
                         .frame(width: 8, height: 8, alignment: .top)
                 } else {
                     Spacer()
@@ -61,23 +59,5 @@ struct DaysView: View {
         }
         return true
     }
-    
-    func extractDate(_ currentMonth: Int) -> [DateValue] {
-        let calendar = Calendar.current
-        // get current month date
-        let currentMonth = getCurrentMonth(currentMonth)
-        var days = currentMonth.getAllDates().compactMap { date -> DateValue in
-            // get day
-            let day = calendar.component(.day, from: date)
-            return DateValue(day: day, date: date)
-        }
-        // add offset days to get exact weekday
-        let firstWeekday = calendar.component(.weekday, from: days.first?.date ?? Date())
-        for _ in 0..<firstWeekday - 1 {
-            days.insert(DateValue(day: -1, date: Date()), at: 0)
-        }
-        return days
-    }
-    
 }
 

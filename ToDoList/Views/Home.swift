@@ -13,19 +13,19 @@ struct Home: View {
     @State private var selectedTask: Task? = nil
     @Namespace var animation // TODO: 애니메이션 좀 과한 느낌... 줄이거나 없애면 어떨까여
     @State var currentDate = Date()
-
+    
     @ObservedResults(Task.self) var tasks
     
     var body: some View {
+        let todayTasks = tasks.filter{ isSameDay(date1: $0.taskDate, date2: currentDate) }
+        let notDone = Array(todayTasks.filter{ $0.isCompleted == false })
+        let isDone =  Array(todayTasks.filter{ $0.isCompleted == true })
         NavigationView {
             GeometryReader { geo in
                 VStack {
-                    let notDone = tasks.filter("taskDate == %@", currentDate).filter("isCompleted == false")
-                    let isDone = tasks.filter("taskDate == %@", currentDate).filter("isCompleted == true")
                     HeaderView(selectedDate: $currentDate)
                         .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15))
-                    if !notDone.isEmpty
-                    {
+                    if !todayTasks.isEmpty {
                         List {
                             ForEach(notDone, id: \.id) { task in
                                 if !task.isInvalidated {
@@ -36,12 +36,20 @@ struct Home: View {
                                             Button {
                                                 updateIsCompleted(task)
                                             } label: {
-                                                Label("Done", systemImage: "check")
+                                                Label("Done", systemImage: "checkmark")
                                             }
+                                            .tint(.green)
+                                        }
+                                        .swipeActions(edge: .trailing) {
+                                            Button {
+                                                deleteRow(task: task)
+                                            } label: {
+                                                Label("Delete", systemImage: "trash")
+                                            }
+                                            .tint(.red)
                                         }
                                 }
                             }
-                            .onDelete(perform: $tasks.remove )
                             ForEach(isDone, id: \.id) { task in
                                 if !task.isInvalidated {
                                     TaskDoneCardView(task: task)
@@ -51,15 +59,23 @@ struct Home: View {
                                             Button {
                                                 updateIsCompleted(task)
                                             } label: {
-                                                Label("Not Done", systemImage: "check")
+                                                Label("Not Done", systemImage: "xmark")
                                             }
+                                            .tint(.yellow)
+                                        }
+                                        .swipeActions(edge: .trailing) {
+                                            Button {
+                                                deleteRow(task: task)
+                                            } label: {
+                                                Label("Delete", systemImage: "trash")
+                                            }
+                                            .tint(.red)
                                         }
                                 }
                             }
-                            .onDelete(perform: $tasks.remove )
                         }
-                        .sheet(item: $selectedTask) { _ in
-                            ModalView(taskDate: $currentDate, taskToEdit: selectedTask)
+                        .sheet(item: $selectedTask) { item in
+                            ModalView(taskDate: $currentDate, taskToEdit: item)
                         }
                         .background(.white)
                         .onAppear() {
@@ -69,7 +85,7 @@ struct Home: View {
                         .listRowSeparator(.hidden)
                         .listRowBackground(Color(UIColor.systemGroupedBackground))
                         //                        .listStyle(.plain)
-
+                        
                     } else {
                         NoTaskView()
                             .frame(alignment: .center)
@@ -78,10 +94,9 @@ struct Home: View {
                     Spacer()
                 }
                 .navigationBarTitle("", displayMode: .inline)
-                .navigationBarItems(trailing: NavigationLink(destination: CalendarView(currentDate: $currentDate)
-                    ) {
-                        Image(systemName: "calendar")
-                    })
+                .navigationBarItems(trailing: NavigationLink(destination: CalendarView(currentDate: $currentDate)) {
+                    Image(systemName: "calendar")
+                })
             }
         }
         .safeAreaInset(edge: .bottom, alignment: .center) {
@@ -97,18 +112,32 @@ struct Home: View {
             }
         }
     }
-
+    
     private func updateIsCompleted(_ task: Task) {
-            do {
-                let realm = try Realm()
-
-                guard let objectToUpdate = realm.object(ofType: Task.self, forPrimaryKey: task.id) else { return }
-                try realm.write {
-                    objectToUpdate.isCompleted = !objectToUpdate.isCompleted
-                }
-            }
-            catch {
-                print(error)
+        do {
+            let realm = try Realm()
+            
+            guard let objectToUpdate = realm.object(ofType: Task.self, forPrimaryKey: task.id) else { return }
+            try realm.write {
+                objectToUpdate.isCompleted = !objectToUpdate.isCompleted
             }
         }
+        catch {
+            print(error)
+        }
+    }
+    
+    private func deleteRow(task: Task){
+        do {
+            let realm = try Realm()
+            
+            guard let objectToDelete = realm.object(ofType: Task.self, forPrimaryKey: task.id) else { return }
+            try realm.write {
+                realm.delete(objectToDelete)
+            }
+        }
+        catch {
+            print(error)
+        }
+    }
 }

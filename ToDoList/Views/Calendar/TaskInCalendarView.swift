@@ -9,15 +9,17 @@ import SwiftUI
 import RealmSwift
 
 struct TaskInCalendarView: View {
-    @ObservedResults(Task.self, filter: NSPredicate(format: "isCompleted == false")) var notDoneTask
+    @ObservedResults(Task.self) var tasks
     @Binding var currentDate: Date
     @State private var selectedTask: Task? = nil
     
     var body: some View {
-        if true {
-            if !notDoneTask.filter("taskDate == %@", currentDate).isEmpty {
+        let todayTask = tasks.filter{ isSameDay(date1: $0.taskDate, date2: currentDate) }
+        let notDoneTask = Array(todayTask.filter{ $0.isCompleted == false })
+        if !todayTask.isEmpty {
+            if !notDoneTask.isEmpty {
                 List {
-                    ForEach(notDoneTask.filter("taskDate == %@", currentDate), id: \.self) { task in
+                    ForEach(notDoneTask, id: \.self) { task in
                         if !task.isInvalidated {
                             HStack {
                                 Capsule()
@@ -35,12 +37,19 @@ struct TaskInCalendarView: View {
                             }
                             .listRowSeparator(.hidden)
                             .frame(maxWidth: .infinity, alignment: .leading)
+                            .swipeActions(edge: .trailing) {
+                                Button {
+                                    deleteRow(task: task)
+                                } label: {
+                                    Image(systemName: "trash")
+                                }
+                                .tint(.red)
+                            }
                         }
                     }
-                    .onDelete(perform: $notDoneTask.remove)
                     .frame(alignment: .leading)
-                    .sheet(item: $selectedTask) { _ in 
-                        ModalView(taskDate: $currentDate, taskToEdit: selectedTask)
+                    .sheet(item: $selectedTask) { item in
+                        ModalView(taskDate: $currentDate, taskToEdit: item)
                     }
                 }
                 .listStyle(.plain)
@@ -52,4 +61,19 @@ struct TaskInCalendarView: View {
             Text("NO TASK TO DO")
         }
     }
+
+    private func deleteRow(task: Task){
+        do {
+            let realm = try Realm()
+
+            guard let objectToDelete = realm.object(ofType: Task.self, forPrimaryKey: task.id) else { return }
+            try realm.write {
+                realm.delete(objectToDelete)
+            }
+        }
+        catch {
+            print(error)
+        }
+    }
+    
 }
