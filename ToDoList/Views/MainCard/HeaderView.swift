@@ -24,101 +24,101 @@ struct HeaderView: View {
     var body: some View {
         GeometryReader { geo in
             VStack {
-            CalendarWeekListView(
-                calendar: calendar,
-                date: $selectedDate,
-                content: { date in
-                    
-                    Button(action: { selectedDate = date}) {
-                        VStack {
-                            Text(weekDayFormatter.string(from: date))
-                                .font(.system(size: 15))
-                                .fontWeight(.semibold)
-                                .padding(.bottom, 5)
+                CalendarWeekListView(
+                    calendar: calendar,
+                    date: $selectedDate,
+                    content: { date in
 
-                                .frame(width: geo.size.width * 1, height: geo.size.height * 0.02)
-                            Text(dayFormatter.string(from: date))
-                                .foregroundColor(isSameDay(date1: selectedDate, date2: date) ? .white : calendar.isDateInToday(date) ? .blue : .gray)
-                                .font(.system(size: 15))
-                                .fontWeight(.semibold)
-                            Circle()
-                                .fill(!tasks.filter("taskDate == %@", date).isEmpty ? .purple : isSameDay(date1: selectedDate, date2: date) ? .black : .white)
-                                .frame(width: 8, height: 8)
-                        }
-                        .foregroundStyle(isSameDay(date1: selectedDate, date2: date) ? .primary : .secondary)
-                        .foregroundColor(isSameDay(date1: selectedDate, date2: date) ? .white : .black)
-                        .frame(width: geo.size.width * 0.065, height: geo.size.height * 0.1)
-                        .background(
-                            ZStack {
-                                if isSameDay(date1: selectedDate, date2: date) {
-                                    Capsule()
-                                        .fill(.black)
-                                        .frame(width: 45, height: 100)
-                                        .matchedGeometryEffect(id: "CURRENTDAY", in: animation)
-                                }
+                        Button(action: { selectedDate = date}) {
+                            VStack {
+                                Text(weekDayFormatter.string(from: date))
+                                    .font(.system(size: 15))
+                                    .fontWeight(.semibold)
+                                    .padding(.bottom, 5)
+
+                                    .frame(width: geo.size.width * 1, height: geo.size.height * 0.02)
+                                Text(dayFormatter.string(from: date))
+                                    .foregroundColor(isSameDay(date1: selectedDate, date2: date) ? .white : calendar.isDateInToday(date) ? .blue : .gray)
+                                    .font(.system(size: 15))
+                                    .fontWeight(.semibold)
+                                Circle()
+                                    .fill(!tasks.filter{ isSameDay(date1: $0.taskDate, date2: date)}.isEmpty ? .purple : isSameDay(date1: selectedDate, date2: date) ? .black : .white)
+                                    .frame(width: 8, height: 8)
                             }
-                        )
-                    }
-                },
-                header: { date in
+                            .foregroundStyle(isSameDay(date1: selectedDate, date2: date) ? .primary : .secondary)
+                            .foregroundColor(isSameDay(date1: selectedDate, date2: date) ? .white : .black)
+                            .frame(width: geo.size.width * 0.065, height: geo.size.height * 0.1)
+                            .background(
+                                ZStack {
+                                    if isSameDay(date1: selectedDate, date2: date) {
+                                        Capsule()
+                                            .fill(.black)
+                                            .frame(width: 45, height: 100)
+                                            .matchedGeometryEffect(id: "CURRENTDAY", in: animation)
+                                    }
+                                }
+                            )
+                        }
+                    },
+                    header: { date in
                         Text(weekDayFormatter.string(from: date))
                             .font(.system(size: 15))
                             .fontWeight(.semibold)
                             .foregroundColor(.clear)
-                },
-                title: { date in
-                    HStack {
-                        Text(monthDayFormatter.string(from: selectedDate))
-                            .font(.system(size: 40))
-                            .fontWeight(.bold)
-                            .padding()
-                        Spacer()
-                    }
-                    .padding(.bottom, 6)
-                },
-                weekSwitcher: { date in
-                    Button {
-                        withAnimation {
-                            guard let newDate = calendar.date(
-                                byAdding: .weekOfMonth,
-                                value: -1,
-                                to: selectedDate
-                            ) else {
-                                return
-                            }
-                            
-                            selectedDate = newDate
+                    },
+                    title: { date in
+                        HStack {
+                            Text(monthDayFormatter.string(from: selectedDate))
+                                .font(.system(size: 40))
+                                .fontWeight(.bold)
+                                .padding()
+                            Spacer()
                         }
-                    } label: {
-                        Label(
-                            title: { Text("Previous") },
-                            icon: { Image(systemName: "chevron.left")}
-                        )
-                        .labelStyle(IconOnlyLabelStyle())
-                        .padding(.horizontal)
-                    }
-                    
-                    Button {
-                        withAnimation {
-                            guard let newDate = calendar.date(
-                                byAdding: .weekOfMonth,
-                                value: 1,
-                                to: selectedDate
-                            ) else {
-                                return
+                        .padding(.bottom, 6)
+                    },
+                    weekSwitcher: { date in
+                        Button {
+                            withAnimation {
+                                guard let newDate = calendar.date(
+                                    byAdding: .weekOfMonth,
+                                    value: -1,
+                                    to: selectedDate
+                                ) else {
+                                    return
+                                }
+
+                                selectedDate = newDate
                             }
-                            
-                            selectedDate = newDate
+                        } label: {
+                            Label(
+                                title: { Text("Previous") },
+                                icon: { Image(systemName: "chevron.left")}
+                            )
+                            .labelStyle(IconOnlyLabelStyle())
+                            .padding(.horizontal)
                         }
-                    } label: {
-                        Label(
-                            title: { Text("Next") },
-                            icon: { Image(systemName: "chevron.right")}
-                        )
-                        .labelStyle(IconOnlyLabelStyle())
-                        .padding(.horizontal)
-                    }
-                })
+
+                        Button {
+                            withAnimation {
+                                guard let newDate = calendar.date(
+                                    byAdding: .weekOfMonth,
+                                    value: 1,
+                                    to: selectedDate
+                                ) else {
+                                    return
+                                }
+
+                                selectedDate = newDate
+                            }
+                        } label: {
+                            Label(
+                                title: { Text("Next") },
+                                icon: { Image(systemName: "chevron.right")}
+                            )
+                            .labelStyle(IconOnlyLabelStyle())
+                            .padding(.horizontal)
+                        }
+                    })
             }
         }
         .frame(maxWidth: .infinity, maxHeight: 200)

@@ -25,7 +25,6 @@ struct DaysView: View {
         }
     }
     
-//    @ViewBuilder
     func DayView(value: DateValue) -> some View {
         VStack {
             if value.day != -1 {
@@ -60,8 +59,5 @@ struct DaysView: View {
         }
         return true
     }
-    
-
-    
 }
 

@@ -17,14 +17,15 @@ struct Home: View {
     @ObservedResults(Task.self) var tasks
     
     var body: some View {
-        let notDone = tasks.filter("taskDate == %@", currentDate).filter("isCompleted == false")
-        let isDone = tasks.filter("taskDate == %@", currentDate).filter("isCompleted == true")
+        let todayTasks = tasks.filter{ isSameDay(date1: $0.taskDate, date2: currentDate) }
+        let notDone = Array(todayTasks.filter{ $0.isCompleted == false })
+        let isDone =  Array(todayTasks.filter{ $0.isCompleted == true })
         NavigationView {
             GeometryReader { geo in
                 VStack {
                     HeaderView(selectedDate: $currentDate)
                         .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15))
-                    if !(notDone.isEmpty && isDone.isEmpty) {
+                    if !todayTasks.isEmpty {
                         List {
                             ForEach(notDone, id: \.id) { task in
                                 if !task.isInvalidated {
@@ -35,15 +36,17 @@ struct Home: View {
                                             Button {
                                                 updateIsCompleted(task)
                                             } label: {
-                                                Image(systemName: "checkmark")
+                                                Label("Done", systemImage: "checkmark")
                                             }
+                                            .tint(.green)
                                         }
                                         .swipeActions(edge: .trailing) {
                                             Button {
                                                 deleteRow(task: task)
                                             } label: {
-                                                Image(systemName: "trash")
+                                                Label("Delete", systemImage: "trash")
                                             }
+                                            .tint(.red)
                                         }
                                 }
                             }
@@ -56,21 +59,23 @@ struct Home: View {
                                             Button {
                                                 updateIsCompleted(task)
                                             } label: {
-                                                Label("Not Done", systemImage: "checkmark")
+                                                Label("Not Done", systemImage: "xmark")
                                             }
+                                            .tint(.yellow)
                                         }
                                         .swipeActions(edge: .trailing) {
                                             Button {
                                                 deleteRow(task: task)
                                             } label: {
-                                                Image(systemName: "trash")
+                                                Label("Delete", systemImage: "trash")
                                             }
+                                            .tint(.red)
                                         }
                                 }
                             }
                         }
-                        .sheet(item: $selectedTask) { _ in
-                            ModalView(taskDate: $currentDate, taskToEdit: selectedTask)
+                        .sheet(item: $selectedTask) { item in
+                            ModalView(taskDate: $currentDate, taskToEdit: item)
                         }
                         .background(.white)
                         .onAppear() {
@@ -89,8 +94,7 @@ struct Home: View {
                     Spacer()
                 }
                 .navigationBarTitle("", displayMode: .inline)
-                .navigationBarItems(trailing: NavigationLink(destination: CalendarView(currentDate: $currentDate)
-                                                            ) {
+                .navigationBarItems(trailing: NavigationLink(destination: CalendarView(currentDate: $currentDate)) {
                     Image(systemName: "calendar")
                 })
             }
