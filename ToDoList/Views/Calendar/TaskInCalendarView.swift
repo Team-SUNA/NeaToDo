@@ -9,15 +9,17 @@ import SwiftUI
 import RealmSwift
 
 struct TaskInCalendarView: View {
-    @ObservedResults(Task.self, filter: NSPredicate(format: "isCompleted == false")) var notDoneTask
+    @ObservedResults(Task.self) var tasks
     @Binding var currentDate: Date
     @State private var selectedTask: Task? = nil
     
     var body: some View {
-        if true {
-            if !notDoneTask.filter("taskDate == %@", currentDate).isEmpty {
+        let todayTask = tasks.filter("taskDate == %@", currentDate)
+        let notDoneTask = Array(todayTask.filter{ $0.isCompleted == false })
+        if !todayTask.isEmpty {
+            if !notDoneTask.isEmpty {
                 List {
-                    ForEach(notDoneTask.filter("taskDate == %@", currentDate), id: \.self) { task in
+                    ForEach(notDoneTask, id: \.self) { task in
                         if !task.isInvalidated {
                             HStack {
                                 Capsule()
@@ -37,7 +39,7 @@ struct TaskInCalendarView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                         }
                     }
-                    .onDelete(perform: $notDoneTask.remove)
+                    .onDelete(perform: $tasks.remove)
                     .frame(alignment: .leading)
                     .sheet(item: $selectedTask) { _ in 
                         ModalView(taskDate: $currentDate, taskToEdit: selectedTask)
