@@ -16,58 +16,71 @@ struct TaskInCalendarView: View {
     var body: some View {
         let todayTask = tasks.filter{ isSameDay(date1: $0.taskDate, date2: currentDate) }
         let notDoneTask = Array(todayTask.filter{ $0.isCompleted == false })
-        if !todayTask.isEmpty {
-            if !notDoneTask.isEmpty {
-                List {
-                    ForEach(notDoneTask, id: \.self) { task in
-                        if !task.isInvalidated {
-                            HStack {
-                                Rectangle()
-                                    .fill(Color.black)
-                                    .frame(width: 3, height: 30)
-                                Text(task.taskTitle)
-                                    .font(.system(size: 20.0, weight: .semibold))
-                                Spacer()
-                                Text(task.taskDate, style: .time)
-                                    .font(.system(size: 15.0))
-                            }
-                            .background(.white)
-                            .onTapGesture {
-                                selectedTask = task
-                            }
-                            .listRowSeparator(.hidden)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .swipeActions(edge: .leading) {
-                                Button {
-                                    updateIsCompleted(task)
-                                } label: {
-                                    Label("Done", systemImage: "checkmark")
+        GeometryReader { geo in
+            if !todayTask.isEmpty {
+                if !notDoneTask.isEmpty {
+                    List {
+                        ForEach(notDoneTask, id: \.self) { task in
+                            if !task.isInvalidated {
+                                HStack {
+                                    Rectangle()
+                                        .fill(Color.black)
+                                        .frame(width: 3, height: geo.size.height * 0.25)
+                                    Text(task.taskTitle)
+                                        .font(.system(size: 20.0, weight: .semibold))
+                                    Spacer()
+                                    Text(task.taskDate, style: .time)
+                                        .font(.system(size: 15.0))
                                 }
-                                .tint(.green)
-                            }
-                            .swipeActions(edge: .trailing) {
-                                Button {
-                                    deleteRow(task: task)
-                                } label: {
-                                    Image(systemName: "trash")
+                                .background(.white)
+                                .onTapGesture {
+                                    selectedTask = task
                                 }
-                                .tint(.red)
+                                .listRowSeparator(.hidden)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .swipeActions(edge: .leading) {
+                                    Button {
+                                        updateIsCompleted(task)
+                                    } label: {
+                                        Label("Done", systemImage: "checkmark")
+                                    }
+                                    .tint(.green)
+                                }
+                                .swipeActions(edge: .trailing) {
+                                    Button {
+                                        deleteRow(task: task)
+                                    } label: {
+                                        Image(systemName: "trash")
+                                    }
+                                    .tint(.red)
+                                }
                             }
                         }
+                        .frame(alignment: .leading)
+                        .sheet(item: $selectedTask) { item in
+                            ModalView(taskDate: $currentDate, taskToEdit: item)
+                        }
                     }
-                    .frame(alignment: .leading)
-                    .sheet(item: $selectedTask) { item in
-                        ModalView(taskDate: $currentDate, taskToEdit: item)
-                    }
-                }
-                .listStyle(.plain)
+                    .listStyle(.plain)
 
+                } else {
+                    Text("WELL DONE")
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .offset(x: 0, y: geo.size.width * 0.1)
+//                        .offset(x: 0, y: geo.size.width * 0.07)
+                        .font(.system(size: geo.size.width * 0.05))
+                }
             } else {
-                Text("WELL DONE")
+                Text("NO TASK TO DO")
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .offset(x: 0, y: geo.size.width * 0.1)
+//                    .offset(x: 0, y: geo.size.width * 0.07)
+                    .font(.system(size: geo.size.width * 0.05))
+
+
             }
-        } else {
-            Text("NO TASK TO DO")
         }
+
     }
 
     private func updateIsCompleted(_ task: Task) {

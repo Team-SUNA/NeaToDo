@@ -12,20 +12,21 @@ struct CalendarView: View {
     @State var currentMonth: Int = 0
     
     var body: some View {
-//        Text("test")
-        VStack {
-            CalendarHeaderView(currentDate: $currentDate, currentMonth: $currentMonth)
-                .padding()
-            WeekdaysView()
-            DaysView(currentDate: $currentDate, oneMonth: extractDate(currentMonth))
-                .padding(.bottom, 30)
-            TaskInCalendarView(currentDate: $currentDate)
-                .padding()
-            Spacer()
-        }
-        .onChange(of: currentMonth) { newValue in
-            // update month
-            currentDate = getCurrentMonth(currentMonth)
+        GeometryReader { geo in
+            VStack {
+                CalendarHeaderView(currentDate: $currentDate, currentMonth: $currentMonth)
+                    .padding()
+                WeekdaysView()
+                DaysView(currentDate: $currentDate, oneMonth: extractDate(currentMonth))
+                    .padding(.bottom, geo.size.height * 0.03)
+                TaskInCalendarView(currentDate: $currentDate)
+                    .padding()
+                Spacer()
+            }
+            .onChange(of: currentMonth) { newValue in
+                // update month
+                currentDate = getCurrentMonth(currentMonth)
+            }
         }
     }
 
