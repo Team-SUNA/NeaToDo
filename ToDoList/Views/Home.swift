@@ -27,52 +27,58 @@ struct Home: View {
                         .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15))
                     if !todayTasks.isEmpty {
                         List {
-                            ForEach(notDone, id: \.id) { task in
-                                if !task.isInvalidated {
-                                    TaskCardView(task: task)
-                                        .listRowSeparator(.hidden)
-                                        .onTapGesture { selectedTask = task }
-                                        .swipeActions(edge: .leading) {
-                                            Button {
-                                                updateIsCompleted(task)
-                                            } label: {
-                                                Label("Done", systemImage: "checkmark")
+                            Section {
+                                ForEach(notDone, id: \.id) { task in
+                                    if !task.isInvalidated {
+                                        TaskCardView(task: task)
+                                            .listRowSeparator(.hidden)
+                                            .onTapGesture { selectedTask = task }
+                                            .swipeActions(edge: .leading) {
+                                                Button {
+                                                    updateIsCompleted(task)
+                                                } label: {
+                                                    Label("Done", systemImage: "checkmark")
+                                                }
+                                                .tint(.green)
                                             }
-                                            .tint(.green)
-                                        }
-                                        .swipeActions(edge: .trailing) {
-                                            Button {
-                                                deleteRow(task: task)
-                                            } label: {
-                                                Label("Delete", systemImage: "trash")
+                                            .swipeActions(edge: .trailing) {
+                                                Button {
+                                                    deleteRow(task: task)
+                                                } label: {
+                                                    Label("Delete", systemImage: "trash")
+                                                }
+                                                .tint(.red)
                                             }
-                                            .tint(.red)
-                                        }
+                                    }
                                 }
                             }
-                            ForEach(isDone, id: \.id) { task in
-                                if !task.isInvalidated {
-                                    TaskDoneCardView(task: task)
-                                        .listRowSeparator(.hidden)
-                                        .onTapGesture { selectedTask = task }
-                                        .swipeActions(edge: .leading) {
-                                            Button {
-                                                updateIsCompleted(task)
-                                            } label: {
-                                                Label("Not Done", systemImage: "xmark")
+                            Spacer()
+                            Section {
+                                ForEach(isDone, id: \.id) { task in
+                                    if !task.isInvalidated {
+                                        TaskDoneCardView(task: task)
+                                            .listRowSeparator(.hidden)
+                                            .onTapGesture { selectedTask = task }
+                                            .swipeActions(edge: .leading) {
+                                                Button {
+                                                    updateIsCompleted(task)
+                                                } label: {
+                                                    Label("Not Done", systemImage: "xmark")
+                                                }
+                                                .tint(.yellow)
                                             }
-                                            .tint(.yellow)
-                                        }
-                                        .swipeActions(edge: .trailing) {
-                                            Button {
-                                                deleteRow(task: task)
-                                            } label: {
-                                                Label("Delete", systemImage: "trash")
+                                            .swipeActions(edge: .trailing) {
+                                                Button {
+                                                    deleteRow(task: task)
+                                                } label: {
+                                                    Label("Delete", systemImage: "trash")
+                                                }
+                                                .tint(.red)
                                             }
-                                            .tint(.red)
-                                        }
+                                    }
                                 }
                             }
+
                         }
                         .sheet(item: $selectedTask) { item in
                             ModalView(taskDate: $currentDate, taskToEdit: item)
@@ -84,7 +90,7 @@ struct Home: View {
                         }
                         .listRowSeparator(.hidden)
                         .listRowBackground(Color(UIColor.systemGroupedBackground))
-                        //                        .listStyle(.plain)
+                        .listStyle(.plain)
                         
                     } else {
                         NoTaskView()
