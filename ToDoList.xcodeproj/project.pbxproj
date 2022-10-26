@@ -145,10 +145,10 @@
 		953001E528D06025007731B2 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
-				095D0AA128DAE03E00E4428F /* DaysView.swift */,
 				09BCEA0828C47E91005313AE /* CalendarView.swift */,
-				953001E328D05E32007731B2 /* WeekdaysView.swift */,
 				953001E728D06095007731B2 /* CalendarHeaderView.swift */,
+				953001E328D05E32007731B2 /* WeekdaysView.swift */,
+				095D0AA128DAE03E00E4428F /* DaysView.swift */,
 				953001E928D068B8007731B2 /* TaskInCalendarView.swift */,
 			);
 			path = Calendar;

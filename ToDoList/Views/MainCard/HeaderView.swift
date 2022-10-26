@@ -53,7 +53,8 @@ struct HeaderView: View {
                                     if isSameDay(date1: selectedDate, date2: date) {
                                         Capsule()
                                             .fill(.black)
-                                            .frame(width: 45, height: 100)
+                                            .frame(width: 45, height: 90)
+                                            .offset(x: 0, y: -5)
                                             .matchedGeometryEffect(id: "CURRENTDAY", in: animation)
                                     }
                                 }
