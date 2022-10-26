@@ -68,14 +68,18 @@ struct HeaderView: View {
                             .foregroundColor(.clear)
                     },
                     title: { date in
-                        HStack {
-                            Text(monthDayFormatter.string(from: selectedDate))
-                                .font(.system(size: 40))
-                                .fontWeight(.bold)
-                                .padding()
-                            Spacer()
-                        }
-                        .padding(.bottom, 6)
+                            HStack {
+                                Button(action: {
+                                    selectedDate = Date()
+                                }) {
+                                    Text(monthDayFormatter.string(from: selectedDate))
+                                        .font(.system(size: 40, weight: .bold))
+                                        .foregroundColor(.black)
+                                        .padding()
+                                }
+                                Spacer()
+                            }
+                            .padding(.bottom, 6)
                     },
                     weekSwitcher: { date in
                         Button {
