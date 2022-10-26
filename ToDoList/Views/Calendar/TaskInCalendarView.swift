@@ -22,9 +22,9 @@ struct TaskInCalendarView: View {
                     ForEach(notDoneTask, id: \.self) { task in
                         if !task.isInvalidated {
                             HStack {
-                                Capsule()
+                                Rectangle()
                                     .fill(Color.black)
-                                    .frame(width: 5, height: 30)
+                                    .frame(width: 3, height: 30)
                                 Text(task.taskTitle)
                                     .font(.system(size: 20.0, weight: .semibold))
                                 Spacer()
@@ -37,6 +37,14 @@ struct TaskInCalendarView: View {
                             }
                             .listRowSeparator(.hidden)
                             .frame(maxWidth: .infinity, alignment: .leading)
+                            .swipeActions(edge: .leading) {
+                                Button {
+                                    updateIsCompleted(task)
+                                } label: {
+                                    Label("Done", systemImage: "checkmark")
+                                }
+                                .tint(.green)
+                            }
                             .swipeActions(edge: .trailing) {
                                 Button {
                                     deleteRow(task: task)
@@ -62,6 +70,21 @@ struct TaskInCalendarView: View {
         }
     }
 
+    private func updateIsCompleted(_ task: Task) {
+        do {
+            let realm = try Realm()
+            
+            guard let objectToUpdate = realm.object(ofType: Task.self, forPrimaryKey: task.id) else { return }
+            try realm.write {
+                objectToUpdate.isCompleted = !objectToUpdate.isCompleted
+            }
+        }
+        catch {
+            print(error)
+        }
+    }
+    
+    
     private func deleteRow(task: Task){
         do {
             let realm = try Realm()

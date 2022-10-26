@@ -18,7 +18,7 @@ struct CalendarView: View {
                 .padding()
             WeekdaysView()
             DaysView(currentDate: $currentDate, oneMonth: extractDate(currentMonth))
-                .padding(.bottom, 40)
+                .padding(.bottom, 30)
             TaskInCalendarView(currentDate: $currentDate)
                 .padding()
             Spacer()
