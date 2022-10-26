@@ -35,7 +35,6 @@ struct HeaderView: View {
                                     .font(.system(size: 15))
                                     .fontWeight(.semibold)
                                     .padding(.bottom, 5)
-
                                     .frame(width: geo.size.width * 1, height: geo.size.height * 0.02)
                                 Text(dayFormatter.string(from: date))
                                     .foregroundColor(isSameDay(date1: selectedDate, date2: date) ? .white : calendar.isDateInToday(date) ? .blue : .gray)

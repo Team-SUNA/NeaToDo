@@ -17,8 +17,16 @@ struct CalendarHeaderView: View {
             Text(dateText[0])
                 .font(.system(size: 20))
             Spacer()
-            Text(dateText[1].uppercased())
-                .font(.system(size: 40, weight: .bold))
+            
+            Button(action: {
+                //코드
+                currentDate = Date()
+            }) {
+                Text(dateText[1].uppercased())
+                    .font(.system(size: 40, weight: .bold))
+                    .foregroundColor(.black)
+                    .padding()
+            }
             Spacer(minLength: 0)
             Button {
                 currentMonth -= 1
