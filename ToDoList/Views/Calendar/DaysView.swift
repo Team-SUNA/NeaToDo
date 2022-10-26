@@ -35,7 +35,7 @@ struct DaysView: View {
                         .frame(width: 40, height: 40, alignment: .top)
                     Text("\(value.day)")
                         .font(.title3.bold())
-                        .foregroundColor(isSameDay(date1: value.date, date2: currentDate) ? .white : .primary)
+                        .foregroundColor(isSameDay(date1: value.date, date2: currentDate) ? .white : isSameDay(date1: Date(), date2: value.date) ? .blue : .primary)
                 }
                 let todayTask = tasks.filter{ isSameDay(date1: $0.taskDate, date2: value.date) }
                 if !todayTask.isEmpty {

@@ -18,9 +18,10 @@ struct CalendarView: View {
                     .padding()
                 WeekdaysView()
                 DaysView(currentDate: $currentDate, oneMonth: extractDate(currentMonth))
-                    .padding(.bottom, geo.size.height * 0.03)
+                    .padding()
                 TaskInCalendarView(currentDate: $currentDate)
                     .padding()
+
                 Spacer()
             }
             .onChange(of: currentMonth) { newValue in

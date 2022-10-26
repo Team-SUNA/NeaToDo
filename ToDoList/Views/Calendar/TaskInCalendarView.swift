@@ -38,7 +38,7 @@ struct TaskInCalendarView: View {
                                 }
                                 .listRowSeparator(.hidden)
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                                .swipeActions(edge: .leading) {
+                                .swipeActions(edge: .leading, allowsFullSwipe: false) {
                                     Button {
                                         updateIsCompleted(task)
                                     } label: {
@@ -66,15 +66,15 @@ struct TaskInCalendarView: View {
                 } else {
                     Text("WELL DONE")
                         .frame(maxWidth: .infinity, alignment: .center)
-                        .offset(x: 0, y: geo.size.width * 0.1)
-//                        .offset(x: 0, y: geo.size.width * 0.07)
+//                        .offset(x: 0, y: geo.size.width * 0.1)
+                        .offset(x: 0, y: geo.size.width * 0.07)
                         .font(.system(size: geo.size.width * 0.05))
                 }
             } else {
                 Text("NO TASK TO DO")
                     .frame(maxWidth: .infinity, alignment: .center)
-                    .offset(x: 0, y: geo.size.width * 0.1)
-//                    .offset(x: 0, y: geo.size.width * 0.07)
+//                    .offset(x: 0, y: geo.size.width * 0.1)
+                    .offset(x: 0, y: geo.size.width * 0.07)
                     .font(.system(size: geo.size.width * 0.05))
 
 
