@@ -38,7 +38,7 @@ struct TaskInCalendarView: View {
                                 }
                                 .listRowSeparator(.hidden)
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                                .swipeActions(edge: .leading, allowsFullSwipe: false) {
+                                .swipeActions(edge: .leading, allowsFullSwipe: true) {
                                     Button {
                                         updateIsCompleted(task)
                                     } label: {

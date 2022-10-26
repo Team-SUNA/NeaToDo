@@ -12,23 +12,25 @@ struct CalendarView: View {
     @State var currentMonth: Int = 0
     
     var body: some View {
-        GeometryReader { geo in
-            VStack {
-                CalendarHeaderView(currentDate: $currentDate, currentMonth: $currentMonth)
-                    .padding()
-                WeekdaysView()
-                DaysView(currentDate: $currentDate, oneMonth: extractDate(currentMonth))
-                    .padding()
-                TaskInCalendarView(currentDate: $currentDate)
-                    .padding()
+            GeometryReader { geo in
+                VStack {
+                    CalendarHeaderView(currentDate: $currentDate, currentMonth: $currentMonth)
+                        .padding()
+                    WeekdaysView()
+                    DaysView(currentDate: $currentDate, oneMonth: extractDate(currentMonth))
+                        .padding()
+                    TaskInCalendarView(currentDate: $currentDate)
+                        .padding()
 
-                Spacer()
+                    Spacer()
+                }
+                .onChange(of: currentMonth) { newValue in
+                    // update month
+                    currentDate = getCurrentMonth(currentMonth)
+                }
             }
-            .onChange(of: currentMonth) { newValue in
-                // update month
-                currentDate = getCurrentMonth(currentMonth)
-            }
-        }
+        
+
     }
 
     func extractDate(_ currentMonth: Int) -> [DateValue] {

@@ -14,16 +14,38 @@ struct DaysView: View {
     let columns = Array(repeating: GridItem(.flexible()), count: 7)
     var oneMonth: [DateValue]
 
+    @State private var backToHome = false
+
+    
     var body: some View {
-        LazyVGrid(columns: columns, spacing: 10) {
-            ForEach(oneMonth) { value in
-                DayView(value: value)
-                    .onTapGesture {
-                        currentDate = value.date
-                    }
+        if backToHome {
+            Home()
+        } else {
+            LazyVGrid(columns: columns, spacing: 10) {
+                ForEach(oneMonth) { value in
+                    DayView(value: value)
+//                        .onTapGesture(count: 1) {
+//                            currentDate = value.date
+//                            print("text")
+//                        }
+//                        .onTapGesture(count: 2) {
+//                            backToHome = true
+//                            print(backToHome)
+//                        }
+                        .gesture(TapGesture(count: 2).onEnded {
+                            backToHome = true
+                            print(backToHome)
+                        })
+                        .simultaneousGesture(TapGesture().onEnded {
+                            currentDate = value.date
+                            print("text")
+                        })
+                }
             }
         }
+
     }
+
     
     func DayView(value: DateValue) -> some View {
         VStack {
@@ -62,4 +84,3 @@ struct DaysView: View {
         return true
     }
 }
-
