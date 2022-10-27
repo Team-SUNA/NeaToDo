@@ -19,6 +19,13 @@ struct ModalView: View {
     @Binding var taskDate: Date
     @State var descriptionVisibility: Bool = true
     @State var isCompleted: Bool = false
+    
+    enum Field: Hashable {
+      case taskTitle
+    }
+    
+    @FocusState private var focusField: Field?
+
 
     init(taskDate: Binding<Date>, taskToEdit: Task? = nil) {
         self.taskToEdit = taskToEdit
@@ -31,6 +38,8 @@ struct ModalView: View {
             _isCompleted = State(initialValue: taskToEdit.isCompleted)
         }
     }
+    
+
 
     var body: some View {
         
@@ -39,6 +48,7 @@ struct ModalView: View {
                 List {
                     Section {
                         TextField("title", text: $taskTitle)
+                            .focused($focusField, equals: .taskTitle)
                         TextField("description", text: $taskDescription)
                         HStack {
                             Text("time")
@@ -75,6 +85,9 @@ struct ModalView: View {
                         }
                     }
                 }
+            }
+            .onAppear {
+                focusField = .taskTitle
             }
         }
     }
