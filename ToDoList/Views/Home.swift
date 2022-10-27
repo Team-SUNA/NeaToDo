@@ -16,6 +16,10 @@ struct Home: View {
     
     @ObservedResults(Task.self) var tasks
     
+    
+    @State var isActive : Bool = false
+
+    
     var body: some View {
         let todayTasks = tasks.filter{ isSameDay(date1: $0.taskDate, date2: currentDate) }
         let notDone = Array(todayTasks.filter{ $0.isCompleted == false })
@@ -53,6 +57,7 @@ struct Home: View {
                                 }
                             }
                             Spacer()
+                                .listRowSeparator(.hidden)
                             Section {
                                 ForEach(isDone, id: \.id) { task in
                                     if !task.isInvalidated {
@@ -100,7 +105,11 @@ struct Home: View {
                     Spacer()
                 }
                 .navigationBarTitle("", displayMode: .inline)
-                .navigationBarItems(trailing: NavigationLink(destination: CalendarView(currentDate: $currentDate)) {
+                .navigationBarItems(trailing: NavigationLink(
+                    destination: CalendarView(currentDate: $currentDate, rootIsActive: self.$isActive),
+                    isActive: self.$isActive
+
+                ) {
                     Image(systemName: "calendar")
                 })
             }

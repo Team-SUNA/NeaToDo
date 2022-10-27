@@ -11,13 +11,15 @@ struct CalendarView: View {
     @Binding var currentDate: Date
     @State var currentMonth: Int = 0
     
+    @Binding var rootIsActive : Bool
+    
     var body: some View {
             GeometryReader { geo in
                 VStack {
                     CalendarHeaderView(currentDate: $currentDate, currentMonth: $currentMonth)
                         .padding()
                     WeekdaysView()
-                    DaysView(currentDate: $currentDate, oneMonth: extractDate(currentMonth))
+                    DaysView(currentDate: $currentDate, oneMonth: extractDate(currentMonth), shouldPopToRootView: self.$rootIsActive)
                         .padding()
                     TaskInCalendarView(currentDate: $currentDate)
                         .padding()

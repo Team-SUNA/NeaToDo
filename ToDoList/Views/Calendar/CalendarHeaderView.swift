@@ -19,7 +19,6 @@ struct CalendarHeaderView: View {
             Spacer()
             
             Button(action: {
-                //코드
                 currentDate = Date()
                 currentMonth = 0
             }) {
