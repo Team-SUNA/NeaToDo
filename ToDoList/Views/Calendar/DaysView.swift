@@ -14,23 +14,15 @@ struct DaysView: View {
     let columns = Array(repeating: GridItem(.flexible()), count: 7)
     var oneMonth: [DateValue]
     
-    @Binding var shouldPopToRootView : Bool
+    @Binding var maintainCalendar : Bool
     
     var body: some View {
 
             LazyVGrid(columns: columns, spacing: 10) {
                 ForEach(oneMonth) { value in
                     DayView(value: value)
-//                        .onTapGesture(count: 1) {
-//                            currentDate = value.date
-//                            print("text")
-//                        }
-//                        .onTapGesture(count: 2) {
-//                            backToHome = true
-//                            print(backToHome)
-//                        }
                         .gesture(TapGesture(count: 2).onEnded {
-                            self.shouldPopToRootView = false
+                            self.maintainCalendar = false
                         })
                         .simultaneousGesture(TapGesture().onEnded {
                             currentDate = value.date

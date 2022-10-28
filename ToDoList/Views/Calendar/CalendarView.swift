@@ -11,7 +11,7 @@ struct CalendarView: View {
     @Binding var currentDate: Date
     @State var currentMonth: Int = 0
     
-    @Binding var rootIsActive : Bool
+    @Binding var maintainCalendar : Bool
     
     var body: some View {
             GeometryReader { geo in
@@ -19,7 +19,7 @@ struct CalendarView: View {
                     CalendarHeaderView(currentDate: $currentDate, currentMonth: $currentMonth)
                         .padding()
                     WeekdaysView()
-                    DaysView(currentDate: $currentDate, oneMonth: extractDate(currentMonth), shouldPopToRootView: self.$rootIsActive)
+                    DaysView(currentDate: $currentDate, oneMonth: extractDate(currentMonth), maintainCalendar: self.$maintainCalendar)
                         .padding()
                     TaskInCalendarView(currentDate: $currentDate)
                         .padding()
