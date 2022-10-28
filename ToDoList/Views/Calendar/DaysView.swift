@@ -21,7 +21,7 @@ struct DaysView: View {
             ForEach(oneMonth) { value in
                 DayView(value: value)
                     .gesture(TapGesture(count: 2).onEnded {
-                        self.shouldPopToRootView = false
+                        self.maintainCalendar = false
                     })
                     .simultaneousGesture(TapGesture().onEnded {
                         currentDate = value.date
