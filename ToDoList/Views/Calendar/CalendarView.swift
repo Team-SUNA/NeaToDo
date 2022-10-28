@@ -8,31 +8,29 @@ import SwiftUI
 import RealmSwift
 
 struct CalendarView: View {
+    @State var currentMonth: Int
     @Binding var currentDate: Date
-    @State var currentMonth: Int = 0
-    
     @Binding var rootIsActive : Bool
-    
+
+    init(currentDate: Binding<Date>, rootIsActive: Binding<Bool>) {
+        self._currentMonth = State<Int>(initialValue: getMonthDiff(currentDate.wrappedValue))
+        self._currentDate = currentDate
+        self._rootIsActive = rootIsActive
+    }
+
     var body: some View {
-            GeometryReader { geo in
-                VStack {
-                    CalendarHeaderView(currentDate: $currentDate, currentMonth: $currentMonth)
-                        .padding()
-                    WeekdaysView()
-                    DaysView(currentDate: $currentDate, oneMonth: extractDate(currentMonth), shouldPopToRootView: self.$rootIsActive)
-                        .padding()
-                    TaskInCalendarView(currentDate: $currentDate)
-                        .padding()
-
-                    Spacer()
-                }
-                .onChange(of: currentMonth) { newValue in
-                    // update month
-                    currentDate = getCurrentMonth(currentMonth)
-                }
+        GeometryReader { geo in
+            VStack {
+                CalendarHeaderView(currentDate: $currentDate, currentMonth: $currentMonth)
+                    .padding()
+                WeekdaysView()
+                DaysView(currentDate: $currentDate, oneMonth: extractDate(currentMonth), shouldPopToRootView: self.$rootIsActive)
+                    .padding()
+                TaskInCalendarView(currentDate: $currentDate, currentMonth: $currentMonth)
+                    .padding()
+                //                Spacer()
             }
-        
-
+        }
     }
 
     func extractDate(_ currentMonth: Int) -> [DateValue] {
@@ -54,3 +52,4 @@ struct CalendarView: View {
 
     
 }
+

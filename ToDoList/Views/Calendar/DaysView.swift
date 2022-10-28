@@ -17,32 +17,19 @@ struct DaysView: View {
     @Binding var shouldPopToRootView : Bool
     
     var body: some View {
-
-            LazyVGrid(columns: columns, spacing: 10) {
-                ForEach(oneMonth) { value in
-                    DayView(value: value)
-//                        .onTapGesture(count: 1) {
-//                            currentDate = value.date
-//                            print("text")
-//                        }
-//                        .onTapGesture(count: 2) {
-//                            backToHome = true
-//                            print(backToHome)
-//                        }
-                        .gesture(TapGesture(count: 2).onEnded {
-                            self.shouldPopToRootView = false
-                        })
-                        .simultaneousGesture(TapGesture().onEnded {
-                            currentDate = value.date
-                            print("text")
-                        })
-                }
+        LazyVGrid(columns: columns, spacing: 10) {
+            ForEach(oneMonth) { value in
+                DayView(value: value)
+                    .gesture(TapGesture(count: 2).onEnded {
+                        self.shouldPopToRootView = false
+                    })
+                    .simultaneousGesture(TapGesture().onEnded {
+                        currentDate = value.date
+                    })
             }
-        
-
+        }
     }
 
-    
     func DayView(value: DateValue) -> some View {
         VStack {
             if value.day != -1 {
