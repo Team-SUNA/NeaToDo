@@ -10,12 +10,12 @@ import RealmSwift
 struct CalendarView: View {
     @State var currentMonth: Int
     @Binding var currentDate: Date
-    @Binding var rootIsActive : Bool
+    @Binding var maintainCalendar : Bool
 
     init(currentDate: Binding<Date>, rootIsActive: Binding<Bool>) {
         self._currentMonth = State<Int>(initialValue: getMonthDiff(currentDate.wrappedValue))
         self._currentDate = currentDate
-        self._rootIsActive = rootIsActive
+        self._maintainCalendar = maintainCalendar
     }
 
     var body: some View {
@@ -24,7 +24,7 @@ struct CalendarView: View {
                 CalendarHeaderView(currentDate: $currentDate, currentMonth: $currentMonth)
                     .padding()
                 WeekdaysView()
-                DaysView(currentDate: $currentDate, oneMonth: extractDate(currentMonth), shouldPopToRootView: self.$rootIsActive)
+                DaysView(currentDate: $currentDate, oneMonth: extractDate(currentMonth), maintainCalendar: self.$maintainCalendar)
                     .padding()
                 TaskInCalendarView(currentDate: $currentDate, currentMonth: $currentMonth)
                     .padding()

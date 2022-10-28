@@ -14,7 +14,7 @@ struct DaysView: View {
     let columns = Array(repeating: GridItem(.flexible()), count: 7)
     var oneMonth: [DateValue]
     
-    @Binding var shouldPopToRootView : Bool
+    @Binding var maintainCalendar : Bool
     
     var body: some View {
         LazyVGrid(columns: columns, spacing: 10) {

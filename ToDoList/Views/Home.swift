@@ -17,7 +17,7 @@ struct Home: View {
     @ObservedResults(Task.self) var tasks
     
     
-    @State var isActive : Bool = false
+    @State var maintainCalendar : Bool = false
 
     
     var body: some View {
@@ -106,9 +106,8 @@ struct Home: View {
                 }
                 .navigationBarTitle("", displayMode: .inline)
                 .navigationBarItems(trailing: NavigationLink(
-                    destination: CalendarView(currentDate: $currentDate, rootIsActive: self.$isActive),
-                    isActive: self.$isActive
-
+                    destination: CalendarView(currentDate: $currentDate, maintainCalendar: self.$maintainCalendar),
+                    isActive: self.$maintainCalendar
                 ) {
                     Image(systemName: "calendar")
                 })

@@ -21,7 +21,7 @@ struct ModalView: View {
     @State var isCompleted: Bool = false
     
     enum Field: Hashable {
-      case taskTitle
+      case taskTitle, taskDescription
     }
     
     @FocusState private var focusField: Field?
