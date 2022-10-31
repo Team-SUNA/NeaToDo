@@ -10,21 +10,26 @@ import RealmSwift
 
 struct TaskCardView: View {
     
+    
     let task: Task
 
     var body: some View {
         HStack(alignment: .top, spacing: 30) {
             Rectangle()
-                .fill(.black)
+//                .fill(.black)
+//                .fill(Color(#colorLiteral(red: 0.8214151263, green: 0, blue: 0.2262543738, alpha: 1)))
+                .fill(Color.accentRed)
                 .frame(width: 3)
             VStack {
                 HStack(alignment: .top, spacing: 10) {
                     VStack(alignment: .leading) {
                         Text(task.taskTitle)
                             .font(.title2.bold())
+                            .foregroundColor(Color.textColor)
                         if task.descriptionVisibility && !task.taskDescription.isEmpty {
                             Text(task.taskDescription)
                                 .foregroundStyle(.secondary)
+                                .foregroundColor(.textColor)
                         }
                     }
                     .hLeading()
@@ -35,7 +40,7 @@ struct TaskCardView: View {
             .hLeading()
         }
         .hLeading()
-        .background(.white) // 클릭위해서
+        .background(Color.reverseTextColor) // 클릭위해서
     }
 }
 
@@ -70,4 +75,14 @@ extension View {
         
         return safeArea
     }
+}
+
+extension Color {
+    static let accentRed = Color("AccentRed")
+    static let accentGreen = Color("AccentGreen")
+    static let accentPurple = Color("AccentPurple")
+    static let textColor = Color("TextColor")
+    static let reverseTextColor = Color("ReverseTextColor")
+    static let cardColor = Color("CardColor")
+    static let capsuleColor = Color("CapsuleColor")
 }

@@ -32,16 +32,22 @@ struct HeaderView: View {
                         Button(action: { selectedDate = date}) {
                             VStack {
                                 Text(weekDayFormatter.string(from: date))
+                                    .foregroundColor(isSameDay(date1: selectedDate, date2: date) ? .reverseTextColor : .textColor)
                                     .font(.system(size: 15))
                                     .fontWeight(.semibold)
                                     .padding(.bottom, 5)
                                     .frame(width: geo.size.width * 1, height: geo.size.height * 0.02)
                                 Text(dayFormatter.string(from: date))
-                                    .foregroundColor(isSameDay(date1: selectedDate, date2: date) ? .white : calendar.isDateInToday(date) ? .blue : .gray)
+                                    .foregroundColor(isSameDay(date1: selectedDate, date2: date) ? .reverseTextColor : calendar.isDateInToday(date) ? .blue : .gray)
                                     .font(.system(size: 15))
                                     .fontWeight(.semibold)
+//                                if !tasks.filter{ isSameDay(date1: $0.taskDate, date2: date)}.isEmpty {
+//                                    Circle()
+//                                        .fill(.purple)
+//                                        .frame(width: 8, height: 8)
+//                                }
                                 Circle()
-                                    .fill(!tasks.filter{ isSameDay(date1: $0.taskDate, date2: date)}.isEmpty ? .purple : isSameDay(date1: selectedDate, date2: date) ? .black : .white)
+                                    .fill(!tasks.filter{ isSameDay(date1: $0.taskDate, date2: date)}.isEmpty ? .purple : isSameDay(date1: selectedDate, date2: date) ? .textColor.opacity(0) : .reverseTextColor.opacity(0))
                                     .frame(width: 8, height: 8)
                             }
                             .foregroundStyle(isSameDay(date1: selectedDate, date2: date) ? .primary : .secondary)
@@ -51,7 +57,7 @@ struct HeaderView: View {
                                 ZStack {
                                     if isSameDay(date1: selectedDate, date2: date) {
                                         Capsule()
-                                            .fill(.black)
+                                            .fill(Color.capsuleColor)
                                             .frame(width: 45, height: 90)
                                             .offset(x: 0, y: -5)
                                             .matchedGeometryEffect(id: "CURRENTDAY", in: animation)
@@ -73,7 +79,7 @@ struct HeaderView: View {
                                 }) {
                                     Text(monthDayFormatter.string(from: selectedDate))
                                         .font(.system(size: 40, weight: .bold))
-                                        .foregroundColor(.black)
+                                        .foregroundColor(.textColor)
                                         .padding()
                                 }
                                 Spacer()

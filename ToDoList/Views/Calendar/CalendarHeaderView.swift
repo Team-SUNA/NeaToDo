@@ -24,7 +24,7 @@ struct CalendarHeaderView: View {
             }) {
                 Text(dateText[1].uppercased())
                     .font(.system(size: 40, weight: .bold))
-                    .foregroundColor(.black)
+                    .foregroundColor(.textColor)
                     .padding()
             }
             Spacer(minLength: 0)

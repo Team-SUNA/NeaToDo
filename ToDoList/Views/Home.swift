@@ -31,6 +31,10 @@ struct Home: View {
                         .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15))
                     if !todayTasks.isEmpty {
                         List {
+//                            Text("TO DO")
+//                                .font(.system(size: 23, weight: .bold))
+//                                .listRowSeparator(.hidden)
+//                                .padding(EdgeInsets(top: 0, leading: 0, bottom: 15, trailing: 0))
                             Section {
                                 ForEach(notDone, id: \.id) { task in
                                     if !task.isInvalidated {
@@ -58,6 +62,10 @@ struct Home: View {
                             }
                             Spacer()
                                 .listRowSeparator(.hidden)
+//                            Text("Done")
+//                                .font(.system(size: 23, weight: .bold))
+//                                .padding(EdgeInsets(top: 0, leading: 0, bottom: 15, trailing: 0))
+//                                .listRowSeparator(.hidden)
                             Section {
                                 ForEach(isDone, id: \.id) { task in
                                     if !task.isInvalidated {
@@ -83,7 +91,6 @@ struct Home: View {
                                     }
                                 }
                             }
-
                         }
                         .sheet(item: $selectedTask) { item in
                             ModalView(taskDate: $currentDate, taskToEdit: item)

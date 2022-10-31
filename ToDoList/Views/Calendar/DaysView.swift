@@ -40,7 +40,8 @@ struct DaysView: View {
             if value.day != -1 {
                 ZStack {
                     Circle()
-                        .fill(Color(#colorLiteral(red: 0.3254901961, green: 0.1058823529, blue: 0.5764705882, alpha: 1)))
+//                        .fill(Color(#colorLiteral(red: 0.3254901961, green: 0.1058823529, blue: 0.5764705882, alpha: 1)))
+                        .fill(Color.accentColor)
                         .opacity(isSameDay(date1: value.date, date2: currentDate) ? 1 : 0)
                         .frame(width: 40, height: 40, alignment: .top)
                     Text("\(value.day)")

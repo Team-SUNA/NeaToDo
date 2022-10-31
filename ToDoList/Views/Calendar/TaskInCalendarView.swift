@@ -24,15 +24,17 @@ struct TaskInCalendarView: View {
                             if !task.isInvalidated {
                                 HStack {
                                     Rectangle()
-                                        .fill(Color.black)
+                                        .fill(Color.textColor)
                                         .frame(width: 3, height: geo.size.height * 0.25)
                                     Text(task.taskTitle)
-                                        .font(.system(size: 20.0, weight: .semibold))
+                                        .font(.system(size: 17.0, weight: .semibold))
+                                        .foregroundColor(Color.textColor)
                                     Spacer()
                                     Text(task.taskDate, style: .time)
                                         .font(.system(size: 15.0))
+                                        .foregroundColor(Color.textColor)
                                 }
-                                .background(.white)
+                                .background(Color.reverseTextColor)
                                 .onTapGesture {
                                     selectedTask = task
                                 }
