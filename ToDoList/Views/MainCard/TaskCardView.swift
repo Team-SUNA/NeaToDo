@@ -17,8 +17,8 @@ struct TaskCardView: View {
         HStack(alignment: .top, spacing: 30) {
             Rectangle()
 //                .fill(.black)
-//                .fill(Color(#colorLiteral(red: 0.8214151263, green: 0, blue: 0.2262543738, alpha: 1)))
-                .fill(Color.accentRed)
+//                .fill(Color.accentRed)
+                .fill(Color.accentYellow)
                 .frame(width: 3)
             VStack {
                 HStack(alignment: .top, spacing: 10) {
@@ -85,4 +85,5 @@ extension Color {
     static let reverseTextColor = Color("ReverseTextColor")
     static let cardColor = Color("CardColor")
     static let capsuleColor = Color("CapsuleColor")
+    static let accentYellow = Color("AccentYellow")
 }

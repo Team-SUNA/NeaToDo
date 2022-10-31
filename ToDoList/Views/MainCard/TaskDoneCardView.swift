@@ -16,7 +16,7 @@ struct TaskDoneCardView: View {
         HStack(alignment: .top, spacing: 30) {
                 Rectangle()
 //                    .fill(.black)
-                .fill(Color(#colorLiteral(red: 0, green: 0.4931138158, blue: 0.01805076376, alpha: 1)))
+                .fill(Color.accentGreen)
                     .frame(width: 3)
             VStack {
                 HStack(alignment: .top, spacing: 10) {

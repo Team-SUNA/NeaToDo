@@ -35,7 +35,6 @@ struct DaysView: View {
             if value.day != -1 {
                 ZStack {
                     Circle()
-//                        .fill(Color(#colorLiteral(red: 0.3254901961, green: 0.1058823529, blue: 0.5764705882, alpha: 1)))
                         .fill(Color.accentColor)
                         .opacity(isSameDay(date1: value.date, date2: currentDate) ? 1 : 0)
                         .frame(width: 40, height: 40, alignment: .top)
@@ -46,7 +45,7 @@ struct DaysView: View {
                 let todayTask = tasks.filter{ isSameDay(date1: $0.taskDate, date2: value.date) }
                 if !todayTask.isEmpty {
                     Circle()
-                        .fill(isAllDone(Array(todayTask)) ? Color(#colorLiteral(red: 0, green: 0.4931138158, blue: 0.01805076376, alpha: 1)) : Color(#colorLiteral(red: 0.8214151263, green: 0, blue: 0.2262543738, alpha: 1)))
+                        .fill(isAllDone(Array(todayTask)) ? Color.accentGreen : Color.accentYellow)
                         .frame(width: 8, height: 8, alignment: .top)
                         .padding(EdgeInsets(top: -13, leading: 0, bottom: 0, trailing: 0))
                         .offset(x: 1.2, y: 0)

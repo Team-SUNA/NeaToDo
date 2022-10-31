@@ -41,11 +41,6 @@ struct HeaderView: View {
                                     .foregroundColor(isSameDay(date1: selectedDate, date2: date) ? .reverseTextColor : calendar.isDateInToday(date) ? .blue : .gray)
                                     .font(.system(size: 15))
                                     .fontWeight(.semibold)
-//                                if !tasks.filter{ isSameDay(date1: $0.taskDate, date2: date)}.isEmpty {
-//                                    Circle()
-//                                        .fill(.purple)
-//                                        .frame(width: 8, height: 8)
-//                                }
                                 Circle()
                                     .fill(!tasks.filter{ isSameDay(date1: $0.taskDate, date2: date)}.isEmpty ? .purple : isSameDay(date1: selectedDate, date2: date) ? .textColor.opacity(0) : .reverseTextColor.opacity(0))
                                     .frame(width: 8, height: 8)

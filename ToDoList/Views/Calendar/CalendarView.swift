@@ -28,7 +28,7 @@ struct CalendarView: View {
                     .padding()
                 TaskInCalendarView(currentDate: $currentDate, currentMonth: $currentMonth)
                     .padding()
-                //                Spacer()
+//                Spacer()
             }
         }
     }
