@@ -13,7 +13,7 @@ struct TaskDoneCardView: View {
     let task: Task
     
     var body: some View {
-        HStack(alignment: .top, spacing: 30) {
+        HStack(alignment: .top, spacing: 20) {
                 Rectangle()
 //                    .fill(.black)
                 .fill(Color.accentGreen)
@@ -33,6 +33,7 @@ struct TaskDoneCardView: View {
                     .hLeading()
                     Text(task.taskDate.formatted(date: .omitted, time: .shortened))
                 }
+                .offset(x: 0, y: 8)
             }
             .padding()
             .hLeading()
