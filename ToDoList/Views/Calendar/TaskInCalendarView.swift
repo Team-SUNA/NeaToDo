@@ -11,10 +11,11 @@ import RealmSwift
 struct TaskInCalendarView: View {
     @ObservedResults(Task.self) var tasks
     @Binding var currentDate: Date
+    @Binding var currentMonth: Int
     @State private var selectedTask: Task? = nil
     
     var body: some View {
-        let todayTask = tasks.filter{ isSameDay(date1: $0.taskDate, date2: currentDate) }
+        let todayTask = tasks.filter{ getMonthDiff(currentDate) == currentMonth && isSameDay(date1: $0.taskDate, date2: currentDate) }
         let notDoneTask = Array(todayTask.filter{ $0.isCompleted == false })
         GeometryReader { geo in
             if !todayTask.isEmpty {
@@ -68,18 +69,14 @@ struct TaskInCalendarView: View {
                 } else {
                     Text("WELL DONE")
                         .frame(maxWidth: .infinity, alignment: .center)
-//                        .offset(x: 0, y: geo.size.width * 0.1)
                         .offset(x: 0, y: geo.size.width * 0.07)
                         .font(.system(size: geo.size.width * 0.05))
                 }
             } else {
                 Text("NO TASK TO DO")
                     .frame(maxWidth: .infinity, alignment: .center)
-//                    .offset(x: 0, y: geo.size.width * 0.1)
                     .offset(x: 0, y: geo.size.width * 0.07)
                     .font(.system(size: geo.size.width * 0.05))
-
-
             }
         }
 

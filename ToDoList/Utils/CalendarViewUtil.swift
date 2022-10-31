@@ -36,3 +36,11 @@ func getCurrentMonth(_ currentMonth: Int) -> Date {
     }
     return currentMonth
 }
+
+func getMonthDiff(_ date: Date) -> Int {
+    let today = Calendar.current.dateComponents([.year, .month], from: Date())
+    let selected = Calendar.current.dateComponents([.year, .month], from: date)
+    let diff = (selected.year! * 12 + selected.month!) - (today.year! * 12 + today.month!)
+    return diff
+}
+

@@ -20,6 +20,7 @@ struct WeekdaysView: View {
     
     var body: some View {
         HStack {
+            Spacer(minLength: 20)
             ForEach(days, id: \.self) { day in
                 if day == "SUN" {
                     dayText(text: day).foregroundColor(.red)
@@ -29,6 +30,7 @@ struct WeekdaysView: View {
                     dayText(text: day)
                 }
             }
+            Spacer(minLength: 20)
         }
     }
 }
