@@ -2,7 +2,7 @@
 //  TaskCardView.swift
 //  ToDoList
 //
-//  Created by Suji Lee on 2022/09/04.
+//  Created by Suji Lee on 2022/09/04.ㅌ
 //
 
 import SwiftUI

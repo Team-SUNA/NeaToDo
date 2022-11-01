@@ -26,7 +26,8 @@ struct TaskInCalendarView: View {
                                 HStack {
                                     Rectangle()
                                         .fill(Color.textColor)
-                                        .frame(width: 3, height: geo.size.height * 0.25)
+//                                        .frame(width: 3, height: geo.size.height * 0.25)
+                                        .frame(width: 3, height: 30)
                                     Text(task.taskTitle)
                                         .font(.system(size: 17.0, weight: .semibold))
                                         .foregroundColor(Color.textColor)
