@@ -36,7 +36,7 @@ struct Home: View {
 //                                .listRowSeparator(.hidden)
 //                                .padding(EdgeInsets(top: 0, leading: 0, bottom: 15, trailing: 0))
                             Section {
-                                ForEach(notDone, id: \.id) { task in
+                                ForEach(notDone.sorted(by: { $0.taskDate < $1.taskDate }), id: \.id) { task in
                                     if !task.isInvalidated {
                                         TaskCardView(task: task)
                                             .listRowSeparator(.hidden)
@@ -67,7 +67,7 @@ struct Home: View {
 //                                .padding(EdgeInsets(top: 0, leading: 0, bottom: 15, trailing: 0))
 //                                .listRowSeparator(.hidden)
                             Section {
-                                ForEach(isDone, id: \.id) { task in
+                                ForEach(isDone.sorted(by: { $0.taskDate < $1.taskDate }), id: \.id) { task in
                                     if !task.isInvalidated {
                                         TaskDoneCardView(task: task)
                                             .listRowSeparator(.hidden)
