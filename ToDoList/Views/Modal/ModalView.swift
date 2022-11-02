@@ -51,6 +51,7 @@ struct ModalView: View {
                         TextField("title", text: $taskTitle)
                             .focused($focusField, equals: .taskTitle)
                         TextField("description", text: $taskDescription)
+                            .focused($focusField, equals: .taskDescription)
                         HStack {
                             Text("time")
                             Spacer()
@@ -89,6 +90,14 @@ struct ModalView: View {
             }
             .onAppear {
                 focusField = .taskTitle
+            }
+            .onSubmit {
+              switch focusField {
+              case .taskTitle:
+                focusField = .taskDescription
+              default:
+                  focusField = .taskDescription
+              }
             }
         }
     }
