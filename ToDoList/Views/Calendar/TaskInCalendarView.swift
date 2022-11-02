@@ -21,7 +21,7 @@ struct TaskInCalendarView: View {
             if !todayTask.isEmpty {
                 if !notDoneTask.isEmpty {
                     List {
-                        ForEach(notDoneTask, id: \.self) { task in
+                        ForEach(notDoneTask.sorted(by: { $0.taskDate < $1.taskDate }), id: \.self) { task in
                             if !task.isInvalidated {
                                 HStack {
                                     Rectangle()
