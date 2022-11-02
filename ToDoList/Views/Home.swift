@@ -95,7 +95,7 @@ struct Home: View {
                         .sheet(item: $selectedTask) { item in
                             ModalView(taskDate: $currentDate, taskToEdit: item)
                         }
-                        .background(.white)
+                        .background(Color.reverseTextColor)
                         .onAppear() {
                             UITableView.appearance().backgroundColor = UIColor.clear
                             UITableViewCell.appearance().backgroundColor = UIColor.clear
