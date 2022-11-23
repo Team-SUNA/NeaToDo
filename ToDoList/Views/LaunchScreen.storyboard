@@ -22,8 +22,9 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="LaunchImage" translatesAutoresizingMaskIntoConstraints="NO" id="Ra7-ql-D9p">
-                                <rect key="frame" x="133" y="373.5" width="148.5" height="149.5"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="NTD.png" translatesAutoresizingMaskIntoConstraints="NO" id="OrK-ji-3o1">
+                                <rect key="frame" x="103" y="327" width="208" height="200"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
@@ -32,8 +33,6 @@
                             <constraint firstItem="Bcu-3y-fUS" firstAttribute="centerX" secondItem="obG-Y5-kRd" secondAttribute="centerX" id="5cz-MP-9tL"/>
                             <constraint firstItem="obG-Y5-kRd" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" symbolic="YES" id="SfN-ll-jLj"/>
                             <constraint firstAttribute="bottom" secondItem="obG-Y5-kRd" secondAttribute="bottom" constant="20" id="Y44-ml-fuU"/>
-                            <constraint firstItem="Ra7-ql-D9p" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="mh7-gB-XNS"/>
-                            <constraint firstItem="Ra7-ql-D9p" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="tUg-24-BYl"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -43,6 +42,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="LaunchImage" width="148.5" height="149.5"/>
+        <image name="NTD.png" width="397" height="381"/>
     </resources>
 </document>
