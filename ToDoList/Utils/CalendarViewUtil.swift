@@ -31,6 +31,7 @@ func isSameDay(date1: Date, date2: Date) -> Bool {
 func getCurrentMonth(_ currentMonth: Int) -> Date {
     let calendar = Calendar.current
     // get current month date
+    //value에서 to까지 byAdding만큼 몇번을 가야 하냐
     guard let currentMonth = calendar.date(byAdding: .month, value: currentMonth, to: Date()) else {
         return Date()
     }

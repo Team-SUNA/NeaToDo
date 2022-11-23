@@ -15,6 +15,7 @@ struct CalendarView: View {
     init(currentDate: Binding<Date>, maintainCalendar: Binding<Bool>) {
         self._currentMonth = State<Int>(initialValue: getMonthDiff(currentDate.wrappedValue))
         self._currentDate = currentDate
+
         self._maintainCalendar = maintainCalendar
     }
 
