@@ -45,9 +45,6 @@ struct CalendarHeaderView: View {
         let formatter = DateFormatter()
         formatter.dateFormat = "YYYY MMM"
         formatter.locale = Locale(identifier: "en")
-        // TODO: 달을 넘어가면 날이 같은게 이상해서... 화면만 바뀌고 날짜는 마지막으로 터치했던 날로 유지되게 함. 어떤게 좋을지 상의.
-        // 아... 이렇게 했더니 달은 바뀌는데 아래 태스크는 똑같이 유지되는 현상 발생. 어떻게 할지 상의...
-//        let date = formatter.string(from: currentDate)
         let date = formatter.string(from: Calendar.current.date(byAdding: .month, value: currentMonth, to: Date())!)
         return date.components(separatedBy: " ")
     }
