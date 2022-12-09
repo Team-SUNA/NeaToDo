@@ -25,6 +25,7 @@
 		09C3036F2827462400B47283 /* ToDoListApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C3036E2827462400B47283 /* ToDoListApp.swift */; };
 		09C303732827462800B47283 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09C303722827462800B47283 /* Assets.xcassets */; };
 		09C303762827462800B47283 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09C303752827462800B47283 /* Preview Assets.xcassets */; };
+		09D816CE2942DE9D00CD988F /* FirstScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D816CD2942DE9D00CD988F /* FirstScreen.swift */; };
 		9503C5DA28CF09E500900798 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 9503C5D928CF09E500900798 /* Realm */; };
 		9503C5DC28CF09E500900798 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9503C5DB28CF09E500900798 /* RealmSwift */; };
 		95200F9E29027A2A00ACE797 /* Migrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95200F9D29027A2A00ACE797 /* Migrator.swift */; };
@@ -53,6 +54,7 @@
 		09C3036E2827462400B47283 /* ToDoListApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListApp.swift; sourceTree = "<group>"; };
 		09C303722827462800B47283 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		09C303752827462800B47283 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		09D816CD2942DE9D00CD988F /* FirstScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstScreen.swift; sourceTree = "<group>"; };
 		95200F9D29027A2A00ACE797 /* Migrator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Migrator.swift; sourceTree = "<group>"; };
 		953001E128D0459D007731B2 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		953001E328D05E32007731B2 /* WeekdaysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekdaysView.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				09A5A60328C47422004CB87C /* Home.swift */,
+				09D816CC2942DE7A00CD988F /* Onboarding */,
 				95EC50AB28D4A56C00E30A26 /* Modal */,
 				953001E628D06038007731B2 /* MainCard */,
 				953001E528D06025007731B2 /* Calendar */,
@@ -143,6 +146,14 @@
 				09BCEA1128C5D672005313AE /* DateValue.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		09D816CC2942DE7A00CD988F /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				09D816CD2942DE9D00CD988F /* FirstScreen.swift */,
+			);
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 		953001E528D06025007731B2 /* Calendar */ = {
@@ -266,6 +277,7 @@
 				09BCEA0728C47CF8005313AE /* TaskCardView.swift in Sources */,
 				953001E428D05E32007731B2 /* WeekdaysView.swift in Sources */,
 				09BCEA1028C48B73005313AE /* HeaderView.swift in Sources */,
+				09D816CE2942DE9D00CD988F /* FirstScreen.swift in Sources */,
 				953001EA28D068B8007731B2 /* TaskInCalendarView.swift in Sources */,
 				09BCEA1428C5DD24005313AE /* TaskDoneCardView.swift in Sources */,
 				09A5A60428C47422004CB87C /* Home.swift in Sources */,
