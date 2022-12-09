@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-var totalPages = 3
+var totalPages = 4
 
 struct FirstScreen: View {
     
     @AppStorage("currentPage") var currentPage = 1
     
     var body: some View {
-        if currentPage == 4 {
+        if currentPage == 5 {
             Home()
         } else {
             WalkThroughScreen()
@@ -33,15 +33,19 @@ struct WalkThroughScreen: View {
         ZStack {
             //changing between views
             if currentPage == 1 {
-                ScreenView(image: "image1", title: "title1", detail: "", bgColor: Color("color1"))
+                ScreenView(image: "one")
                     .transition(.scale)
             }
             if currentPage == 2 {
-                ScreenView(image: "image2", title: "title2", detail: "", bgColor: Color("color2"))
+                ScreenView(image: "two")
                     .transition(.scale)
             }
             if currentPage == 3 {
-                ScreenView(image: "image3", title: "title3", detail: "", bgColor: Color("color3"))
+                ScreenView(image: "three")
+                    .transition(.scale)
+            }
+            if currentPage == 4 {
+                ScreenView(image: "four")
                     .transition(.scale)
             }
         }
@@ -72,10 +76,11 @@ struct WalkThroughScreen: View {
                                 .stroke(Color.black, lineWidth: 4)
                                 .rotationEffect(.init(degrees: -90))
                         }
-                        .padding(-15)
+                        .padding(0)
                     )
             })
-            .padding(.bottom, 20)
+            .offset(y: 10)
+            .padding(.bottom, 10)
             ,alignment: .bottom
         )
     }
@@ -84,9 +89,7 @@ struct WalkThroughScreen: View {
 struct ScreenView: View {
     
     var image: String
-    var title: String
-    var detail: String
-    var bgColor: Color
+
     
     @AppStorage("currentPage") var currentPage = 1
     
@@ -94,13 +97,7 @@ struct ScreenView: View {
         VStack(spacing: 20) {
             HStack {
                 //show it only for the first page
-                if currentPage == 1 {
-                    Text("Hello sweety")
-                        .font(.title)
-                        .fontWeight(.semibold)
-                    //letter spacing
-                        .kerning(1.4)
-                } else {
+                if currentPage != 1 {
                     //back button
                     Button(action: {
                         withAnimation(.easeInOut) {
@@ -113,39 +110,33 @@ struct ScreenView: View {
                             .padding(.horizontal)
                             .background(Color.black.opacity(0.4))
                             .cornerRadius(10)
+                            .ignoresSafeArea()
+                            .offset(y: -15)
                     })
                 }
                 Spacer()
                 Button(action: {
                     withAnimation(.easeInOut) {
-                        currentPage = 4
+                        currentPage = 5
                     }
                 }, label: {
                     Text("skip")
                         .fontWeight(.semibold)
                         .kerning(1.2)
+                        .ignoresSafeArea()
+                        .offset(y: -15)
                 })
             }
             .foregroundColor(.black)
             .padding()
-            Spacer(minLength: 0)
+//            Spacer(minLength: 0)
             Image(image)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-            Text(title)
-                .font(.title)
-                .fontWeight(.bold)
-                .foregroundColor(.black)
-                .padding(.top)
-            //change with my own thing
-            Text("description about this screen")
-                .fontWeight(.semibold)
-                .kerning(1.3)
-                .multilineTextAlignment(.center)
+                .ignoresSafeArea()
+                .offset(x:0, y: -50)
             //minimum spacing when phone is reducing
-            Spacer(minLength: 120)
         }
-        .background(bgColor.cornerRadius(10).ignoresSafeArea())
     }
 }
 
