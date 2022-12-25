@@ -42,9 +42,6 @@ struct TaskCardView: View {
              }
              .hLeading()
              .background(Color.reverseTextColor) // 클릭위해서
-        
- 
-
     }
 }
 

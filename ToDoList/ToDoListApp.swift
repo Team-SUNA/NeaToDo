@@ -12,8 +12,10 @@ struct ToDoListApp: App {
     let migrator = Migrator()
 
     var body: some Scene {
+
         WindowGroup {
-            Home()
+//            let _ = UserDefaults.standard.set(false, forKey: "_UIConstraintsBasedLayoutUnsatisfiable")
+            FirstScreen()
         }
     }
 }

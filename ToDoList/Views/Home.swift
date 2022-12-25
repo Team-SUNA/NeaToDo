@@ -18,12 +18,13 @@ struct Home: View {
     
     
     @State var maintainCalendar : Bool = false
-
     
     var body: some View {
+        
         let todayTasks = tasks.filter{ isSameDay(date1: $0.taskDate, date2: currentDate) }
         let notDone = Array(todayTasks.filter{ $0.isCompleted == false })
         let isDone =  Array(todayTasks.filter{ $0.isCompleted == true })
+        
         NavigationView {
             GeometryReader { geo in
                 VStack {
