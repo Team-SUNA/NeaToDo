@@ -16,6 +16,7 @@ struct FirstScreen: View {
     var body: some View {
         if currentPage == 5 {
             Home()
+                .navigationViewStyle(StackNavigationViewStyle())
         } else {
             WalkThroughScreen()
         }
@@ -108,7 +109,7 @@ struct ScreenView: View {
                             .foregroundColor(.white)
                             .padding(.vertical, 10)
                             .padding(.horizontal)
-                            .background(Color.black.opacity(0.4))
+                            .background(Color.purple.opacity(0.4))
                             .cornerRadius(10)
                             .ignoresSafeArea()
                             .offset(y: -15)

@@ -60,8 +60,10 @@ struct Home: View {
                                     }
                                 }
                             }
-                            Spacer()
-                                .listRowSeparator(.hidden)
+                            if !notDone.isEmpty && !isDone.isEmpty {
+                                Spacer()
+                                    .listRowSeparator(.hidden)
+                            }
                             Section {
                                 ForEach(isDone.sorted(by: { $0.taskDate < $1.taskDate }), id: \.id) { task in
                                     if !task.isInvalidated {
