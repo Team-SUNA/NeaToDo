@@ -96,6 +96,7 @@ struct ScreenView: View {
     
     var body: some View {
         VStack(spacing: 20) {
+            Spacer()
             HStack {
                 //show it only for the first page
                 if currentPage != 1 {
